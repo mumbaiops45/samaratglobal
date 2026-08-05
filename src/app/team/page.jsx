@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {FaUsers,FaUserTie,FaBriefcase,FaAward,FaStar,FaGlobe,FaShieldAlt,FaRocket,FaClock,FaCheckCircle} from 'react-icons/fa';
 import { MdVerified, } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
+  const router = useRouter();
   const [selectedMember, setSelectedMember] = useState(null);
 
   const teamMembers = [
@@ -527,7 +529,8 @@ const page = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white text-orange-600 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto"
+              onClick={() => router.push("/contact")}
+              className="px-8 py-4 bg-white text-orange-600 cursor-pointer rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto"
             >
               <FaBriefcase /> View Openings
             </motion.button>

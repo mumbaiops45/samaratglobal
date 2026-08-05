@@ -50,20 +50,42 @@ const ContactPage = () => {
         return { isValid: true, error: '' };
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (errors[name]) {
-            setErrors({ ...errors, [name]: '' });
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     if (errors[name]) {
+    //         setErrors({ ...errors, [name]: '' });
+    //     }
+    //     if (name === 'phone') {
+    //         const digitsOnly = value.replace(/\D/g, '');
+    //         if (digitsOnly.length <= 10) {
+    //             setFormData({ ...formData, [name]: digitsOnly });
+    //         }
+    //         return;
+    //     }
+    //     setFormData({ ...formData, [name]: value });
+    // };
+    
+   const handleChange = (e) => {
+    const {name, value} = e.target;
+    if(errors[name]) {
+        setErrors({...errors, [name]: ''});
+    }
+
+    if(name === 'firstName' || name === 'lastName') {
+        const lettersOnly = value.replace(/[^a-zA-Z\s]/g, '');
+        setFormData({...formData, [name]: lettersOnly});
+        return;
+    }
+
+    if (name === 'phone') {
+        const digitsOnly = value.replace(/\D/g, '');
+        if (digitsOnly.length <= 10) {
+            setFormData({...formData, [name]: digitsOnly});
         }
-        if (name === 'phone') {
-            const digitsOnly = value.replace(/\D/g, '');
-            if (digitsOnly.length <= 10) {
-                setFormData({ ...formData, [name]: digitsOnly });
-            }
-            return;
-        }
-        setFormData({ ...formData, [name]: value });
-    };
+        return;
+    }
+    setFormData({ ...formData, [name]: value });
+   };
 
     const validateForm = () => {
         const newErrors = {};

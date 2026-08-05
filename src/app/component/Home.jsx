@@ -167,11 +167,26 @@ const Home = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // useEffect(() => {
+    //     if (videoRef.current) {
+    //         videoRef.current.play().catch(() => { });
+    //     }
+    // }, []);
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play().catch(() => { });
-        }
-    }, []);
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    const handleLoaded = () => {
+        video.play().catch(() => {});
+    };
+
+    video.addEventListener("loadeddata", handleLoaded);
+
+    return () => {
+        video.removeEventListener("loadeddata", handleLoaded);
+    };
+}, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -208,6 +223,18 @@ const Home = () => {
     return (
         <>
             <section id="hero" className="relative h-screen w-full overflow-hidden">
+                {/* <motion.video
+                    ref={videoRef}
+                    initial={{ scale: 1.15 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 8, ease: "easeOut" }}
+                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    src="/banner.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                /> */}
                 <motion.video
                     ref={videoRef}
                     initial={{ scale: 1.15 }}
@@ -219,13 +246,14 @@ const Home = () => {
                     muted
                     loop
                     playsInline
+                    preload="auto"
                 />
 
                 <div
                     className="absolute inset-0 bg-black/35"
-                    // style={{
-                    //     background: `linear-gradient(to bottom, ${BRAND.navyDeep}99, ${BRAND.navyDeep}8c, ${BRAND.navyDeep}d9)`,
-                    // }}
+                // style={{
+                //     background: `linear-gradient(to bottom, ${BRAND.navyDeep}99, ${BRAND.navyDeep}8c, ${BRAND.navyDeep}d9)`,
+                // }}
                 />
                 <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6 md:px-10">
                     <div className="max-w-4xl lg:max-w-5xl text-center text-white">
