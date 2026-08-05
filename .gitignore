@@ -12,7 +12,6 @@
 
 # testing
 /coverage
-*.mp4
 .next
 node_modules
 # next.js

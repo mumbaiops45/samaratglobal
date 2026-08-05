@@ -40,7 +40,7 @@ const Footer = () => {
   return (
     <footer className="bg-black">
       <div className="relative mx-auto  max-w-7xl px-6 py-20">
-         <div className="relative mb-20 overflow-hidden rounded-[36px] border border-white/10 bg-gray-50 px-8 py-12 lg:px-14">
+        <div className="relative mb-20 overflow-hidden rounded-[36px] border border-white/10 bg-gray-50 px-8 py-12 lg:px-14">
           <div className="relative z-10 flex flex-col items-center justify-between gap-10 lg:flex-row">
             <div className="max-w-2xl">
               <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-gradient-to-r from-amber-400/15 to-yellow-500/10 px-5 py-2 text-xs font-semibold uppercase tracking-[4px] text-amber-300 backdrop-blur-xl">
@@ -192,9 +192,23 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-white/10 text-center text-sm text-gray-50">
-          © {new Date().getFullYear()} Samrat Global.
-          All Rights Reserved.
+        <div className="mt-12 border-t border-white/10 pt-6">
+          <div className="flex flex-col items-center justify-between gap-4 text-sm text-gray-300 md:flex-row">
+            <p className="text-center md:text-left">
+              © {new Date().getFullYear()} Samrat Global. All Rights Reserved.
+            </p>
+            <p className="text-center md:text-right">
+              Developed by{" "}
+              <a
+                href="https://www.nakshatranamahacreations.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-orange-400 transition-all duration-300 hover:text-yellow-400"
+              >
+                Nakshatra Namaha Creation
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

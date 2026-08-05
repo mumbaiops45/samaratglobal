@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import {FaMapMarkerAlt,FaPhone,FaEnvelope,FaClock,FaFacebook,FaTwitter,FaLinkedin,FaInstagram,FaYoutube,FaPaperPlane,FaCheckCircle,FaArrowRight,FaWhatsapp,FaGlobe,FaRegClock,FaShieldAlt,FaHandshake,FaRocket,FaStar,FaExclamationCircle} from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock, FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaYoutube, FaPaperPlane, FaCheckCircle, FaArrowRight, FaWhatsapp, FaGlobe, FaRegClock, FaShieldAlt, FaHandshake, FaRocket, FaStar, FaExclamationCircle } from 'react-icons/fa';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { BiSend } from 'react-icons/bi';
 import axios from 'axios';
@@ -19,16 +19,17 @@ const page = () => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+
     const validatePhoneNumber = (phone) => {
         const cleanPhone = phone.replace(/[\s\-()]/g, '');
         const phoneRegex = /^[6-9]\d{9}$/;
         if (!phone) {
-            return { isValid: true, error: '' }; 
+            return { isValid: true, error: '' };
         }
         if (!phoneRegex.test(cleanPhone)) {
-            return { 
-                isValid: false, 
-                error: 'Phone number must start with 6, 7, 8, or 9 and be exactly 10 digits' 
+            return {
+                isValid: false,
+                error: 'Phone number must start with 6, 7, 8, or 9 and be exactly 10 digits'
             };
         }
         return { isValid: true, error: '' };
@@ -60,7 +61,7 @@ const page = () => {
 
     const validateForm = () => {
         const newErrors = {};
-    
+
         if (!formData.firstName.trim()) {
             newErrors.firstName = 'First name is required';
         }
@@ -83,7 +84,6 @@ const page = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            // Scroll to first error
             const firstErrorField = Object.keys(errors)[0];
             if (firstErrorField) {
                 const element = document.querySelector(`[name="${firstErrorField}"]`);
@@ -94,11 +94,8 @@ const page = () => {
             }
             return;
         }
-
         setIsSubmitting(true);
-
         const formDataToSend = new FormData(e.target);
-
         formDataToSend.append("_subject", "New Website Enquiry");
         formDataToSend.append("_template", "table");
         formDataToSend.append("_captcha", "false");
@@ -160,7 +157,7 @@ const page = () => {
             icon: <FaMapMarkerAlt className="text-2xl" />,
             title: "Our Address",
             value: "3, Bwing, Kurkeja complex L.B.S. Marg Bhandup (west) Mumbai Maharashtra India Pin - 400078",
-            link: "#",
+            link: "https://www.google.com/maps?q=Kurkeja+complex+L.B.S.+Marg+Bhandup+West+Mumbai+Maharashtra+400078",
             color: "from-red-500 to-red-600"
         },
         {
@@ -171,51 +168,8 @@ const page = () => {
             color: "from-purple-500 to-purple-600"
         }
     ];
-
-    // Social Media Links
-    const socialLinks = [
-        { icon: <FaFacebook />, label: "Facebook", url: "#", color: "hover:bg-[#1877F2]" },
-        { icon: <FaTwitter />, label: "Twitter", url: "#", color: "hover:bg-[#1DA1F2]" },
-        { icon: <FaLinkedin />, label: "LinkedIn", url: "#", color: "hover:bg-[#0A66C2]" },
-        { icon: <FaInstagram />, label: "Instagram", url: "#", color: "hover:bg-[#E4405F]" },
-        { icon: <FaYoutube />, label: "YouTube", url: "#", color: "hover:bg-[#FF0000]" },
-        { icon: <FaWhatsapp />, label: "WhatsApp", url: "#", color: "hover:bg-[#25D366]" }
-    ];
-
-    const businessHours = [
-        { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
-        { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
-        { day: "Sunday", hours: "Closed" }
-    ];
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.3
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.6, ease: "easeOut" }
-        }
-    };
-
-    const floatingAnimation = {
-        y: [0, -10, 0],
-        transition: {
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-        }
-    };
+    const mapEmbedSrc =
+        "https://www.google.com/maps?q=Kurkeja+complex+L.B.S.+Marg+Bhandup+West+Mumbai+Maharashtra+400078&output=embed";
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-x-hidden">
@@ -321,13 +275,69 @@ const page = () => {
                     </motion.div>
                 </div>
             </section>
+
             <section className="py-16 md:py-24">
                 <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-stretch">
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                            className="flex flex-col gap-8 h-full"
+                        >
+                            <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                                    <span className="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"></span>
+                                    Contact Information
+                                </h3>
+
+                                <div className="space-y-4">
+                                    {contactInfo.map((info, index) => (
+                                        <motion.a
+                                            key={index}
+                                            href={info.link}
+                                            target={info.link !== "#" ? "_blank" : undefined}
+                                            rel="noopener noreferrer"
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                                            viewport={{ once: true }}
+                                            whileHover={{ x: 5 }}
+                                            className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl hover:bg-orange-50 transition-all duration-300 group"
+                                        >
+                                            <div className={`w-12 h-12 bg-gradient-to-br ${info.color} rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                                                {info.icon}
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{info.title}</p>
+                                                <p className="text-slate-700 font-medium">{info.value}</p>
+                                            </div>
+                                        </motion.a>
+                                    ))}
+                                </div>
+                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                viewport={{ once: true }}
+                                className="relative flex-1 min-h-[280px] lg:min-h-0 rounded-3xl overflow-hidden shadow-2xl border border-gray-100"
+                            >
+                                <iframe
+                                    src={mapEmbedSrc}
+                                    title="Samrat Global location on Google Maps"
+                                    className="absolute inset-0 w-full h-full border-0"
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    allowFullScreen
+                                />
+                            </motion.div>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
                             viewport={{ once: true }}
                             className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 border border-gray-100"
                         >
@@ -539,70 +549,10 @@ const page = () => {
                                 )}
                             </form>
                         </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            viewport={{ once: true }}
-                            className="space-y-8"
-                        >
-                            <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
-                                <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                                    <span className="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full"></span>
-                                    Contact Information
-                                </h3>
-
-                                <div className="space-y-4">
-                                    {contactInfo.map((info, index) => (
-                                        <motion.a
-                                            key={index}
-                                            href={info.link}
-                                            target={info.link !== "#" ? "_blank" : ""}
-                                            rel="noopener noreferrer"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                                            viewport={{ once: true }}
-                                            whileHover={{ x: 5 }}
-                                            className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl hover:bg-orange-50 transition-all duration-300 group"
-                                        >
-                                            <div className={`w-12 h-12 bg-gradient-to-br ${info.color} rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                                                {info.icon}
-                                            </div>
-                                            <div>
-                                                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{info.title}</p>
-                                                <p className="text-slate-700 font-medium">{info.value}</p>
-                                            </div>
-                                        </motion.a>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="bg-gradient-to-br from-[#0A1F44] to-[#1B3A7A] rounded-3xl p-6 sm:p-8 shadow-2xl">
-                                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                    <FaClock className="text-orange-400" />
-                                    Business Hours
-                                </h3>
-                                <div className="space-y-3">
-                                    {businessHours.map((item, index) => (
-                                        <motion.div
-                                            key={index}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                                            viewport={{ once: true }}
-                                            className="flex justify-between items-center py-2 border-b border-white/10 last:border-0"
-                                        >
-                                            <span className="text-gray-300">{item.day}</span>
-                                            <span className="text-white font-semibold">{item.hours}</span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
                     </div>
                 </div>
             </section>
-        
+
             <section className="py-12 bg-white border-t border-gray-100">
                 <div className=" mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
