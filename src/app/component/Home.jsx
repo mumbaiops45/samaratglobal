@@ -207,7 +207,7 @@ const Home = () => {
 
     return (
         <>
-            <section className="relative h-screen w-full overflow-hidden">
+            <section id="hero" className="relative h-screen w-full overflow-hidden">
                 <motion.video
                     ref={videoRef}
                     initial={{ scale: 1.15 }}

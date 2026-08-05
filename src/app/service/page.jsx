@@ -30,10 +30,10 @@ const page = () => {
         if (el && !counterRefs.current.includes(el)) counterRefs.current.push(el);
     };
 
-
     const mainServices = [
         {
             id: 1,
+            slug:"Sourcing & Procurement",
             title: "Sourcing & Procurement",
             icon: <FaSearch className="text-5xl" />,
             image: "/exports.webp",
@@ -49,6 +49,7 @@ const page = () => {
         },
         {
             id: 2,
+            slug:"domestic-distribution",
             title: "Domestic Distribution",
             icon: <FaTruck className="text-5xl" />,
             image: "/distrubution.avif",
@@ -64,6 +65,7 @@ const page = () => {
         },
         {
             id: 3,
+            slug:"packaging",
             title: "Packaging Solutions",
             icon: <FaBoxes className="text-5xl" />,
             image: "/packing.jpg",
@@ -79,6 +81,7 @@ const page = () => {
         },
         {
             id: 4,
+            slug:"international-shipping",
             title: "International Shipping",
             icon: <FaShip className="text-5xl" />,
             image: "/international.jpg",
@@ -93,7 +96,6 @@ const page = () => {
             badge: "Global"
         }
     ];
-
 
     const whyChooseUs = [
         {
@@ -125,7 +127,6 @@ const page = () => {
             span: "md:col-span-1"
         }
     ];
-
 
     const globalNetwork = [
         { name: "United States", image: "https://images.pexels.com/photos/12171678/pexels-photo-12171678.jpeg?auto=compress&cs=tinysrgb&w=800" },
@@ -451,6 +452,8 @@ const page = () => {
                         {mainServices.map((service, index) => (
                             <motion.div
                                 key={service.id}
+                                 id={service.slug}
+                                // id={service.title.toLowerCase().replaceAll(" ", " ")}
                                 initial={{ opacity: 0, y: 60 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{

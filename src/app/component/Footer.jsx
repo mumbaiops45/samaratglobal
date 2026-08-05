@@ -3,31 +3,71 @@ import React from "react";
 import Link from "next/link";
 import { MapPin, Phone, Mail, ArrowRight, } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
 
-  const services = [
-    {
-      name: "Sourcing & Procurement",
-      href: "/service",
-    }, {
-      name: "Global Fulfillment & Export",
-      href: "/service",
-    },
-    {
-      name: "Domestic Distribution",
-      href: "/service",
-    },
-    {
-      name: "Supplier Management",
-      href: "/service",
-    },
-    {
-      name: "Logistics Solutions",
-      href: "/service"
-    }
-  ];
+  const pathname = usePathname();
 
+  const handleHomeClick = (e) => {
+    if (pathname === "/") {
+      e.preventDefault();
+
+      const hero = document.getElementById("hero");
+
+      if (hero) {
+        hero.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  }
+
+  // const services = [
+  //   {
+  //     name: "Sourcing & Procurement",
+  //     href: "/service",
+  //   }, {
+  //     name: "Global Fulfillment & Export",
+  //     href: "/service",
+  //   },
+  //   {
+  //     name: "Domestic Distribution",
+  //     href: "/service",
+  //   },
+  //   {
+  //     name: "Supplier Management",
+  //     href: "/service",
+  //   },
+  //   {
+  //     name: "Logistics Solutions",
+  //     href: "/service"
+  //   }
+  // ];
+
+  const services = [
+ {
+   name:"Sourcing & Procurement",
+   href:"/service#sourcing",
+ },
+ {
+   name:"Global Fulfillment & Export",
+   href:"/service#international-shipping",
+ },
+ {
+   name:"Domestic Distribution",
+   href:"/service#domestic-distribution",
+ },
+ {
+   name:"Supplier Management",
+   href:"/service#supplier-management",
+ },
+ {
+   name:"Logistics Solutions",
+   href:"/service#logistics",
+ }
+];
 
   const links = [
     { name: "Home", href: "/" },
@@ -62,7 +102,7 @@ const Footer = () => {
               href="/contact"
               className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-orange-500 via-amber-400 to-yellow-500 px-8 py-4 font-semibold text-[#08111f] shadow-[0_15px_40px_rgba(249,115,22,0.45)] transition-all duration-300 hover:shadow-[0_20px_55px_rgba(249,115,22,0.6)]"
             >
-              Get A Quote
+              Contact US
               <ArrowRight
                 size={20}
                 className="transition-transform duration-300 group-hover:translate-x-1"
@@ -106,6 +146,11 @@ const Footer = () => {
                 <li key={index}>
                   <Link
                     href={item.href}
+                    onClick={
+                      item.name === "Home"
+                        ? handleHomeClick
+                        : undefined
+                    }
                     className="group flex items-center text-gray-300 transition-all duration-300 hover:translate-x-2"
                   >
                     <span className="mr-2 h-[2px] w-0 bg-gradient-to-r from-orange-400 to-yellow-500 transition-all duration-300 group-hover:w-5" />
