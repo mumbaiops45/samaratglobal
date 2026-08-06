@@ -5,9 +5,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  distDir: 'out',  // Add this line
-  basePath: '/samaratglobal',  // Add this line
-  assetPrefix: '/samaratglobal/',  // Add this line
 };
 
 export default nextConfig;
