@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRouter } from 'next/navigation';
+// import Hlo from "./Hlo"
+import Page from "./Hlo"
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +21,6 @@ const BRAND = {
     goldLight: "#F5D77A",
     mist: "#F8FAFC",
 };
-
 
 const cards1 = [
     { title: "Sourcing & Procurement", image: "/sourcetransport.jpg", icon: "📦" },
@@ -56,8 +57,10 @@ const content = [
     { blueTitle: "Domestic", whiteTitle: "Distribution", description: "We take pride in supplying and distributing our premium products and services to businesses across PAN India." }
 ];
 
+
 const cards = [
     {
+        theme: "dark",
         tag: "Core Value",
         eyebrow: "Our Commitment",
         title: "Quality",
@@ -70,6 +73,7 @@ const cards = [
         badges: ["ISO Certified", "Global Standards", "Sustainable Sourcing"]
     },
     {
+        theme: "light",
         tag: "Trusted Partner",
         eyebrow: "Who We Are",
         title: "Samrat Global",
@@ -81,9 +85,19 @@ const cards = [
             { value: "15+", label: "Years" },
             { value: "100%", label: "Satisfaction" }
         ]
-    }
+    },
+    {
+        theme: "dark",
+        eyebrow: "Smart Forecasting",
+        title: "Optimized routes,\nlower cost",
+        body: "In-house route intelligence calculates the most efficient path for every shipment, factoring seasonality, fuel cost and customs turnaround.",
+        image: "/Optimizedroutes.webp",
+        stats: [
+            { value: "18%", label: "Cost saved" },
+            { value: "3.5x", label: "Faster ETA" },
+        ],
+    },
 ];
-
 
 const TiltCard = ({ children, className = "", tiltStrength = 10 }) => {
     const ref = useRef(null);
@@ -126,20 +140,14 @@ const TiltCard = ({ children, className = "", tiltStrength = 10 }) => {
     );
 };
 
-
 const Home = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const videoRef = useRef(null);
     const router = useRouter();
-    const sectionRef = useRef(null);
-    const cardRefs = useRef([]);
-    cardRefs.current = [];
 
-    const addCardRef = (el) => {
-        if (el && !cardRefs.current.includes(el)) {
-            cardRefs.current.push(el);
-        }
-    };
+    const wrapRef = useRef(null);
+    const panelRefs = useRef([]);
+    const progressRefs = useRef([]);
 
     useEffect(() => {
         const lenis = new Lenis({
@@ -150,16 +158,71 @@ const Home = () => {
 
         lenis.on('scroll', ScrollTrigger.update);
 
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
+        const raf = (time) => lenis.raf(time * 1000);
+        gsap.ticker.add(raf);
         gsap.ticker.lagSmoothing(0);
+        ScrollTrigger.refresh();
 
         return () => {
+            gsap.ticker.remove(raf);
             lenis.destroy();
-            gsap.ticker.remove(lenis.raf);
         };
     }, []);
+
+    useEffect(() => {
+        const wrap = wrapRef.current;
+        if (!wrap) return;
+
+        const mm = gsap.matchMedia();
+
+        mm.add("(min-width: 1024px)", () => {
+            const total = cards.length;
+
+            panelRefs.current.forEach((el, i) => {
+                gsap.set(el, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
+            });
+
+            const st = ScrollTrigger.create({
+                trigger: wrap,
+                start: "top top",
+                end: () => `+=${window.innerHeight * (total - 1) * 1.1}`,
+                pin: true,
+                pinSpacing: true,
+                scrub: 0.4,
+                onUpdate: (self) => {
+                    const progress = self.progress * (total - 1);
+                    const active = Math.round(progress);
+
+                    panelRefs.current.forEach((el, i) => {
+                        const dist = Math.abs(progress - i);
+                        const visible = dist < 0.5;
+                        gsap.to(el, {
+                            autoAlpha: visible ? 1 - dist * 2 : 0,
+                            y: visible ? dist * 60 : i < active ? -40 : 40,
+                            duration: 0.3,
+                            overwrite: "auto",
+                        });
+                    });
+
+                    progressRefs.current.forEach((dot, i) => {
+                        if (!dot) return;
+                        dot.style.opacity = i === active ? 1 : 0.3;
+                        dot.style.width = i === active ? "28px" : "8px";
+                    });
+                },
+            });
+            return () => st.kill();
+        });
+
+        mm.add("(max-width: 1023px)", () => {
+            panelRefs.current.forEach((el) => {
+                gsap.set(el, { autoAlpha: 1, y: 0, clearProps: "transform" });
+            });
+        });
+
+        return () => mm.revert();
+    }, []);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % content.length);
@@ -167,74 +230,21 @@ const Home = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // useEffect(() => {
-    //     if (videoRef.current) {
-    //         videoRef.current.play().catch(() => { });
-    //     }
-    // }, []);
     useEffect(() => {
-    const video = videoRef.current;
+        const video = videoRef.current;
+        if (!video) return;
 
-    if (!video) return;
+        const handleLoaded = () => {
+            video.play().catch(() => { });
+        };
 
-    const handleLoaded = () => {
-        video.play().catch(() => {});
-    };
-
-    video.addEventListener("loadeddata", handleLoaded);
-
-    return () => {
-        video.removeEventListener("loadeddata", handleLoaded);
-    };
-}, []);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            const total = cardRefs.current.length;
-            cardRefs.current.forEach((card, i) => {
-                if (i === total - 1) return;
-                const nextCard = cardRefs.current[i + 1];
-                gsap.fromTo(
-                    card,
-                    { scale: 1, opacity: 1, filter: "brightness(1)", rotateX: 0 },
-                    {
-                        scale: 0.92,
-                        opacity: 0.55,
-                        filter: "brightness(0.55)",
-                        rotateX: -4,
-                        ease: "none",
-                        immediateRender: false,
-                        scrollTrigger: {
-                            trigger: nextCard,
-                            start: "top 82%",
-                            end: "top 20%",
-                            scrub: 1,
-                        },
-                    }
-                );
-            });
-            ScrollTrigger.refresh();
-        }, sectionRef);
-
-        return () => ctx.revert();
+        video.addEventListener("loadeddata", handleLoaded);
+        return () => video.removeEventListener("loadeddata", handleLoaded);
     }, []);
-
 
     return (
         <>
             <section id="hero" className="relative h-screen w-full overflow-hidden">
-                {/* <motion.video
-                    ref={videoRef}
-                    initial={{ scale: 1.15 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 8, ease: "easeOut" }}
-                    className="absolute top-0 left-0 w-full h-full object-cover"
-                    src="/banner.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                /> */}
                 <motion.video
                     ref={videoRef}
                     initial={{ scale: 1.15 }}
@@ -249,12 +259,7 @@ const Home = () => {
                     preload="auto"
                 />
 
-                <div
-                    className="absolute inset-0 bg-black/35"
-                // style={{
-                //     background: `linear-gradient(to bottom, ${BRAND.navyDeep}99, ${BRAND.navyDeep}8c, ${BRAND.navyDeep}d9)`,
-                // }}
-                />
+                <div className="absolute inset-0 bg-black/35" />
                 <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6 md:px-10">
                     <div className="max-w-4xl lg:max-w-5xl text-center text-white">
                         <AnimatePresence mode="wait">
@@ -308,147 +313,102 @@ const Home = () => {
                 <motion.div
                     className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/70"
                     animate={{ y: [0, 10, 0] }}
-                    transition={{
-                        duration: 1.8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 >
-                    <span className="text-[10px] uppercase tracking-[3px]">
-                        Scroll
-                    </span>
-
-                    <svg
-                        width="18"
-                        height="28"
-                        viewBox="0 0 18 28"
-                        fill="none"
-                    >
-                        <rect
-                            x="1"
-                            y="1"
-                            width="16"
-                            height="26"
-                            rx="8"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                        />
-
+                    <span className="text-[10px] uppercase tracking-[3px]">Scroll</span>
+                    <svg width="18" height="28" viewBox="0 0 18 28" fill="none">
+                        <rect x="1" y="1" width="16" height="26" rx="8" stroke="currentColor" strokeWidth="1.5" />
                         <motion.circle
-                            cx="9"
-                            cy="8"
-                            r="2.5"
-                            fill={BRAND.gold}
-                            animate={{
-                                y: [0, 10, 0],
-                            }}
-                            transition={{
-                                duration: 1.8,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            }}
+                            cx="9" cy="8" r="2.5" fill={BRAND.gold}
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                         />
                     </svg>
                 </motion.div>
             </section>
 
-            <section className=" py-16 sm:py-20 lg:py-28 overflow-hidden" style={{ backgroundColor: BRAND.mist }}>
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full blur-[120px]" style={{ backgroundColor: `${BRAND.navyMid}33` }} />
-                    <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full blur-[140px]" style={{ backgroundColor: `${BRAND.gold}33` }} />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[160px]" style={{ backgroundColor: `${BRAND.navyBright}1a` }} />
+
+            <section ref={wrapRef} className="relative w-full overflow-hidden h-auto lg:h-screen">
+                <div className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 flex-col gap-3">
+                    {cards.map((_, i) => (
+                        <div
+                            key={i}
+                            ref={(el) => (progressRefs.current[i] = el)}
+                            className="h-2 rounded-full transition-all duration-300"
+                            style={{ width: "8px", backgroundColor: BRAND.gold, opacity: 0.3 }}
+                        />
+                    ))}
                 </div>
-                <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-10 max-w-7xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.02 }}
-                        viewport={{ once: true }}
-                        className="text-center mb-16 lg:mb-24"
+
+                {cards.map((panel, i) => (
+                    <div
+                        key={i}
+                        ref={(el) => (panelRefs.current[i] = el)}
+                        className="relative lg:absolute lg:inset-0 flex items-center py-16 lg:py-0"
+                        style={{
+                            backgroundColor: panel.theme === "dark" ? BRAND.navyDeep : BRAND.mist,
+                            willChange: "transform, opacity",
+                        }}
                     >
-                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/70 backdrop-blur-xl border shadow-lg mb-6" style={{ borderColor: `${BRAND.gold}4d`, boxShadow: `0 10px 30px ${BRAND.gold}1a` }}>
-                            <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: BRAND.gold }} />
-                            <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em]" style={{ color: BRAND.gold }}>
-                                Our Expertise
-                            </span>
-                        </div>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight" style={{ color: BRAND.navyBright }}>
-                            Excellence in Every{" "}
-                            <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${BRAND.gold}, ${BRAND.goldLight}, ${BRAND.gold})` }}>
-                                Step
-                            </span>
-                        </h2>
-                        <p className="mt-5 text-slate-600 max-w-2xl mx-auto text-base sm:text-lg">
-                            Delivering premium quality solutions with unmatched expertise, innovation and attention to detail.
-                        </p>
-                    </motion.div>
-
-                    <div className="space-y-8">
-                        {cards.map((card, i) => (
-                            <div
-                                key={card.title}
-                                ref={addCardRef}
-                                style={{ position: "sticky", top: "90px", zIndex: i + 1, perspective: "1200px" }}
-                                className="group relative rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-2xl border border-white shadow-[0_25px_80px_rgba(0,0,0,0.12)] transition-all duration-700 hover:-translate-y-2"
-                            >
-                                <div
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700"
-                                    style={{ background: `linear-gradient(90deg, ${BRAND.gold}1a, transparent, ${BRAND.navyMid}1a)` }}
+                        <div className="mx-auto w-full max-w-7xl px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                            <div className={`relative rounded-3xl overflow-hidden shadow-2xl h-[300px] lg:h-[440px] ${i % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}>
+                                <img
+                                    src={panel.image}
+                                    alt={panel.title}
+                                    className="w-full h-full object-cover"
                                 />
-                                <div className="relative flex flex-col lg:flex-row gap-8 lg:gap-14 p-5 sm:p-8 lg:p-12 items-center">
-                                    <div className={`w-full lg:w-2/5 ${i % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}>
-                                        <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-                                            <img src={card.image} alt={card.title} className="w-full h-[280px] sm:h-[350px] object-cover transition duration-700 group-hover:scale-110" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                                            <div className="absolute top-5 left-5 px-4 py-2 rounded-full backdrop-blur-xl text-white text-xs border shadow-lg" style={{ backgroundColor: `${BRAND.navyDeep}cc`, borderColor: `${BRAND.gold}66` }}>
-                                                {card.tag}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={`w-full lg:w-3/5 ${i % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}>
-                                        <div className="flex items-center gap-3 mb-5">
-                                            <div className="w-14 h-[3px] rounded-full" style={{ background: `linear-gradient(90deg, ${BRAND.gold}, ${BRAND.navyMid})` }} />
-                                            <span className="text-xs sm:text-sm uppercase tracking-[0.2em] font-bold" style={{ color: BRAND.gold }}>
-                                                {card.eyebrow}
-                                            </span>
-                                        </div>
-                                        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight" style={{ color: BRAND.navyBright }}>
-                                            {card.title}
-                                        </h3>
-                                        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">{card.body}</p>
-                                        {card.badges && (
-                                            <div className="flex flex-wrap gap-3 mt-8">
-                                                {card.badges.map((b) => (
-                                                    <span key={b} className="px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-700 shadow-sm transition hover:text-[#1B4B91]" style={{ borderColor: undefined }}>
-                                                        ✓ {b}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        )}
-
-                                        {card.stats && (
-                                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-                                                {card.stats.map((s) => (
-                                                    <motion.div
-                                                        key={s.label}
-                                                        whileHover={{ y: -4 }}
-                                                        className="rounded-2xl bg-gradient-to-br from-white to-slate-50 border border-slate-200 p-4 text-center shadow-sm hover:shadow-xl transition"
-                                                    >
-                                                        <div className="text-2xl font-black" style={{ color: BRAND.navyBright }}>{s.value}</div>
-                                                        <div className="text-xs text-slate-500 mt-1">{s.label}</div>
-                                                    </motion.div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+                                <div className="absolute inset-0" style={{
+                                    background:
+                                        panel.theme === "dark"
+                                            ? "linear-gradient(180deg, transparent 40%, rgba(10,31,68,0.6) 100%)"
+                                            : "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.15) 100%)",
+                                }}
+                                />
                             </div>
-                        ))}
+
+                            <div className={i % 2 === 1 ? "lg:order-1" : "lg:order-2"}>
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="w-12 h-[3px] rounded-full" style={{ background: `linear-gradient(90deg, ${BRAND.gold}, ${BRAND.navyMid})` }} />
+                                    <span className="text-xs sm:text-sm uppercase tracking-[0.2em] font-bold" style={{ color: BRAND.gold }}>
+                                        {panel.eyebrow}
+                                    </span>
+                                </div>
+
+                                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight whitespace-pre-line" style={{ color: panel.theme === "dark" ? "#fff" : BRAND.navyBright }}>
+                                    {panel.title}
+                                </h3>
+
+                                <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#C9D3E0" : "#475569" }}>
+                                    {panel.body}
+                                </p>
+
+                                {panel.stats && (
+                                    <div className="flex gap-8 flex-wrap">
+                                        {panel.stats.map((s) => (
+                                            <div key={s.label}>
+                                                <div
+                                                    className="text-3xl font-black"
+                                                    style={{ color: panel.theme === "dark" ? BRAND.goldLight : BRAND.navyBright }}
+                                                >
+                                                    {s.value}
+                                                </div>
+                                                <div
+                                                    className="text-xs mt-1 uppercase tracking-wide"
+                                                    style={{ color: panel.theme === "dark" ? "#94A3B8" : "#64748B" }}
+                                                >
+                                                    {s.label}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                </div>
+                ))}
             </section>
 
-            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" >
+            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
                 <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/banner.jpg')" }} />
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-12 sm:mb-16 lg:mb-20 grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
@@ -480,7 +440,7 @@ const Home = () => {
                                     tiltStrength={8}
                                     className="group relative overflow-hidden w-full sm:max-w-[340px] lg:max-w-[380px] h-[340px] lg:h-[380px] rounded-[32px] bg-white border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-shadow duration-700 hover:shadow-[0_40px_90px_rgba(0,0,0,0.30)]"
                                 >
-                                    <div className="relative w-[400px] h-[230px]  overflow-hidden">
+                                    <div className="relative w-[400px] h-[230px] overflow-hidden">
                                         <img src={card.image} alt={card.title} className="h-full w-full object-cover transition-all duration-1000 group-hover:scale-110" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                                         <div className="absolute bottom-[-25px] left-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-110" style={{ color: BRAND.navyBright }}>
@@ -546,7 +506,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28"
+            {/* <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28"
                 style={{
                     backgroundImage: "url('https://t3.ftcdn.net/jpg/02/34/00/96/360_F_234009633_da7XqdBPWmTBaTSkgCoVjI80Ws3PXyJ0.jpg')",
                     backgroundSize: "cover",
@@ -559,7 +519,7 @@ const Home = () => {
                 <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.gold}33` }} />
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div
-                        // initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                         viewport={{ once: true }}
@@ -597,7 +557,7 @@ const Home = () => {
                                         >
                                             {index === 0 ? "🏢" : index === 1 ? "🎯" : "🌍"}
                                         </motion.div>
-                                        <h3 className="mb-2 text-2xl sm:text-3xl font-bold text-white transition-colors duration-500" style={{ color: undefined }}>
+                                        <h3 className="mb-2 text-2xl sm:text-3xl font-bold text-white transition-colors duration-500">
                                             {item.title}
                                         </h3>
                                         <p className="text-sm sm:text-base leading-8 text-gray-300">{item.description}</p>
@@ -615,6 +575,9 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
+            </section> */}
+            <section>
+                <Page />
             </section>
 
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: "#020617" }}>
