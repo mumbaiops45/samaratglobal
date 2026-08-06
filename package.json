@@ -2,6 +2,7 @@
   "name": "smarat",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mumbaiops45.github.io/samaratglobal/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
