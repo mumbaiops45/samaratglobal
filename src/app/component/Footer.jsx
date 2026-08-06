@@ -2,13 +2,10 @@
 import React from "react";
 import Link from "next/link";
 import { MapPin, Phone, Mail, ArrowRight, } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 
 const Footer = () => {
-
   const pathname = usePathname();
-
   const handleHomeClick = (e) => {
     if (pathname === "/") {
       e.preventDefault();
@@ -23,51 +20,28 @@ const Footer = () => {
       }
     }
   }
-
-  // const services = [
-  //   {
-  //     name: "Sourcing & Procurement",
-  //     href: "/service",
-  //   }, {
-  //     name: "Global Fulfillment & Export",
-  //     href: "/service",
-  //   },
-  //   {
-  //     name: "Domestic Distribution",
-  //     href: "/service",
-  //   },
-  //   {
-  //     name: "Supplier Management",
-  //     href: "/service",
-  //   },
-  //   {
-  //     name: "Logistics Solutions",
-  //     href: "/service"
-  //   }
-  // ];
-
   const services = [
- {
-   name:"Sourcing & Procurement",
-   href:"/service#sourcing",
- },
- {
-   name:"Global Fulfillment & Export",
-   href:"/service#international-shipping",
- },
- {
-   name:"Domestic Distribution",
-   href:"/service#domestic-distribution",
- },
- {
-   name:"Supplier Management",
-   href:"/service#supplier-management",
- },
- {
-   name:"Logistics Solutions",
-   href:"/service#logistics",
- }
-];
+    {
+      name: "Sourcing & Procurement",
+      href: "/service#sourcing",
+    },
+    {
+      name: "Global Fulfillment & Export",
+      href: "/service#international-shipping",
+    },
+    {
+      name: "Domestic Distribution",
+      href: "/service#domestic-distribution",
+    },
+    {
+      name: "Supplier Management",
+      href: "/service#supplier-management",
+    },
+    {
+      name: "Logistics Solutions",
+      href: "/service#logistics",
+    }
+  ];
 
   const links = [
     { name: "Home", href: "/" },
@@ -110,32 +84,22 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div className="grid gap-12  md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <h3 className="mb-6 text-3xl text-white font-bold">
-              SAMRAT
-              <span className="bg-gradient-to-r from-orange-400 to-yellow-500 bg-clip-text text-transparent">
-                GLOBAL
-              </span>
-            </h3>
-            <p className="leading-8 text-gray-300">
-              A trusted sourcing and export partner from India,
-              connecting global markets with quality products,
-              reliable solutions and seamless supply chains.
-            </p>
-            <div className="mt-6 flex gap-4">
-              {[FaFacebookF, FaInstagram, FaLinkedinIn].map((Icon, index) => (
-                <div
-                  key={index}
-                  className="group flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 transition-all duration-300 hover:-translate-y-1 hover:border-orange-400 hover:bg-gradient-to-r hover:from-orange-400 hover:to-yellow-500"
-                >
-                  <Icon
-                    size={18}
-                    className="text-white transition group-hover:text-[#08111f]"
-                  />
-                </div>
-              ))}
+
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-6">
+            <div className="flex items-center">
+              <img
+                src="/logo.jpeg"
+                alt="Samrat Global"
+                className="h-20 w-[150px]"
+              />
             </div>
+
+            <p className="text-sm leading-7 text-gray-300">
+              A trusted sourcing and export partner from India, connecting
+              global markets with quality products, reliable solutions, and
+              seamless supply chains.
+            </p>
           </div>
           <div>
             <h4 className="mb-6 text-xl font-semibold text-white">
@@ -153,7 +117,8 @@ const Footer = () => {
                     }
                     className="group flex items-center text-gray-300 transition-all duration-300 hover:translate-x-2"
                   >
-                    <span className="mr-2 h-[2px] w-0 bg-gradient-to-r from-orange-400 to-yellow-500 transition-all duration-300 group-hover:w-5" />
+                    <span className="mr-3 h-[2px] w-0 bg-gradient-to-r from-orange-400 to-yellow-500 transition-all duration-300 group-hover:w-5"></span>
+
                     <span className="transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-yellow-500 group-hover:bg-clip-text group-hover:text-transparent">
                       {item.name}
                     </span>
@@ -166,6 +131,7 @@ const Footer = () => {
             <h4 className="mb-6 text-xl font-semibold text-white">
               Our Services
             </h4>
+
             <ul className="space-y-4">
               {services.map((item, index) => (
                 <li key={index}>
@@ -173,7 +139,8 @@ const Footer = () => {
                     href={item.href}
                     className="group flex items-center text-gray-300 transition-all duration-300 hover:translate-x-2"
                   >
-                    <span className="mr-2 h-[2px] w-0 bg-gradient-to-r from-orange-400 to-yellow-500 transition-all duration-300 group-hover:w-5" />
+                    <span className="mr-3 h-[2px] w-0 bg-gradient-to-r from-orange-400 to-yellow-500 transition-all duration-300 group-hover:w-5"></span>
+
                     <span className="transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-yellow-500 group-hover:bg-clip-text group-hover:text-transparent">
                       {item.name}
                     </span>
@@ -191,31 +158,34 @@ const Footer = () => {
                 href="https://www.google.com/maps/search/?api=1&query=3+B+Wing+Kurkeja+Complex+LBS+Marg+Bhandup+West+Mumbai+Maharashtra+400078"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex gap-4 rounded-xl transition-all duration-300"
+                className="group flex items-start gap-4"
               >
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-orange-400/30 bg-orange-400/10">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-orange-400/30 bg-orange-400/10">
                   <MapPin
                     size={20}
                     className="text-orange-400 transition group-hover:text-yellow-400"
                   />
                 </div>
+
                 <p className="text-sm leading-6 text-gray-300 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-yellow-500 group-hover:bg-clip-text group-hover:text-transparent">
                   3, B Wing, Kurkeja Complex,
+                  <br />
                   L.B.S. Marg, Bhandup (West),
-                  Mumbai, Maharashtra,
-                  India - 400078
+                  <br />
+                  Mumbai, Maharashtra 400078
                 </p>
               </a>
               <a
                 href="tel:+919820423852"
                 className="group flex items-center gap-4"
               >
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-orange-400/30 bg-orange-400/10">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-orange-400/30 bg-orange-400/10">
                   <Phone
                     size={20}
                     className="text-orange-400 transition group-hover:text-yellow-400"
                   />
                 </div>
+
                 <span className="text-gray-300 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-yellow-500 group-hover:bg-clip-text group-hover:text-transparent">
                   +91 98204 23852
                 </span>
@@ -224,12 +194,13 @@ const Footer = () => {
                 href="mailto:info@thesamratglobal.com"
                 className="group flex items-center gap-4"
               >
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-orange-400/30 bg-orange-400/10">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-orange-400/30 bg-orange-400/10">
                   <Mail
                     size={20}
                     className="text-orange-400 transition group-hover:text-yellow-400"
                   />
                 </div>
+
                 <span className="text-gray-300 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-yellow-500 group-hover:bg-clip-text group-hover:text-transparent">
                   info@thesamratglobal.com
                 </span>
@@ -237,6 +208,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+
+
         <div className="mt-12 border-t border-white/10 pt-6">
           <div className="flex flex-col items-center justify-between gap-4 text-sm text-gray-300 md:flex-row">
             <p className="text-center md:text-left">

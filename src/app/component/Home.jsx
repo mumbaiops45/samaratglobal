@@ -1,12 +1,13 @@
-"use client"
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRouter } from 'next/navigation';
-// import Hlo from "./Hlo"
-import Page from "./Hlo"
+import * as THREE from 'three';
+import {ArrowRight,Gauge,Sparkles,Building2,Eye,Award,Truck,Handshake,Target} from "lucide-react";
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -22,10 +23,134 @@ const BRAND = {
     mist: "#F8FAFC",
 };
 
+
+const TECH_SECTIONS = [
+  {
+    id: "about-us",
+    number: "01",
+    title: "About Us",
+    subtitle: "GLOBAL SOURCING & EXPORT PARTNER",
+    badge: "Company",
+    icon: Building2,
+    paragraphs: [
+     "The Samrat Global is a sourcing and export company based in India.",
+      "Driven by innovation and a customer-centric approach, we serve as a strategic sourcing partner for businesses worldwide."
+    ],
+    cameraPos: [0, 85, 115],
+    cameraTarget: [0, 75, -10],
+    hotspot3D: [0, 75, -15],
+    telemetry: {
+      stat1: { label: "Industry", value: "Export" },
+      stat2: { label: "Focus", value: "Global" },
+      stat3: { label: "Approach", value: "Customer First" }
+    }
+  },
+  {
+    id: "mission",
+    number: "02",
+    title: "Mission",
+    subtitle: "BUILDING VALUE THROUGH TRUST & QUALITY",
+    badge: "Our Purpose",
+    icon: Target,
+    paragraphs: [
+      "To create lasting value for customers worldwide by delivering excellence through quality, innovation, and trust.",
+      "Webuild sustainable partnerships that help businesses grow across global markets."
+    ],
+    cameraPos: [-48, 6, 48],
+    cameraTarget: [0, -1, 0],
+    hotspot3D: [-14, -1, 5],
+    telemetry: {
+      stat1: { label: "Quality", value: "Premium" },
+      stat2: { label: "Innovation", value: "Driven" },
+      stat3: { label: "Partnerships", value: "Long-Term" }
+    }
+  },
+  {
+    id: "vision",
+    number: "03",
+    title: "Vision",
+    subtitle: "CONNECTING GLOBAL MARKETS",
+    badge: "Future",
+    icon: Eye,
+    paragraphs: [
+      "To connect global markets through premium-quality products.",
+      "We foster trust, reliability, and long-term value with customer-focused service."
+    ],
+    cameraPos: [34, 26, 40],
+    cameraTarget: [0, 4, 0],
+    hotspot3D: [0, 6, 2],
+    telemetry: {
+      stat1: { label: "Markets", value: "Global" },
+      stat2: { label: "Trust", value: "Core Value" },
+      stat3: { label: "Growth", value: "Sustainable" }
+    }
+  },
+  {
+    id: "quality",
+    number: "04",
+    title: "We Focus on Quality",
+    subtitle: "EXCELLENCE IN EVERY SHIPMENT",
+    badge: "Quality",
+    icon: Award,
+    paragraphs: [
+      "Consistency in quality is not just a standard-it's our commitment to excellence.",
+      "Every product is carefully sourced and inspected to exceed customer expectations."
+    ],
+    cameraPos: [-22, -2, -48],
+    cameraTarget: [0, -4, -22],
+    hotspot3D: [0, -3, -22],
+    telemetry: {
+      stat1: { label: "Quality", value: "Consistent" },
+      stat2: { label: "Inspection", value: "Strict" },
+      stat3: { label: "Commitment", value: "Excellence" }
+    }
+  },
+  {
+    id: "supply-chain",
+    number: "05",
+    title: "Reliable Supply Chain",
+    subtitle: "EFFICIENT & DEPENDABLE OPERATIONS",
+    badge: "Logistics",
+    icon: Truck,
+    paragraphs: [
+      "A strong and dependable supply chain ensures timely delivery and cost efficiency.",
+      "We continuously refine our operations to maintain reliability and customer satisfaction."
+    ],
+    cameraPos: [18, 22, 22],
+    cameraTarget: [0, 11, 4],
+    hotspot3D: [0, 12, 6],
+    telemetry: {
+      stat1: { label: "Delivery", value: "Reliable" },
+      stat2: { label: "Efficiency", value: "High" },
+      stat3: { label: "Network", value: "Global" }
+    }
+  },
+  {
+    id: "customer-first",
+    number: "06",
+    title: "Customer-First Policy",
+    subtitle: "EXCEEDING EXPECTATIONS",
+    badge: "Service",
+    icon: Handshake,
+    paragraphs: [
+      "At The Samrat Global, we don't just meet customer expectations-we exceed them.",
+      "Constinous improvement allows us to build lasting relationships and deliver unmatched satisfaction."
+    ],
+    cameraPos: [65, 45, 65],
+    cameraTarget: [0, 8, 0],
+    hotspot3D: [0, 10, -5],
+    telemetry: {
+      stat1: { label: "Support", value: "Dedicated" },
+      stat2: { label: "Relationships", value: "Long-Term" },
+      stat3: { label: "Satisfaction", value: "Priority" }
+    }
+  }
+];
+
 const cards1 = [
     { title: "Sourcing & Procurement", image: "/sourcetransport.jpg", icon: "📦" },
     { title: "Global Fulfillment & Export", image: "/International.jpg", icon: "🚢" },
-    { title: "Domestic  Distribution ", image: "/domesticdistribution.jpg", icon: "🚚" },
+    { title: "Domestic Distribution", image: "/domesticdistribution.jpg", icon: "🚚" },
 ];
 
 const commitments = [
@@ -42,21 +167,11 @@ const services = [
     "Delivery at Destination",
 ];
 
-const aboutCards = [
-    { title: "About Us", description: "The Samrat Global is a sourcing and export company based in India. Driven by innovation and a customer-centric , we serve as a strategic sourcing partner for businesses worldwide." },
-    { title: "Mission", description: "To create lasting value for customers worldwide by delivering excellence through quality, innovation, and trust while building sustainable partnerships across global markets." },
-    { title: "Vision", description: "To connect global markets through premium-quality products, fostering trust, reliability and long-term value with customer-focused service." },
-    { title: "We Focus on Quality", description: "Consistency in quality is not just a standard—it's our commitment to excellence. At The Samrat Global, we strive to exceed expectations every time, ensuring our clients receive nothing but the best." },
-    { title: "Reliable Supply Chain", description: "A strong and dependable supply chain, cost-effectiveness, and customer satisfaction. The Samrat Global remains dedicated to refining our operations to uphold reliability." },
-    { title: "Our Customer-First Policy", description: "At The Samrat Global, we don't just meet customer expectations-we exceed them. Our Policy  to be continuously improve, ensuring lasting relationships and unmatched satisfaction." }
-];
-
 const content = [
     { blueTitle: "Sourcing", whiteTitle: "and Procurement", description: "Water transport is a cost effective logistic solution, ideal for moving large quantities across vast distances." },
     { blueTitle: "Global Fulfilment", whiteTitle: "& Exports", description: "At Samrat Global, we export a diverse range of high quality products to partners across the globe." },
     { blueTitle: "Domestic", whiteTitle: "Distribution", description: "We take pride in supplying and distributing our premium products and services to businesses across PAN India." }
 ];
-
 
 const cards = [
     {
@@ -110,6 +225,7 @@ const TiltCard = ({ children, className = "", tiltStrength = 10 }) => {
     const glowY = useTransform(y, [-0.5, 0.5], ["0%", "100%"]);
 
     const handleMouseMove = (e) => {
+        if (!ref.current) return;
         const rect = ref.current.getBoundingClientRect();
         x.set((e.clientX - rect.left) / rect.width - 0.5);
         y.set((e.clientY - rect.top) / rect.height - 0.5);
@@ -140,7 +256,403 @@ const TiltCard = ({ children, className = "", tiltStrength = 10 }) => {
     );
 };
 
-const Home = () => {
+
+const CargoKiteTechSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeModal, setActiveModal] = useState(null);
+  const [hotspots2D, setHotspots2D] = useState([]);
+  const [isCurrentlyScrolling, setIsCurrentlyScrolling] = useState(false);
+
+  const sectionContainerRef = useRef(null);
+  const sectionRefs = useRef([]);
+  const mountRef = useRef(null);
+  const sceneRef = useRef(null);
+  const cameraRef = useRef(null);
+  const rendererRef = useRef(null);
+
+  const shipGroupRef = useRef(null);
+  const kiteMeshRef = useRef(null);
+  const tetherLineRef = useRef(null);
+  const oceanMeshRef = useRef(null);
+  const digitalTwinWireRef = useRef(null);
+  const craneContainerRef = useRef(null);
+
+  const currentCamPos = useRef(new THREE.Vector3(0, 85, 115));
+  const targetCamPos = useRef(new THREE.Vector3(0, 85, 115));
+  const currentCamTarget = useRef(new THREE.Vector3(0, 75, -10));
+  const targetCamTarget = useRef(new THREE.Vector3(0, 75, -10));
+
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+  const motionTimeRef = useRef(0);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      isScrollingRef.current = true;
+      setIsCurrentlyScrolling(true);
+
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+        setIsCurrentlyScrolling(false);
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
+
+  useEffect(() => {
+    const observerOptions = { root: null, rootMargin: "-35% 0px -35% 0px", threshold: 0.25 };
+    const handleIntersect = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = Number(entry.target.getAttribute("data-index"));
+          if (!isNaN(index) && index !== activeIndex) {
+            setActiveIndex(index);
+            const section = TECH_SECTIONS[index];
+            targetCamPos.current.set(...section.cameraPos);
+            targetCamTarget.current.set(...section.cameraTarget);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+    sectionRefs.current.forEach((el) => { if (el) observer.observe(el); });
+    return () => observer.disconnect();
+  }, [activeIndex]);
+
+  const scrollToCard = (index) => {
+    setActiveIndex(index);
+    const section = TECH_SECTIONS[index];
+    targetCamPos.current.set(...section.cameraPos);
+    targetCamTarget.current.set(...section.cameraTarget);
+    const targetEl = sectionRefs.current[index];
+    if (targetEl) targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  useEffect(() => {
+    if (!mountRef.current) return;
+    const container = mountRef.current;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
+    scene.background = new THREE.Color(0x030712);
+    scene.fog = new THREE.FogExp2(0x030712, 0.004);
+
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
+    camera.position.set(...TECH_SECTIONS[0].cameraPos);
+    cameraRef.current = camera;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    rendererRef.current = renderer;
+    container.appendChild(renderer.domElement);
+
+    const ambientLight = new THREE.AmbientLight(0xdbeafe, 1.4);
+    scene.add(ambientLight);
+
+    const sunLight = new THREE.DirectionalLight(0xffffff, 3.0);
+    sunLight.position.set(80, 140, 100);
+    sunLight.castShadow = true;
+    scene.add(sunLight);
+
+    const cyanGlow = new THREE.PointLight(0x06b6d4, 4.5, 130);
+    cyanGlow.position.set(0, 14, 0);
+    scene.add(cyanGlow);
+
+    const oceanGeo = new THREE.PlaneGeometry(380, 380, 60, 60);
+    oceanGeo.rotateX(-Math.PI / 2);
+    const oceanMat = new THREE.MeshStandardMaterial({ color: 0x071c38, roughness: 0.15, metalness: 0.85, flatShading: true });
+    const oceanMesh = new THREE.Mesh(oceanGeo, oceanMat);
+    oceanMesh.position.y = -6;
+    scene.add(oceanMesh);
+    oceanMeshRef.current = oceanMesh;
+
+    const gridHelper = new THREE.GridHelper(380, 50, 0x0284c7, 0x0d2a4a);
+    gridHelper.position.y = -5.9;
+    scene.add(gridHelper);
+
+    const shipGroup = new THREE.Group();
+    shipGroupRef.current = shipGroup;
+    scene.add(shipGroup);
+
+    const hullMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.75, roughness: 0.2 });
+    const stripeMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.8 });
+
+    const createHull = (xOffset) => {
+      const hGroup = new THREE.Group();
+      const bodyMesh = new THREE.Mesh(new THREE.BoxGeometry(6.5, 4.8, 52), hullMat);
+      hGroup.add(bodyMesh);
+      const bowGeo = new THREE.ConeGeometry(3.25, 11, 4);
+      bowGeo.rotateX(Math.PI / 2);
+      bowGeo.rotateZ(Math.PI / 4);
+      const bowMesh = new THREE.Mesh(bowGeo, hullMat);
+      bowMesh.position.set(0, 0, 28);
+      hGroup.add(bowMesh);
+      const stripeMesh = new THREE.Mesh(new THREE.BoxGeometry(6.7, 0.45, 50), stripeMat);
+      stripeMesh.position.y = 0.5;
+      hGroup.add(stripeMesh);
+      hGroup.position.x = xOffset;
+      return hGroup;
+    };
+
+    shipGroup.add(createHull(-11));
+    shipGroup.add(createHull(11));
+
+    const deckMesh = new THREE.Mesh(new THREE.BoxGeometry(28, 1.6, 48), new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.5, roughness: 0.4 }));
+    deckMesh.position.set(0, 2.2, 0);
+    shipGroup.add(deckMesh);
+
+    const containerColors = [0x0284c7, 0x0d9488, 0xe11d48, 0x475569, 0xd97706, 0x2563eb, 0x059669];
+    const containerGroup = new THREE.Group();
+    for (let row = -3.5; row <= 3.5; row++) {
+      for (let col = -1; col <= 1; col++) {
+        for (let stack = 0; stack < 3; stack++) {
+          const color = containerColors[(Math.abs(Math.floor(row)) + Math.abs(col) + stack) % containerColors.length];
+          const cMat = new THREE.MeshStandardMaterial({ color, roughness: 0.35, metalness: 0.3 });
+          const cMesh = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.2, 5.5), cMat);
+          cMesh.position.set(col * 7.5, 4.5 + stack * 3.3, row * 5.8 - 2);
+          containerGroup.add(cMesh);
+        }
+      }
+    }
+    shipGroup.add(containerGroup);
+
+    const craneGroup = new THREE.Group();
+    const craneMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8 });
+    const leg1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 18, 1.2), craneMat);
+    leg1.position.set(-13, 11, 2);
+    const leg2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 18, 1.2), craneMat);
+    leg2.position.set(13, 11, 2);
+    const crossBeam = new THREE.Mesh(new THREE.BoxGeometry(28, 1.5, 2), craneMat);
+    crossBeam.position.set(0, 19, 2);
+    const craneContainer = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.2, 5.5), new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.4 }));
+    craneContainer.position.set(0, 14, 2);
+    craneContainerRef.current = craneContainer;
+    craneGroup.add(leg1, leg2, crossBeam, craneContainer);
+    shipGroup.add(craneGroup);
+
+    const bridgeGroup = new THREE.Group();
+    const bridgeMesh = new THREE.Mesh(new THREE.BoxGeometry(18, 7, 9), new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.85 }));
+    bridgeMesh.position.set(0, 6.5, 18);
+    bridgeGroup.add(bridgeMesh);
+    const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(18.2, 2.4, 4.5), new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, transparent: true, opacity: 0.8 }));
+    glassMesh.position.set(0, 7.8, 19.5);
+    bridgeGroup.add(glassMesh);
+    const domeMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshStandardMaterial({ color: 0xf8fafc, emissive: 0x38bdf8, emissiveIntensity: 0.5 }));
+    domeMesh.position.set(0, 15, 18);
+    bridgeGroup.add(domeMesh);
+    shipGroup.add(bridgeGroup);
+
+    const kiteGroup = new THREE.Group();
+    kiteMeshRef.current = kiteGroup;
+    const wingShape = new THREE.Shape();
+    wingShape.moveTo(-18, 0);
+    wingShape.quadraticCurveTo(0, 9, 18, 0);
+    wingShape.quadraticCurveTo(0, 2, -18, 0);
+    const kiteMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(wingShape, { depth: 1.6, bevelEnabled: true }), new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.65 }));
+    kiteMesh.rotation.x = Math.PI / 6;
+    kiteGroup.add(kiteMesh);
+    kiteGroup.position.set(0, 75, -15);
+    scene.add(kiteGroup);
+
+    const tetherLine = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 6, 22), new THREE.Vector3(0, 75, -15)]),
+      new THREE.LineBasicMaterial({ color: 0x38bdf8 })
+    );
+    scene.add(tetherLine);
+    tetherLineRef.current = tetherLine;
+
+    const digitalTwinGroup = new THREE.Group();
+    digitalTwinWireRef.current = digitalTwinGroup;
+    const wireMesh = new THREE.Mesh(new THREE.BoxGeometry(36, 32, 60), new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.35 }));
+    wireMesh.position.set(0, 8, 0);
+    digitalTwinGroup.add(wireMesh);
+    digitalTwinGroup.visible = false;
+    scene.add(digitalTwinGroup);
+
+    const handleResize = () => {
+      if (!mountRef.current || !rendererRef.current || !cameraRef.current) return;
+      const w = mountRef.current.clientWidth;
+      const h = mountRef.current.clientHeight;
+      cameraRef.current.aspect = w / h;
+      cameraRef.current.updateProjectionMatrix();
+      rendererRef.current.setSize(w, h);
+    };
+    window.addEventListener("resize", handleResize);
+
+
+    let animId;
+    const animate = () => {
+      animId = requestAnimationFrame(animate);
+      if (isScrollingRef.current) motionTimeRef.current += 0.025;
+      const elapsed = motionTimeRef.current;
+
+      if (oceanMeshRef.current) {
+        const pos = oceanMeshRef.current.geometry.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const z = Math.sin(pos.getX(i) * 0.08 + elapsed * 1.6) * 0.6 + Math.cos(pos.getY(i) * 0.08 + elapsed * 1.3) * 0.6;
+          pos.setZ(i, z);
+        }
+        pos.needsUpdate = true;
+      }
+
+      if (shipGroupRef.current) {
+        shipGroupRef.current.position.y = Math.sin(elapsed * 1.8) * 0.45;
+        shipGroupRef.current.rotation.z = Math.sin(elapsed * 1.2) * 0.025;
+      }
+
+      if (craneContainerRef.current) {
+        craneContainerRef.current.position.y = 14 + Math.sin(elapsed * 2) * 2;
+      }
+
+      if (kiteMeshRef.current && tetherLineRef.current) {
+        const figX = Math.sin(elapsed * 1.2) * 15;
+        const figY = Math.sin(elapsed * 2.4) * 4.8;
+        kiteMeshRef.current.position.x = figX;
+        kiteMeshRef.current.position.y = 75 + figY;
+        const tPos = tetherLineRef.current.geometry.attributes.position;
+        tPos.setXYZ(1, figX, 75 + figY, -15);
+        tPos.needsUpdate = true;
+      }
+
+      currentCamPos.current.lerp(targetCamPos.current, 0.045);
+      currentCamTarget.current.lerp(targetCamTarget.current, 0.045);
+
+      if (cameraRef.current) {
+        cameraRef.current.position.copy(currentCamPos.current);
+        cameraRef.current.lookAt(currentCamTarget.current);
+      }
+
+      if (cameraRef.current && mountRef.current) {
+        const w = mountRef.current.clientWidth;
+        const h = mountRef.current.clientHeight;
+        const updated = TECH_SECTIONS.map((sec) => {
+          const vec = new THREE.Vector3(...sec.hotspot3D);
+          vec.project(cameraRef.current);
+          return { x: (vec.x * 0.5 + 0.5) * w, y: (-(vec.y * 0.5) + 0.5) * h, visible: vec.z < 1 };
+        });
+        setHotspots2D(updated);
+      }
+
+      rendererRef.current?.render(scene, cameraRef.current);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animId);
+      if (rendererRef.current && container.contains(rendererRef.current.domElement)) {
+        container.removeChild(rendererRef.current.domElement);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (digitalTwinWireRef.current) digitalTwinWireRef.current.visible = activeIndex === 5;
+  }, [activeIndex]);
+
+  return (
+    <section ref={sectionContainerRef} className="relative w-full bg-slate-950 text-slate-100 font-sans">
+      <div className="sticky top-0 h-screen w-full overflow-hidden z-0 pointer-events-auto">
+        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+        {hotspots2D.map((pos, idx) => {
+          if (!pos.visible) return null;
+          const isActive = activeIndex === idx;
+          const sec = TECH_SECTIONS[idx];
+          return (
+            <button
+              key={sec.id}
+              onClick={() => scrollToCard(idx)}
+              style={{ left: `${pos.x}px`, top: `${pos.y}px`, transform: "translate(-50%, -50%)" }}
+              className={`absolute z-20 transition-all duration-500 ${isActive ? "scale-125" : "scale-100 opacity-75 hover:scale-110"}`}
+            >
+              <div className={`absolute -inset-2 rounded-full animate-ping ${isActive ? "bg-cyan-400/60" : "bg-slate-500/20"}`} />
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center font-mono text-xs font-black shadow-2xl backdrop-blur-md ${isActive ? "bg-cyan-500 text-slate-950 ring-4 ring-cyan-500/40" : "bg-slate-900/90 text-white border border-slate-700"}`}>
+                {sec.number}
+              </div>
+            </button>
+          );
+        })}
+        <div className="absolute top-24 right-8 z-20 pointer-events-none space-y-2 hidden sm:block text-right">
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl backdrop-blur-md border text-xs font-mono transition-all ${isCurrentlyScrolling ? "bg-cyan-500/20 border-cyan-500/50 text-cyan-300 shadow-lg" : "bg-slate-900/80 border-slate-800 text-slate-400"}`}>
+            <span className={`w-2.5 h-2.5 rounded-full ${isCurrentlyScrolling ? "bg-cyan-400 animate-ping" : "bg-slate-600"}`} />
+            <span>{isCurrentlyScrolling ? "SCROLL MOTION: RUNNING" : "SCROLL MOTION: PAUSED"}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 -mt-[100vh] w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-48 pointer-events-none">
+        <div className="max-w-xl mb-32 pointer-events-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono uppercase mb-4 backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+            <span>The Samrat Global</span>
+          </div>
+          <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tight leading-none mb-4">
+            About <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">Us</span>
+          </h1>
+          <p className="text-slate-300 text-sm lg:text-base leading-relaxed backdrop-blur-md bg-slate-950/40 p-4 rounded-2xl border border-white/5">
+            Building global partnerships through reliable sourcing, procurement and export solutions.
+          </p>
+        </div>
+
+        <div className="space-y-[75vh]">
+          {TECH_SECTIONS.map((sec, idx) => {
+            const IconComponent = sec.icon;
+            const isActive = activeIndex === idx;
+            return (
+              <div key={sec.id} ref={(el) => (sectionRefs.current[idx] = el)} data-index={idx} className="max-w-xl pointer-events-auto transition-all duration-700">
+                <div className={`relative p-8 lg:p-10 rounded-3xl backdrop-blur-2xl border shadow-2xl transition-all duration-700 ${isActive ? "bg-slate-900/90 border-cyan-500/80 shadow-cyan-500/20 scale-105" : "bg-slate-900/50 border-white/10 opacity-60"}`}>
+                  <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-black text-xs font-mono shadow-lg">
+                    {sec.number} / 06
+                  </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    {IconComponent && <IconComponent className="w-6 h-6 text-cyan-400" />}
+                    <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">{sec.badge}</span>
+                  </div>
+                  <h2 className="text-3xl font-black text-white mb-1 tracking-tight">{sec.title}</h2>
+                  <p className="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-6">{sec.subtitle}</p>
+                  <div className="space-y-4 mb-8">
+                    {sec.paragraphs.map((p, pIdx) => (
+                      <p key={pIdx} className="text-sm text-slate-200 leading-relaxed">{p}</p>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-800/80 mb-6">
+                    {Object.values(sec.telemetry).map((t, tIdx) => (
+                      <div key={tIdx} className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800">
+                        <div className="text-[9px] font-mono text-slate-400 uppercase truncate">{t.label}</div>
+                        <div className="text-sm font-bold text-cyan-400 font-mono mt-0.5">{t.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <button onClick={() => setActiveModal(sec)} className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300">
+                    <span>Read Technical Specification</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default function Home() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const videoRef = useRef(null);
     const router = useRouter();
@@ -148,6 +660,30 @@ const Home = () => {
     const wrapRef = useRef(null);
     const panelRefs = useRef([]);
     const progressRefs = useRef([]);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.muted = true;
+        const playVideo = async () => {
+            try {
+                await video.play();
+            } catch (err) {
+                console.log("Autoplay retry failed:", err);
+            }
+        };
+
+        if (video.readyState >= 2) {
+            playVideo();
+        } else {
+            video.addEventListener("canplay", playVideo, { once: true });
+        }
+
+        return () => {
+            if (video) video.removeEventListener("canplay", playVideo);
+        };
+    }, []);
 
     useEffect(() => {
         const lenis = new Lenis({
@@ -172,14 +708,12 @@ const Home = () => {
     useEffect(() => {
         const wrap = wrapRef.current;
         if (!wrap) return;
-
         const mm = gsap.matchMedia();
-
         mm.add("(min-width: 1024px)", () => {
             const total = cards.length;
 
             panelRefs.current.forEach((el, i) => {
-                gsap.set(el, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
+                if (el) gsap.set(el, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
             });
 
             const st = ScrollTrigger.create({
@@ -194,6 +728,7 @@ const Home = () => {
                     const active = Math.round(progress);
 
                     panelRefs.current.forEach((el, i) => {
+                        if (!el) return;
                         const dist = Math.abs(progress - i);
                         const visible = dist < 0.5;
                         gsap.to(el, {
@@ -216,7 +751,7 @@ const Home = () => {
 
         mm.add("(max-width: 1023px)", () => {
             panelRefs.current.forEach((el) => {
-                gsap.set(el, { autoAlpha: 1, y: 0, clearProps: "transform" });
+                if (el) gsap.set(el, { autoAlpha: 1, y: 0, clearProps: "transform" });
             });
         });
 
@@ -230,26 +765,11 @@ const Home = () => {
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-
-        const handleLoaded = () => {
-            video.play().catch(() => { });
-        };
-
-        video.addEventListener("loadeddata", handleLoaded);
-        return () => video.removeEventListener("loadeddata", handleLoaded);
-    }, []);
-
     return (
         <>
-            <section id="hero" className="relative h-screen w-full overflow-hidden">
-                <motion.video
+            <section id="hero" className="relative h-screen w-full overflow-hidden bg-slate-950">
+                <video
                     ref={videoRef}
-                    initial={{ scale: 1.15 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 8, ease: "easeOut" }}
                     className="absolute top-0 left-0 w-full h-full object-cover"
                     src="/banner.mp4"
                     autoPlay
@@ -259,7 +779,8 @@ const Home = () => {
                     preload="auto"
                 />
 
-                <div className="absolute inset-0 bg-black/35" />
+                <div className="absolute inset-0 bg-black/40" />
+
                 <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6 md:px-10">
                     <div className="max-w-4xl lg:max-w-5xl text-center text-white">
                         <AnimatePresence mode="wait">
@@ -310,6 +831,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+
                 <motion.div
                     className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/70"
                     animate={{ y: [0, 10, 0] }}
@@ -326,8 +848,6 @@ const Home = () => {
                     </svg>
                 </motion.div>
             </section>
-
-
             <section ref={wrapRef} className="relative w-full overflow-hidden h-auto lg:h-screen">
                 <div className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 flex-col gap-3">
                     {cards.map((_, i) => (
@@ -461,7 +981,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.mist }}>
                 <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.navyBright}1a` }} />
                 <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.gold}1a` }} />
@@ -505,81 +1024,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-            {/* <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28"
-                style={{
-                    backgroundImage: "url('https://t3.ftcdn.net/jpg/02/34/00/96/360_F_234009633_da7XqdBPWmTBaTSkgCoVjI80Ws3PXyJ0.jpg')",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundAttachment: "fixed",
-                }}
-            >
-                <div className="absolute inset-0" style={{ backgroundColor: `${BRAND.navyDeep}d9` }} />
-                <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.navyMid}4d` }} />
-                <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.gold}33` }} />
-                <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        viewport={{ once: true }}
-                        className="mb-14 sm:mb-16 lg:mb-20 text-center"
-                    >
-                        <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[5px]" style={{ color: BRAND.gold }}>THE SAMRAT GLOBAL</p>
-                        <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white">
-                            About <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${BRAND.gold}, ${BRAND.goldLight})` }}>Us</span>
-                        </h2>
-                        <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg leading-8 text-gray-300">
-                            Building global partnerships through reliable sourcing, procurement and export solutions.
-                        </p>
-                    </motion.div>
-
-                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {aboutCards.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 100, scale: 0.9, filter: "blur(10px)" }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                                transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                                viewport={{ once: true, amount: 0.3 }}
-                            >
-                                <TiltCard
-                                    tiltStrength={6}
-                                    className="group relative overflow-hidden min-h-[380px] rounded-[32px] border border-white/20 bg-white/10 backdrop-blur-2xl p-7 sm:p-9 shadow-[0_25px_70px_rgba(0,0,0,0.35)] transition-colors duration-700 hover:border-white/40"
-                                >
-                                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-                                    <div className="relative z-10">
-                                        <motion.div
-                                            animate={{ y: [0, -8, 0] }}
-                                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                            className="mb-3 flex h-20 w-20 items-center justify-center rounded-3xl text-4xl shadow-xl"
-                                            style={{ background: `linear-gradient(135deg, ${BRAND.navyBright}, ${BRAND.navyMid})` }}
-                                        >
-                                            {index === 0 ? "🏢" : index === 1 ? "🎯" : "🌍"}
-                                        </motion.div>
-                                        <h3 className="mb-2 text-2xl sm:text-3xl font-bold text-white transition-colors duration-500">
-                                            {item.title}
-                                        </h3>
-                                        <p className="text-sm sm:text-base leading-8 text-gray-300">{item.description}</p>
-                                        <motion.div
-                                            initial={{ width: "40px" }}
-                                            whileInView={{ width: "100%" }}
-                                            transition={{ duration: 1, delay: index * 0.2 + 0.4 }}
-                                            viewport={{ once: true }}
-                                            className="mt-8 h-[3px] rounded-full"
-                                            style={{ background: `linear-gradient(90deg, ${BRAND.navyMid}, ${BRAND.gold})` }}
-                                        />
-                                    </div>
-                                </TiltCard>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section> */}
-            <section>
-                <Page />
-            </section>
-
+            <CargoKiteTechSection />
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: "#020617" }}>
                 <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2000')" }} />
                 <div className="absolute inset-0 bg-black/50" />
@@ -639,6 +1084,4 @@ const Home = () => {
             </section>
         </>
     );
-};
-
-export default Home;
+}
