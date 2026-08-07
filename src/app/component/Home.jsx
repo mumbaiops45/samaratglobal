@@ -638,10 +638,6 @@ const CargoKiteTechSection = () => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => setActiveModal(sec)} className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300">
-                    <span>Read Technical Specification</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
             );
