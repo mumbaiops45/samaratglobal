@@ -27,7 +27,7 @@ export default function Navbar() {
             <div className="flex h-20 items-center justify-between">
               <Link href="/" className="flex items-center">
                 <Image
-                  src="/logo.jpeg"
+                  src="/logo-.png"
                   alt="Import Export Business World"
                   width={220}
                   height={90}

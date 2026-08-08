@@ -4,25 +4,54 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import * as THREE from 'three';
-import {ArrowRight,Gauge,Sparkles,Building2,Eye,Award,Truck,Handshake,Target} from "lucide-react";
+import { Sparkles, Building2, Eye, Award, Truck, Handshake, Target, Globe2, ArrowUpRight } from "lucide-react";
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
 const BRAND = {
-    navyDeep: "#0A1F44",
-    navy: "#123C73",
-    navyMid: "#1B4B91",
-    navyBright: "#244D88",
-    gold: "#D4AF37",
-    goldLight: "#F5D77A",
-    mist: "#F8FAFC",
+    ink: "#050B14",      
+    surface: "#0A1A2C",   
+    surfaceAlt: "#0E2338", 
+    steel: "#15304A",   
+    cyan: "#22D3EE",    
+    cyanDeep: "#06B6D4", 
+    azure: "#2E6BFF",    
+    azureDeep: "#1E40AF",
+    mist: "#F5F9FF",   
+    slate: "#8FA6BE",    
 };
 
+const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
+const GRAD_LOGO_SOFT = `linear-gradient(135deg, ${BRAND.azureDeep}22, ${BRAND.cyanDeep}22)`;
+
+
+const OrbitMark = ({ size = 34, spin = true }) => (
+    <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
+        <motion.svg
+            viewBox="0 0 100 100"
+            width={size}
+            height={size}
+            animate={spin ? { rotate: 360 } : {}}
+            transition={spin ? { duration: 14, repeat: Infinity, ease: "linear" } : {}}
+        >
+            <defs>
+                <linearGradient id="orbitGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor={BRAND.azure} />
+                    <stop offset="100%" stopColor={BRAND.cyan} />
+                </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="34" fill="none" stroke="url(#orbitGrad)" strokeWidth="4" strokeDasharray="14 10" strokeLinecap="round" />
+            <path d="M78 30 L90 26 L86 38" fill="none" stroke="url(#orbitGrad)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+        </motion.svg>
+        <Globe2 className="absolute inset-0 m-auto" style={{ color: BRAND.mist }} size={size * 0.42} strokeWidth={1.75} />
+    </div>
+);
 
 const TECH_SECTIONS = [
   {
@@ -54,7 +83,7 @@ const TECH_SECTIONS = [
     icon: Target,
     paragraphs: [
       "To create lasting value for customers worldwide by delivering excellence through quality, innovation, and trust.",
-      "Webuild sustainable partnerships that help businesses grow across global markets."
+      "We build sustainable partnerships that help businesses grow across global markets."
     ],
     cameraPos: [-48, 6, 48],
     cameraTarget: [0, -1, 0],
@@ -93,7 +122,7 @@ const TECH_SECTIONS = [
     badge: "Quality",
     icon: Award,
     paragraphs: [
-      "Consistency in quality is not just a standard-it's our commitment to excellence.",
+      "Consistency in quality is not just a standard — it's our commitment to excellence.",
       "Every product is carefully sourced and inspected to exceed customer expectations."
     ],
     cameraPos: [-22, -2, -48],
@@ -133,8 +162,8 @@ const TECH_SECTIONS = [
     badge: "Service",
     icon: Handshake,
     paragraphs: [
-      "At The Samrat Global, we don't just meet customer expectations-we exceed them.",
-      "Constinous improvement allows us to build lasting relationships and deliver unmatched satisfaction."
+      "At The Samrat Global, we don't just meet customer expectations — we exceed them.",
+      "Continuous improvement allows us to build lasting relationships and deliver unmatched satisfaction."
     ],
     cameraPos: [65, 45, 65],
     cameraTarget: [0, 8, 0],
@@ -145,12 +174,6 @@ const TECH_SECTIONS = [
       stat3: { label: "Satisfaction", value: "Priority" }
     }
   }
-];
-
-const cards1 = [
-    { title: "Sourcing & Procurement", image: "/sourcetransport.jpg", icon: "📦" },
-    { title: "Global Fulfillment & Export", image: "/International.jpg", icon: "🚢" },
-    { title: "Domestic Distribution", image: "/domesticdistribution.jpg", icon: "🚚" },
 ];
 
 const commitments = [
@@ -179,10 +202,10 @@ const cards = [
         tag: "Core Value",
         eyebrow: "Our Commitment",
         title: "Quality",
-        image: "agriculture.webp",
+        image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=1600&auto=format&fit=crop",
         body: (
             <>
-                <span className="font-semibold" style={{ color: BRAND.navyBright }}>Samrat Global Private Limited</span> — quality is not just a promise, it&apos;s the foundation of everything we do. As a trusted Indian sourcing and export company, we bring the richness of India&apos;s agricultural heritage to global markets with precision, consistency, and integrity.
+                <span className="font-semibold" style={{ color: BRAND.cyan }}>Samrat Global Private Limited</span> — quality is not just a promise, it&apos;s the foundation of everything we do. As a trusted Indian sourcing and export company, we bring the richness of India&apos;s agricultural heritage to global markets with precision, consistency, and integrity.
             </>
         ),
         badges: ["ISO Certified", "Global Standards", "Sustainable Sourcing"]
@@ -192,7 +215,7 @@ const cards = [
         tag: "Trusted Partner",
         eyebrow: "Who We Are",
         title: "Samrat Global",
-        image: "SamratGlobal.jpg",
+        image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop",
         body: <>Samrat Global Private Limited is a trusted import–export and logistics company delivering complete end-to-end trade solutions across India.</>,
         stats: [
             { value: "500+", label: "Clients Served" },
@@ -206,7 +229,7 @@ const cards = [
         eyebrow: "Smart Forecasting",
         title: "Optimized routes,\nlower cost",
         body: "In-house route intelligence calculates the most efficient path for every shipment, factoring seasonality, fuel cost and customs turnaround.",
-        image: "/Optimizedroutes.webp",
+        image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1600&auto=format&fit=crop",
         stats: [
             { value: "18%", label: "Cost saved" },
             { value: "3.5x", label: "Faster ETA" },
@@ -214,74 +237,36 @@ const cards = [
     },
 ];
 
-const TiltCard = ({ children, className = "", tiltStrength = 10 }) => {
-    const ref = useRef(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [tiltStrength, -tiltStrength]), { stiffness: 200, damping: 20 });
-    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-tiltStrength, tiltStrength]), { stiffness: 200, damping: 20 });
-    const glowX = useTransform(x, [-0.5, 0.5], ["0%", "100%"]);
-    const glowY = useTransform(y, [-0.5, 0.5], ["0%", "100%"]);
-
-    const handleMouseMove = (e) => {
-        if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        x.set((e.clientX - rect.left) / rect.width - 0.5);
-        y.set((e.clientY - rect.top) / rect.height - 0.5);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d", transformPerspective: 1000 }}
-            className={className}
-        >
-            <motion.div
-                aria-hidden
-                style={{
-                    background: `radial-gradient(circle at ${glowX} ${glowY}, ${BRAND.gold}33, transparent 60%)`,
-                }}
-                className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-[inherit]"
-            />
-            {children}
-        </motion.div>
-    );
+const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const staggerParent = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.12 } },
+};
 
 const CargoKiteTechSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeModal, setActiveModal] = useState(null);
   const [hotspots2D, setHotspots2D] = useState([]);
   const [isCurrentlyScrolling, setIsCurrentlyScrolling] = useState(false);
-
   const sectionContainerRef = useRef(null);
   const sectionRefs = useRef([]);
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
-
   const shipGroupRef = useRef(null);
   const kiteMeshRef = useRef(null);
   const tetherLineRef = useRef(null);
   const oceanMeshRef = useRef(null);
   const digitalTwinWireRef = useRef(null);
   const craneContainerRef = useRef(null);
-
   const currentCamPos = useRef(new THREE.Vector3(0, 85, 115));
   const targetCamPos = useRef(new THREE.Vector3(0, 85, 115));
   const currentCamTarget = useRef(new THREE.Vector3(0, 75, -10));
   const targetCamTarget = useRef(new THREE.Vector3(0, 75, -10));
-
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
   const motionTimeRef = useRef(0);
@@ -345,8 +330,8 @@ const CargoKiteTechSection = () => {
 
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-    scene.background = new THREE.Color(0x030712);
-    scene.fog = new THREE.FogExp2(0x030712, 0.004);
+    scene.background = new THREE.Color(0x050b14);
+    scene.fog = new THREE.FogExp2(0x050b14, 0.004);
 
     const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
     camera.position.set(...TECH_SECTIONS[0].cameraPos);
@@ -368,7 +353,7 @@ const CargoKiteTechSection = () => {
     sunLight.castShadow = true;
     scene.add(sunLight);
 
-    const cyanGlow = new THREE.PointLight(0x06b6d4, 4.5, 130);
+    const cyanGlow = new THREE.PointLight(0x22d3ee, 4.5, 130);
     cyanGlow.position.set(0, 14, 0);
     scene.add(cyanGlow);
 
@@ -380,7 +365,7 @@ const CargoKiteTechSection = () => {
     scene.add(oceanMesh);
     oceanMeshRef.current = oceanMesh;
 
-    const gridHelper = new THREE.GridHelper(380, 50, 0x0284c7, 0x0d2a4a);
+    const gridHelper = new THREE.GridHelper(380, 50, 0x2e6bff, 0x0d2a4a);
     gridHelper.position.y = -5.9;
     scene.add(gridHelper);
 
@@ -388,8 +373,8 @@ const CargoKiteTechSection = () => {
     shipGroupRef.current = shipGroup;
     scene.add(shipGroup);
 
-    const hullMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.75, roughness: 0.2 });
-    const stripeMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.8 });
+    const hullMat = new THREE.MeshStandardMaterial({ color: 0x0e2338, metalness: 0.75, roughness: 0.2 });
+    const stripeMat = new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.8 });
 
     const createHull = (xOffset) => {
       const hGroup = new THREE.Group();
@@ -411,11 +396,11 @@ const CargoKiteTechSection = () => {
     shipGroup.add(createHull(-11));
     shipGroup.add(createHull(11));
 
-    const deckMesh = new THREE.Mesh(new THREE.BoxGeometry(28, 1.6, 48), new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.5, roughness: 0.4 }));
+    const deckMesh = new THREE.Mesh(new THREE.BoxGeometry(28, 1.6, 48), new THREE.MeshStandardMaterial({ color: 0x15304a, metalness: 0.5, roughness: 0.4 }));
     deckMesh.position.set(0, 2.2, 0);
     shipGroup.add(deckMesh);
 
-    const containerColors = [0x0284c7, 0x0d9488, 0xe11d48, 0x475569, 0xd97706, 0x2563eb, 0x059669];
+    const containerColors = [0x2e6bff, 0x0d9488, 0xe11d48, 0x475569, 0xd97706, 0x22d3ee, 0x059669];
     const containerGroup = new THREE.Group();
     for (let row = -3.5; row <= 3.5; row++) {
       for (let col = -1; col <= 1; col++) {
@@ -431,27 +416,27 @@ const CargoKiteTechSection = () => {
     shipGroup.add(containerGroup);
 
     const craneGroup = new THREE.Group();
-    const craneMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.8 });
+    const craneMat = new THREE.MeshStandardMaterial({ color: 0x2e6bff, metalness: 0.8 });
     const leg1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 18, 1.2), craneMat);
     leg1.position.set(-13, 11, 2);
     const leg2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 18, 1.2), craneMat);
     leg2.position.set(13, 11, 2);
     const crossBeam = new THREE.Mesh(new THREE.BoxGeometry(28, 1.5, 2), craneMat);
     crossBeam.position.set(0, 19, 2);
-    const craneContainer = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.2, 5.5), new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.4 }));
+    const craneContainer = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.2, 5.5), new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.4 }));
     craneContainer.position.set(0, 14, 2);
     craneContainerRef.current = craneContainer;
     craneGroup.add(leg1, leg2, crossBeam, craneContainer);
     shipGroup.add(craneGroup);
 
     const bridgeGroup = new THREE.Group();
-    const bridgeMesh = new THREE.Mesh(new THREE.BoxGeometry(18, 7, 9), new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.85 }));
+    const bridgeMesh = new THREE.Mesh(new THREE.BoxGeometry(18, 7, 9), new THREE.MeshStandardMaterial({ color: 0x0a1a2c, metalness: 0.85 }));
     bridgeMesh.position.set(0, 6.5, 18);
     bridgeGroup.add(bridgeMesh);
-    const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(18.2, 2.4, 4.5), new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, transparent: true, opacity: 0.8 }));
+    const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(18.2, 2.4, 4.5), new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x2e6bff, transparent: true, opacity: 0.8 }));
     glassMesh.position.set(0, 7.8, 19.5);
     bridgeGroup.add(glassMesh);
-    const domeMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshStandardMaterial({ color: 0xf8fafc, emissive: 0x38bdf8, emissiveIntensity: 0.5 }));
+    const domeMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshStandardMaterial({ color: 0xf5f9ff, emissive: 0x38bdf8, emissiveIntensity: 0.5 }));
     domeMesh.position.set(0, 15, 18);
     bridgeGroup.add(domeMesh);
     shipGroup.add(bridgeGroup);
@@ -462,7 +447,7 @@ const CargoKiteTechSection = () => {
     wingShape.moveTo(-18, 0);
     wingShape.quadraticCurveTo(0, 9, 18, 0);
     wingShape.quadraticCurveTo(0, 2, -18, 0);
-    const kiteMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(wingShape, { depth: 1.6, bevelEnabled: true }), new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0891b2, emissiveIntensity: 0.65 }));
+    const kiteMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(wingShape, { depth: 1.6, bevelEnabled: true }), new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.65 }));
     kiteMesh.rotation.x = Math.PI / 6;
     kiteGroup.add(kiteMesh);
     kiteGroup.position.set(0, 75, -15);
@@ -477,7 +462,7 @@ const CargoKiteTechSection = () => {
 
     const digitalTwinGroup = new THREE.Group();
     digitalTwinWireRef.current = digitalTwinGroup;
-    const wireMesh = new THREE.Mesh(new THREE.BoxGeometry(36, 32, 60), new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.35 }));
+    const wireMesh = new THREE.Mesh(new THREE.BoxGeometry(36, 32, 60), new THREE.MeshBasicMaterial({ color: 0x22d3ee, wireframe: true, transparent: true, opacity: 0.35 }));
     wireMesh.position.set(0, 8, 0);
     digitalTwinGroup.add(wireMesh);
     digitalTwinGroup.visible = false;
@@ -566,7 +551,7 @@ const CargoKiteTechSection = () => {
   }, [activeIndex]);
 
   return (
-    <section ref={sectionContainerRef} className="relative w-full bg-slate-950 text-slate-100 font-sans">
+    <section ref={sectionContainerRef} className="relative w-full text-slate-100 font-sans" style={{ backgroundColor: BRAND.ink }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden z-0 pointer-events-auto">
         <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
         {hotspots2D.map((pos, idx) => {
@@ -580,34 +565,53 @@ const CargoKiteTechSection = () => {
               style={{ left: `${pos.x}px`, top: `${pos.y}px`, transform: "translate(-50%, -50%)" }}
               className={`absolute z-20 transition-all duration-500 ${isActive ? "scale-125" : "scale-100 opacity-75 hover:scale-110"}`}
             >
-              <div className={`absolute -inset-2 rounded-full animate-ping ${isActive ? "bg-cyan-400/60" : "bg-slate-500/20"}`} />
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center font-mono text-xs font-black shadow-2xl backdrop-blur-md ${isActive ? "bg-cyan-500 text-slate-950 ring-4 ring-cyan-500/40" : "bg-slate-900/90 text-white border border-slate-700"}`}>
+              <div className={`absolute -inset-2 rounded-full animate-ping`} style={{ backgroundColor: isActive ? `${BRAND.cyan}66` : "#64748B33" }} />
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center font-mono text-xs font-black shadow-2xl backdrop-blur-md"
+                style={isActive
+                    ? { background: GRAD_LOGO, color: BRAND.ink, boxShadow: `0 0 0 4px ${BRAND.cyan}40` }
+                    : { backgroundColor: "#0A1A2Ce6", color: BRAND.mist, border: `1px solid ${BRAND.steel}` }}
+              >
                 {sec.number}
               </div>
             </button>
           );
         })}
         <div className="absolute top-24 right-8 z-20 pointer-events-none space-y-2 hidden sm:block text-right">
-          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl backdrop-blur-md border text-xs font-mono transition-all ${isCurrentlyScrolling ? "bg-cyan-500/20 border-cyan-500/50 text-cyan-300 shadow-lg" : "bg-slate-900/80 border-slate-800 text-slate-400"}`}>
-            <span className={`w-2.5 h-2.5 rounded-full ${isCurrentlyScrolling ? "bg-cyan-400 animate-ping" : "bg-slate-600"}`} />
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl backdrop-blur-md border text-xs font-mono transition-all"
+            style={isCurrentlyScrolling
+                ? { backgroundColor: `${BRAND.cyan}22`, borderColor: `${BRAND.cyan}66`, color: BRAND.cyan }
+                : { backgroundColor: "#0A1A2Ccc", borderColor: BRAND.steel, color: BRAND.slate }}
+          >
+            <span className={`w-2.5 h-2.5 rounded-full ${isCurrentlyScrolling ? "animate-ping" : ""}`} style={{ backgroundColor: isCurrentlyScrolling ? BRAND.cyan : "#475569" }} />
             <span>{isCurrentlyScrolling ? "SCROLL MOTION: RUNNING" : "SCROLL MOTION: PAUSED"}</span>
           </div>
         </div>
       </div>
 
       <div className="relative z-10 -mt-[100vh] w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-48 pointer-events-none">
-        <div className="max-w-xl mb-32 pointer-events-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono uppercase mb-4 backdrop-blur-md">
+        <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-10%" }}
+            variants={fadeUp}
+            className="max-w-xl mb-32 pointer-events-auto"
+        >
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase mb-4 backdrop-blur-md border"
+            style={{ backgroundColor: `${BRAND.cyan}14`, borderColor: `${BRAND.cyan}4d`, color: BRAND.cyan }}
+          >
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
             <span>The Samrat Global</span>
           </div>
           <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tight leading-none mb-4">
-            About <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">Us</span>
+            About <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Us</span>
           </h1>
-          <p className="text-slate-300 text-sm lg:text-base leading-relaxed backdrop-blur-md bg-slate-950/40 p-4 rounded-2xl border border-white/5">
+          <p className="text-slate-300 text-sm lg:text-base leading-relaxed backdrop-blur-md p-4 rounded-2xl border" style={{ backgroundColor: "#050B1466", borderColor: `${BRAND.mist}0d` }}>
             Building global partnerships through reliable sourcing, procurement and export solutions.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-[75vh]">
           {TECH_SECTIONS.map((sec, idx) => {
@@ -615,26 +619,31 @@ const CargoKiteTechSection = () => {
             const isActive = activeIndex === idx;
             return (
               <div key={sec.id} ref={(el) => (sectionRefs.current[idx] = el)} data-index={idx} className="max-w-xl pointer-events-auto transition-all duration-700">
-                <div className={`relative p-8 lg:p-10 rounded-3xl backdrop-blur-2xl border shadow-2xl transition-all duration-700 ${isActive ? "bg-slate-900/90 border-cyan-500/80 shadow-cyan-500/20 scale-105" : "bg-slate-900/50 border-white/10 opacity-60"}`}>
-                  <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-black text-xs font-mono shadow-lg">
+                <div
+                    className="relative p-8 lg:p-10 rounded-3xl backdrop-blur-2xl border shadow-2xl transition-all duration-700"
+                    style={isActive
+                        ? { backgroundColor: "#0A1A2Ce6", borderColor: `${BRAND.cyan}cc`, boxShadow: `0 25px 70px -20px ${BRAND.cyan}33`, transform: "scale(1.05)" }
+                        : { backgroundColor: "#0A1A2C80", borderColor: `${BRAND.mist}1a`, opacity: 0.6 }}
+                >
+                  <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl font-black text-xs font-mono shadow-lg" style={{ background: GRAD_LOGO, color: BRAND.ink }}>
                     {sec.number} / 06
                   </div>
                   <div className="flex items-center gap-3 mb-3">
-                    {IconComponent && <IconComponent className="w-6 h-6 text-cyan-400" />}
-                    <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">{sec.badge}</span>
+                    {IconComponent && <IconComponent className="w-6 h-6" style={{ color: BRAND.cyan }} />}
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest" style={{ color: BRAND.cyan }}>{sec.badge}</span>
                   </div>
                   <h2 className="text-3xl font-black text-white mb-1 tracking-tight">{sec.title}</h2>
-                  <p className="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-6">{sec.subtitle}</p>
+                  <p className="text-[11px] font-mono uppercase tracking-wider mb-6" style={{ color: `${BRAND.cyan}cc` }}>{sec.subtitle}</p>
                   <div className="space-y-4 mb-8">
                     {sec.paragraphs.map((p, pIdx) => (
                       <p key={pIdx} className="text-sm text-slate-200 leading-relaxed">{p}</p>
                     ))}
                   </div>
-                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-800/80 mb-6">
+                  <div className="grid grid-cols-3 gap-3 pt-4 border-t mb-6" style={{ borderColor: `${BRAND.steel}cc` }}>
                     {Object.values(sec.telemetry).map((t, tIdx) => (
-                      <div key={tIdx} className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800">
+                      <div key={tIdx} className="p-3 rounded-2xl border" style={{ backgroundColor: "#050B14cc", borderColor: BRAND.steel }}>
                         <div className="text-[9px] font-mono text-slate-400 uppercase truncate">{t.label}</div>
-                        <div className="text-sm font-bold text-cyan-400 font-mono mt-0.5">{t.value}</div>
+                        <div className="text-sm font-bold font-mono mt-0.5" style={{ color: BRAND.cyan }}>{t.value}</div>
                       </div>
                     ))}
                   </div>
@@ -652,7 +661,6 @@ export default function Home() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const videoRef = useRef(null);
     const router = useRouter();
-
     const wrapRef = useRef(null);
     const panelRefs = useRef([]);
     const progressRefs = useRef([]);
@@ -660,7 +668,6 @@ export default function Home() {
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
-
         video.muted = true;
         const playVideo = async () => {
             try {
@@ -669,13 +676,11 @@ export default function Home() {
                 console.log("Autoplay retry failed:", err);
             }
         };
-
         if (video.readyState >= 2) {
             playVideo();
         } else {
             video.addEventListener("canplay", playVideo, { once: true });
         }
-
         return () => {
             if (video) video.removeEventListener("canplay", playVideo);
         };
@@ -687,14 +692,11 @@ export default function Home() {
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
         });
-
         lenis.on('scroll', ScrollTrigger.update);
-
         const raf = (time) => lenis.raf(time * 1000);
         gsap.ticker.add(raf);
         gsap.ticker.lagSmoothing(0);
         ScrollTrigger.refresh();
-
         return () => {
             gsap.ticker.remove(raf);
             lenis.destroy();
@@ -707,11 +709,9 @@ export default function Home() {
         const mm = gsap.matchMedia();
         mm.add("(min-width: 1024px)", () => {
             const total = cards.length;
-
             panelRefs.current.forEach((el, i) => {
                 if (el) gsap.set(el, { autoAlpha: i === 0 ? 1 : 0, y: i === 0 ? 0 : 40 });
             });
-
             const st = ScrollTrigger.create({
                 trigger: wrap,
                 start: "top top",
@@ -763,7 +763,7 @@ export default function Home() {
 
     return (
         <>
-            <section id="hero" className="relative h-screen w-full overflow-hidden bg-slate-950">
+            <section id="hero" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: BRAND.ink }}>
                 <video
                     ref={videoRef}
                     className="absolute top-0 left-0 w-full h-full object-cover"
@@ -774,11 +774,10 @@ export default function Home() {
                     playsInline
                     preload="auto"
                 />
-
-                <div className="absolute inset-0 bg-black/40" />
-
-                <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6 md:px-10">
-                    <div className="max-w-4xl lg:max-w-5xl text-center text-white">
+                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${BRAND.ink}cc 0%, ${BRAND.ink}66 45%, ${BRAND.azureDeep}55 100%)` }} />
+                
+                <div className="relative z-10 h-full flex items-center  px-4 sm:px-6 md:px-10">
+                    <div className="max-w-4xl lg:max-w-5xl  text-white">
                         <AnimatePresence mode="wait">
                             <motion.h1
                                 key={`title-${currentIndex}`}
@@ -788,16 +787,12 @@ export default function Home() {
                                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6"
                             >
-                                <span
-                                    className="bg-clip-text text-transparent"
-                                    style={{ backgroundImage: `linear-gradient(90deg, ${BRAND.gold}, ${BRAND.goldLight})` }}
-                                >
+                                <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>
                                     {content[currentIndex].blueTitle}
                                 </span>{" "}
                                 <span className="text-white">{content[currentIndex].whiteTitle}</span>
                             </motion.h1>
                         </AnimatePresence>
-
                         <AnimatePresence mode="wait">
                             <motion.p
                                 key={`desc-${currentIndex}`}
@@ -805,13 +800,34 @@ export default function Home() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-200 max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2"
+                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-100 max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2"
                             >
                                 {content[currentIndex].description}
                             </motion.p>
                         </AnimatePresence>
-
-                        <div className="flex justify-center gap-2 sm:gap-3 mt-8 sm:mt-12">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.6 }}
+                            className="mt-9 flex items-center  gap-4 flex-wrap"
+                        >
+                            <Link
+                                href="/service"
+                                className="group inline-flex cursor-pointer items-center gap-2 rounded-full px-7 py-3.5 font-semibold text-sm text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-2xl"
+                                style={{ background: GRAD_LOGO, boxShadow: `0 10px 40px -10px ${BRAND.cyan}80` }}
+                            >
+                                Explore Services
+                                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </Link>
+                            <Link
+                                href="/contact"
+                                className="rounded-full px-7 py-3.5 cursor-pointer font-semibold text-sm text-white border backdrop-blur-md transition-all hover:bg-white/10"
+                                style={{ borderColor: `${BRAND.mist}33` }}
+                            >
+                                Contact Us 
+                            </Link>
+                        </motion.div>
+                        <div className="flex gap-2 sm:gap-3 mt-8 sm:px-5 md:px-10 sm:mt-10">
                             {content.map((_, index) => (
                                 <button
                                     key={index}
@@ -820,14 +836,13 @@ export default function Home() {
                                     className="h-1 rounded-full transition-all duration-500"
                                     style={{
                                         width: index === currentIndex ? "3rem" : "1.5rem",
-                                        backgroundColor: index === currentIndex ? BRAND.gold : "rgba(255,255,255,0.4)",
+                                        background: index === currentIndex ? GRAD_LOGO : "rgba(255,255,255,0.3)",
                                     }}
                                 />
                             ))}
                         </div>
                     </div>
                 </div>
-
                 <motion.div
                     className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/70"
                     animate={{ y: [0, 10, 0] }}
@@ -837,13 +852,14 @@ export default function Home() {
                     <svg width="18" height="28" viewBox="0 0 18 28" fill="none">
                         <rect x="1" y="1" width="16" height="26" rx="8" stroke="currentColor" strokeWidth="1.5" />
                         <motion.circle
-                            cx="9" cy="8" r="2.5" fill={BRAND.gold}
+                            cx="9" cy="8" r="2.5" fill={BRAND.cyan}
                             animate={{ y: [0, 10, 0] }}
                             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                         />
                     </svg>
                 </motion.div>
             </section>
+
             <section ref={wrapRef} className="relative w-full overflow-hidden h-auto lg:h-screen">
                 <div className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 flex-col gap-3">
                     {cards.map((_, i) => (
@@ -851,66 +867,76 @@ export default function Home() {
                             key={i}
                             ref={(el) => (progressRefs.current[i] = el)}
                             className="h-2 rounded-full transition-all duration-300"
-                            style={{ width: "8px", backgroundColor: BRAND.gold, opacity: 0.3 }}
+                            style={{ width: "8px", background: GRAD_LOGO, opacity: 0.3 }}
                         />
                     ))}
                 </div>
-
                 {cards.map((panel, i) => (
                     <div
                         key={i}
                         ref={(el) => (panelRefs.current[i] = el)}
                         className="relative lg:absolute lg:inset-0 flex items-center py-16 lg:py-0"
                         style={{
-                            backgroundColor: panel.theme === "dark" ? BRAND.navyDeep : BRAND.mist,
+                            backgroundColor: panel.theme === "dark" ? BRAND.ink : BRAND.mist,
                             willChange: "transform, opacity",
                         }}
                     >
                         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                            <div className={`relative rounded-3xl overflow-hidden shadow-2xl h-[300px] lg:h-[440px] ${i % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.94 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true, margin: "-15%" }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                whileHover={{ scale: 1.02 }}
+                                className={`relative rounded-3xl overflow-hidden shadow-2xl h-[300px] lg:h-[440px] ${i % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}
+                                style={{ boxShadow: `0 30px 70px -25px ${panel.theme === "dark" ? BRAND.cyan + "40" : "#0002"}` }}
+                            >
                                 <img
                                     src={panel.image}
                                     alt={panel.title}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                                 />
                                 <div className="absolute inset-0" style={{
                                     background:
                                         panel.theme === "dark"
-                                            ? "linear-gradient(180deg, transparent 40%, rgba(10,31,68,0.6) 100%)"
+                                            ? `linear-gradient(180deg, transparent 40%, ${BRAND.ink}99 100%)`
                                             : "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.15) 100%)",
                                 }}
                                 />
-                            </div>
-
-                            <div className={i % 2 === 1 ? "lg:order-1" : "lg:order-2"}>
+                                <div className="absolute inset-0 ring-1 ring-inset rounded-3xl pointer-events-none" style={{ boxShadow: `inset 0 0 0 1px ${BRAND.cyan}26` }} />
+                            </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, x: i % 2 === 1 ? -60 : 60 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, margin: "-15%" }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                className={i % 2 === 1 ? "lg:order-1" : "lg:order-2"}
+                            >
                                 <div className="flex items-center gap-3 mb-5">
-                                    <div className="w-12 h-[3px] rounded-full" style={{ background: `linear-gradient(90deg, ${BRAND.gold}, ${BRAND.navyMid})` }} />
-                                    <span className="text-xs sm:text-sm uppercase tracking-[0.2em] font-bold" style={{ color: BRAND.gold }}>
+                                    <div className="w-12 h-[3px] rounded-full" style={{ background: GRAD_LOGO }} />
+                                    <span className="text-xs sm:text-sm uppercase tracking-[0.2em] font-bold" style={{ color: BRAND.cyanDeep }}>
                                         {panel.eyebrow}
                                     </span>
                                 </div>
-
-                                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight whitespace-pre-line" style={{ color: panel.theme === "dark" ? "#fff" : BRAND.navyBright }}>
+                                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight whitespace-pre-line" style={{ color: panel.theme === "dark" ? "#fff" : BRAND.azureDeep }}>
                                     {panel.title}
                                 </h3>
-
-                                <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#C9D3E0" : "#475569" }}>
+                                <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#B9C9DB" : "#475569" }}>
                                     {panel.body}
                                 </p>
-
                                 {panel.stats && (
                                     <div className="flex gap-8 flex-wrap">
                                         {panel.stats.map((s) => (
                                             <div key={s.label}>
                                                 <div
                                                     className="text-3xl font-black"
-                                                    style={{ color: panel.theme === "dark" ? BRAND.goldLight : BRAND.navyBright }}
+                                                    style={{ color: panel.theme === "dark" ? BRAND.cyan : BRAND.azureDeep }}
                                                 >
                                                     {s.value}
                                                 </div>
                                                 <div
                                                     className="text-xs mt-1 uppercase tracking-wide"
-                                                    style={{ color: panel.theme === "dark" ? "#94A3B8" : "#64748B" }}
+                                                    style={{ color: panel.theme === "dark" ? "#8FA6BE" : "#64748B" }}
                                                 >
                                                     {s.label}
                                                 </div>
@@ -918,135 +944,126 @@ export default function Home() {
                                         ))}
                                     </div>
                                 )}
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 ))}
             </section>
-
-            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28">
-                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/banner.jpg')" }} />
+            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.ink }}>
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-30"
+                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2000&auto=format&fit=crop')" }}
+                />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${BRAND.ink}, ${BRAND.ink}dd)` }} />
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-12 sm:mb-16 lg:mb-20 grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
                         <motion.div initial={{ opacity: 0, x: -80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
-                            <p className="mb-2 sm:mb-4 font-semibold uppercase tracking-[3px] sm:tracking-[4px] text-xs sm:text-sm" style={{ color: BRAND.navyMid }}>
+                            <p className="mb-2 sm:mb-4 font-semibold uppercase tracking-[3px] sm:tracking-[4px] text-xs sm:text-sm" style={{ color: BRAND.cyan }}>
                                 THE SAMRAT GLOBAL
                             </p>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-black">
-                                Connect The World<br />With Excellence
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white">
+                                Connect The World<br />
+                                <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>With Excellence</span>
                             </h2>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} viewport={{ once: true }}>
-                            <p className="text-base sm:text-lg md:text-xl leading-7 sm:leading-9 text-gray-950">
-                                We, <span className="font-bold" style={{ color: BRAND.navyMid }}>SAMRAT GLOBAL</span> are a sourcing & export company based in India, offering sourcing, procurement solutions and worldwide export services.
+                            <p className="text-base sm:text-lg md:text-xl leading-7 sm:leading-9" style={{ color: BRAND.slate }}>
+                                We, <span className="font-bold" style={{ color: BRAND.cyan }}>SAMRAT GLOBAL</span> are a sourcing & export company based in India, offering sourcing, procurement solutions and worldwide export services.
                             </p>
                         </motion.div>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 justify-items-center">
-                        {cards1.map((card, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 80, scale: 0.95 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                                viewport={{ once: true }}
-                            >
-                                <TiltCard
-                                    tiltStrength={8}
-                                    className="group relative overflow-hidden w-full sm:max-w-[340px] lg:max-w-[380px] h-[340px] lg:h-[380px] rounded-[32px] bg-white border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-shadow duration-700 hover:shadow-[0_40px_90px_rgba(0,0,0,0.30)]"
-                                >
-                                    <div className="relative w-[400px] h-[230px] overflow-hidden">
-                                        <img src={card.image} alt={card.title} className="h-full w-full object-cover transition-all duration-1000 group-hover:scale-110" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                                        <div className="absolute bottom-[-25px] left-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-3 group-hover:scale-110" style={{ color: BRAND.navyBright }}>
-                                            {card.icon}
-                                        </div>
-                                    </div>
-                                    <div className="relative flex h-[120px] flex-col justify-between px-7 pt-10 pb-7">
-                                        <div>
-                                            <h3 className="text-2xl font-bold leading-tight transition-colors duration-500" style={{ color: "#1E3A5F" }}>
-                                                {card.title}
-                                            </h3>
-                                        </div>
-                                        <div className="h-[3px] w-14 rounded-full transition-all duration-700 group-hover:w-full" style={{ background: `linear-gradient(90deg, ${BRAND.navyBright}, ${BRAND.gold})` }} />
-                                    </div>
-                                </TiltCard>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </section>
-            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.mist }}>
-                <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.navyBright}1a` }} />
-                <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.gold}1a` }} />
+            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: "#F5F9FF" }}>
+                <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.azure}1a` }} />
+                <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.cyan}1a` }} />
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="mb-16 lg:mb-24">
-                        <p className="mb-3 text-xs sm:text-sm font-semibold uppercase tracking-[4px]" style={{ color: BRAND.navyBright }}>WHY CHOOSE US</p>
+                        <p className="mb-3 text-xs sm:text-sm font-semibold uppercase tracking-[4px]" style={{ color: BRAND.azureDeep }}>WHY CHOOSE US</p>
                         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
                             Core
-                            <span className="ml-3 bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, ${BRAND.navyBright}, ${BRAND.gold})` }}>Commitments</span>
+                            <span className="ml-3 bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Commitments</span>
                         </h2>
                     </motion.div>
 
-                    <div className="space-y-8">
+                    <motion.div
+                        variants={staggerParent}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, margin: "-10%" }}
+                        className="space-y-8"
+                    >
                         {commitments.map((item, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 80 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                                viewport={{ once: true }}
-                                className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200 px-6 py-8 sm:px-10 sm:py-10 shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_35px_80px_rgba(0,0,0,0.12)]"
+                                variants={fadeUp}
+                                whileHover={{ y: -6 }}
+                                className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200 px-6 py-8 sm:px-10 sm:py-10 shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-shadow duration-700 hover:shadow-[0_35px_80px_rgba(30,64,175,0.14)]"
                             >
-                                <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100" style={{ background: `linear-gradient(90deg, ${BRAND.navyBright}0d, ${BRAND.gold}1a)` }} />
+                                <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100" style={{ background: GRAD_LOGO_SOFT }} />
                                 <div className="relative grid items-center gap-8 lg:grid-cols-12">
-                                    <div className="lg:col-span-1 flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-white shadow-lg transition-all duration-500 group-hover:scale-110" style={{ backgroundColor: BRAND.navyBright }}>
+                                    <div className="lg:col-span-1 flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-white shadow-lg transition-all duration-500 group-hover:scale-110" style={{ background: GRAD_LOGO }}>
                                         {String(index + 1).padStart(2, '0')}
                                     </div>
-                                    <motion.h2
-                                        initial={{ x: -80 }} whileInView={{ x: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-                                        className="lg:col-span-7 text-3xl sm:text-4xl lg:text-6xl font-black uppercase tracking-tight text-slate-900 transition-colors duration-500 group-hover:text-[#123C73]"
-                                    >
+                                    <h2 className="lg:col-span-7 text-3xl sm:text-4xl lg:text-6xl font-black uppercase tracking-tight text-slate-900 transition-colors duration-500" style={{ "--hover-color": BRAND.azureDeep }}>
                                         {item.title}
-                                    </motion.h2>
-                                    <motion.div initial={{ x: 80, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 0.7 }} viewport={{ once: true }} className="lg:col-span-4">
+                                    </h2>
+                                    <div className="lg:col-span-4">
                                         <p className="text-base sm:text-lg leading-8 text-slate-600">{item.description}</p>
-                                        <div className="mt-6 h-[3px] w-12 rounded-full transition-all duration-700 group-hover:w-full" style={{ background: `linear-gradient(90deg, ${BRAND.navyBright}, ${BRAND.gold})` }} />
-                                    </motion.div>
+                                        <div className="mt-6 h-[3px] w-12 rounded-full transition-all duration-700 group-hover:w-full" style={{ background: GRAD_LOGO }} />
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
             </section>
             <CargoKiteTechSection />
-            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: "#020617" }}>
-                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2000')" }} />
-                <div className="absolute inset-0 bg-black/50" />
+            <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.ink }}>
+                <div className="absolute inset-0 bg-cover bg-center opacity-25" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2000&auto=format&fit=crop')" }} />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${BRAND.ink}e6, ${BRAND.ink})` }} />
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl">
-                        <p className="mb-3 sm:mb-5 text-xs sm:text-sm font-semibold uppercase tracking-[3px] sm:tracking-[5px]" style={{ color: BRAND.navyMid }}>WHAT WE DO</p>
+                        <p className="mb-3 sm:mb-5 text-xs sm:text-sm font-semibold uppercase tracking-[3px] sm:tracking-[5px]" style={{ color: BRAND.cyan }}>WHAT WE DO</p>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white">
-                            Smart Sourcing & <span className="block" style={{ color: BRAND.navyMid }}>Procurement Solutions</span>
+                            Smart Sourcing & <span className="block bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Procurement Solutions</span>
                         </h2>
-                        <p className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 sm:leading-8 text-gray-300">
+                        <p className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 sm:leading-8" style={{ color: BRAND.slate }}>
                             Secure storage and efficient cargo management are essential parts of the supply chain. We provide reliable sourcing, procurement and export solutions worldwide.
                         </p>
                     </motion.div>
 
                     <div className="grid items-center gap-8 sm:gap-10 lg:gap-12 lg:grid-cols-2">
-                        <motion.div initial={{ opacity: 0, x: -150 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }} className="relative">
-                            <div className="overflow-hidden rounded-[30px] sm:rounded-[40px] shadow-2xl">
-                                <img src="https://images.unsplash.com/photo-1565619624098-cf4168a33f0a?q=80&w=1200" alt="Cargo management" className="h-[300px] sm:h-[400px] lg:h-[550px] w-full object-cover transition duration-700 hover:scale-110" />
+                        <motion.div
+                            initial={{ opacity: 0, x: -150 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.9 }}
+                            viewport={{ once: true }}
+                            whileHover={{ y: -6 }}
+                            className="relative"
+                        >
+                            <div className="overflow-hidden rounded-[30px] sm:rounded-[40px] shadow-2xl" style={{ boxShadow: `0 30px 80px -25px ${BRAND.cyan}40` }}>
+                                <img
+                                    src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=1400&auto=format&fit=crop"
+                                    alt="Cargo management"
+                                    className="h-[300px] sm:h-[400px] lg:h-[550px] w-full object-cover transition duration-700 hover:scale-110"
+                                />
+                                <div className="absolute inset-0 ring-1 ring-inset rounded-[30px] sm:rounded-[40px]" style={{ boxShadow: `inset 0 0 0 1px ${BRAND.cyan}33` }} />
                             </div>
-                            <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-4 sm:left-6 lg:left-8 rounded-xl sm:rounded-2xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 text-white shadow-xl" style={{ backgroundColor: BRAND.navyBright }}>
+                            <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-4 sm:left-6 lg:left-8 rounded-xl sm:rounded-2xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 text-white shadow-xl" style={{ background: GRAD_LOGO, boxShadow: `0 15px 40px -10px ${BRAND.cyan}80` }}>
                                 <p className="text-2xl sm:text-3xl lg:text-4xl font-bold">24/7</p>
                                 <p className="text-xs sm:text-sm">Global Support</p>
                             </div>
                         </motion.div>
 
-                        <motion.div initial={{ opacity: 0, x: 200 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.9 }} viewport={{ once: true }} className="rounded-[30px] sm:rounded-[40px] border border-white/20 bg-white/10 p-6 sm:p-8 lg:p-10 backdrop-blur-xl">
+                        <motion.div
+                            initial={{ opacity: 0, x: 200 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.9 }}
+                            viewport={{ once: true }}
+                            className="rounded-[30px] sm:rounded-[40px] border p-6 sm:p-8 lg:p-10 backdrop-blur-xl"
+                            style={{ borderColor: `${BRAND.mist}22`, backgroundColor: "#0E233833" }}
+                        >
                             <h3 className="mb-6 sm:mb-8 text-2xl sm:text-3xl lg:text-4xl font-bold text-white">Sourcing & Procurement</h3>
                             <div className="space-y-3 sm:space-y-4 lg:space-y-5">
                                 {services.map((service, index) => (
@@ -1057,9 +1074,10 @@ export default function Home() {
                                         transition={{ delay: index * 0.12, duration: 0.6 }}
                                         viewport={{ once: true }}
                                         whileHover={{ x: 6 }}
-                                        className="group flex items-center gap-3 sm:gap-4 lg:gap-5 rounded-xl border border-white/10 bg-white/5 p-3 sm:p-4 lg:p-5 text-white transition duration-500 hover:bg-white/10"
+                                        className="group flex items-center gap-3 sm:gap-4 lg:gap-5 rounded-xl border p-3 sm:p-4 lg:p-5 text-white transition duration-500"
+                                        style={{ borderColor: `${BRAND.mist}1a`, backgroundColor: `${BRAND.mist}0d` }}
                                     >
-                                        <span className="flex h-8 sm:h-10 w-8 sm:w-10 flex-shrink-0 items-center justify-center rounded-full text-sm sm:text-base text-white transition-colors duration-500" style={{ backgroundColor: BRAND.navyBright }}>
+                                        <span className="flex h-8 sm:h-10 w-8 sm:w-10 flex-shrink-0 items-center justify-center rounded-full text-sm sm:text-base text-white transition-colors duration-500" style={{ background: GRAD_LOGO }}>
                                             {index + 1}
                                         </span>
                                         <p className="text-sm sm:text-base lg:text-lg">{service}</p>
@@ -1067,13 +1085,15 @@ export default function Home() {
                                 ))}
                             </div>
 
-                            <button
-                                className="mt-6 sm:mt-8 lg:mt-10 rounded-full px-6 sm:px-8 py-3 sm:py-4 font-semibold text-sm sm:text-base w-full sm:w-auto text-white shadow-lg cursor-pointer transition-shadow hover:shadow-2xl"
-                                style={{ background: `linear-gradient(90deg, ${BRAND.navyDeep}, ${BRAND.navy})` }}
+                            <motion.button
+                                whileHover={{ scale: 1.02, y: -2 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="mt-6 sm:mt-8 lg:mt-10 inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-8 py-3 sm:py-4 font-semibold text-sm sm:text-base w-full sm:w-auto text-white shadow-lg cursor-pointer transition-shadow hover:shadow-2xl"
+                                style={{ background: GRAD_LOGO, boxShadow: `0 15px 40px -10px ${BRAND.cyan}80` }}
                                 onClick={() => router.push("/service")}
                             >
-                                Explore Services →
-                            </button>
+                                Explore Services <ArrowUpRight className="w-4 h-4" />
+                            </motion.button>
                         </motion.div>
                     </div>
                 </div>
