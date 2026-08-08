@@ -113,11 +113,6 @@ const Footer = () => {
               global markets with quality products, reliable solutions, and
               seamless supply chains.
             </p>
-
-            <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-mono uppercase tracking-wider" style={{ borderColor: `${BRAND.cyan}40`, backgroundColor: `${BRAND.cyan}0f`, color: BRAND.cyan }}>
-              <Globe2 size={14} />
-              <span>Serving clients worldwide</span>
-            </div>
           </motion.div>
 
           <motion.div variants={fadeUp}>
@@ -216,7 +211,7 @@ const Footer = () => {
                 className="font-semibold transition-colors duration-300"
                 style={{ color: BRAND.cyan }}
               >
-                Nakshatra Namaha Creation
+                Nakshatra Namaha Creations
               </a>
             </p>
           </div>
