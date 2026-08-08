@@ -800,7 +800,7 @@ export default function Home() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-100 max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2"
+                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-100 max-w-2xl lg:max-w-3xl leading-relaxed px-2"
                             >
                                 {content[currentIndex].description}
                             </motion.p>
