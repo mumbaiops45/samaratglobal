@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaUsers, FaUserTie, FaBriefcase, FaAward, FaStar, FaGlobe, FaShieldAlt, FaRocket, FaClock, FaCheckCircle, FaArrowRight, FaTimes } from "react-icons/fa";
+import { FaUsers, FaUserTie, FaBriefcase, FaStar, FaGlobe, FaShieldAlt, FaRocket, FaClock, FaCheckCircle, FaArrowRight, FaTimes } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
