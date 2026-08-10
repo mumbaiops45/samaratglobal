@@ -159,7 +159,7 @@ const page = () => {
 
   return (
     <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
-      <section ref={heroRef} className="relative overflow-hidden bg-gradient-to-b from-[#EBF4FF] via-[#F4F9FF] to-white py-20 md:py-32">
+      <section ref={heroRef} className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-20 md:py-22">
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-0 left-10 w-[450px] h-[450px] bg-[#0052D4]/10 rounded-full blur-[130px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.4] pointer-events-none">
@@ -174,7 +174,7 @@ const page = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-1 gap-12 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -182,27 +182,27 @@ const page = () => {
             >
               <div
                 ref={badgeRef}
-                className="inline-flex items-center gap-2.5 bg-white/90 shadow-md backdrop-blur-md px-5 py-2.5 rounded-full border border-[#00D2FF]/40 mb-8"
+                className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 mb-8"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-[#00D2FF] animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#0052D4]">
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#00D2FF]">
                   Welcome to Samrat Global
                 </span>
               </div>
 
               <h1
                 ref={headingRef}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-[#0A2540]"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white"
               >
                 Vision,{" "}
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] via-[#0072FF] to-[#00D2FF]">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                   Mission & Values
                 </span>
               </h1>
 
               <p
                 ref={paragraphRef}
-                className="mt-6 max-w-xl text-base sm:text-lg md:text-xl leading-relaxed text-[#475569]"
+                className="mt-6 max-w-xl text-base sm:text-lg md:text-xl leading-relaxed text-slate-50"
               >
                 Learn about Samrat Global, an India-based sourcing and export company focused on premium quality, reliability, and customer-first trade partnerships worldwide.
               </p>
@@ -223,7 +223,7 @@ const page = () => {
                 ))}
               </div>
             </motion.div>
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, scale: 0.9, x: 50 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.9, ease: "easeOut" }}
@@ -252,7 +252,7 @@ const page = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </section>

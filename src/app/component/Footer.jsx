@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, ArrowUpRight, Globe2 } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const BRAND = {
@@ -16,19 +16,36 @@ const BRAND = {
   mist: "#F5F9FF",
   slate: "#8FA6BE",
 };
+
 const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
+
 const staggerParent = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const Footer = () => {
   const pathname = usePathname();
+
   const handleHomeClick = (e) => {
     if (pathname === "/") {
       e.preventDefault();
@@ -42,21 +59,52 @@ const Footer = () => {
         });
       }
     }
-  }
+  };
+
   const services = [
-    { name: "Sourcing & Procurement", href: "/service#sourcing" },
-    { name: "Global Fulfillment & Export", href: "/service#international-shipping" },
-    { name: "Domestic Distribution", href: "/service#domestic-distribution" },
-    { name: "Supplier Management", href: "/service#supplier-management" },
-    { name: "Logistics Solutions", href: "/service#logistics" },
+    {
+      name: "Sourcing & Procurement",
+      href: "/service#sourcing",
+    },
+    {
+      name: "Global Fulfillment & Export",
+      href: "/service#international-shipping",
+    },
+    {
+      name: "Domestic Distribution",
+      href: "/service#domestic-distribution",
+    },
+    {
+      name: "Supplier Management",
+      href: "/service#supplier-management",
+    },
+    {
+      name: "Logistics Solutions",
+      href: "/service#logistics",
+    },
   ];
 
   const links = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about-us" },
-    { name: "Services", href: "/service" },
-    { name: "Team", href: "/team" },
-    { name: "Contact", href: "/contact" },
+    {
+      name: "Home",
+      href: "/",
+    },
+    {
+      name: "About Us",
+      href: "/about-us",
+    },
+    {
+      name: "Services",
+      href: "/service",
+    },
+    {
+      name: "Team",
+      href: "/team",
+    },
+    {
+      name: "Contact",
+      href: "/contact",
+    },
   ];
 
   const contactItems = [
@@ -65,11 +113,9 @@ const Footer = () => {
       href: "https://www.google.com/maps/search/?api=1&query=3+B+Wing+Kurkeja+Complex+LBS+Marg+Bhandup+West+Mumbai+Maharashtra+400078",
       content: (
         <>
-          3, B Wing, Kurkeja Complex,
-          <br />
-          L.B.S. Marg, Bhandup (West),
-          <br />
-          Mumbai, Maharashtra 400078
+          <span className="block">3, B Wing, Kurkeja Complex,</span>
+          <span className="block">L.B.S. Marg, Bhandup (West),</span>
+          <span className="block">Mumbai, Maharashtra 400078</span>
         </>
       ),
     },
@@ -86,29 +132,41 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative overflow-hidden" style={{ backgroundColor: BRAND.ink }}>
-      <div className="h-[2px] w-full" style={{ background: GRAD_LOGO }} />
-      <div className="pointer-events-none absolute -top-32 -left-32 h-[420px] w-[420px] rounded-full blur-[140px]" style={{ backgroundColor: `${BRAND.azure}1a` }} />
-      <div className="pointer-events-none absolute -bottom-32 -right-32 h-[420px] w-[420px] rounded-full blur-[140px]" style={{ backgroundColor: `${BRAND.cyan}1a` }} />
-
-      <div className="relative mx-auto max-w-7xl px-6 py-20">
+    <footer
+      className="relative overflow-hidden"
+      style={{ backgroundColor: BRAND.ink }}
+    >
+      <div className="h-[2px] w-full" style={{ background: GRAD_LOGO }}/>
+      <div className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full blur-[140px]"
+        style={{ backgroundColor: `${BRAND.azure}1a` }}/>
+      <div className="pointer-events-none absolute -bottom-32 -right-32 h-[420px] w-[420px] rounded-full blur-[140px" style={{ backgroundColor: `${BRAND.cyan}1a` }}/>
+      <div className="relative mx-auto max-w-7xl px-6 py-14 sm:px-8 md:py-16 lg:px-10 lg:py-20">
         <motion.div
           variants={staggerParent}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-10%" }}
-          className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.1fr_1.2fr]"
+          viewport={{
+            once: true,
+            margin: "-10%",
+          }}
+          className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.85fr_1.15fr_1.35fr] lg:gap-10 xl:gap-16"
         >
-          <motion.div variants={fadeUp} className="space-y-6">
-            <div className="flex items-center gap-3">
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col items-start"
+          >
+            <Link
+              href="/"
+              onClick={handleHomeClick}
+              className="inline-flex items-center"
+            >
               <img
                 src="/logo-.png"
                 alt="Samrat Global"
-                className="h-20 w-[180px]"
+                className="h-[150px] w-auto max-w-full object-contain object-left"
               />
-            </div>
-
-            <p className="text-sm leading-7" style={{ color: BRAND.slate }}>
+            </Link>
+            <p className="mt-[-10px] max-w-sm text-sm leading-7" style={{ color: BRAND.slate }}>
               A trusted sourcing and export partner from India, connecting
               global markets with quality products, reliable solutions, and
               seamless supply chains.
@@ -116,20 +174,24 @@ const Footer = () => {
           </motion.div>
 
           <motion.div variants={fadeUp}>
-            <h4 className="mb-6 text-lg font-bold uppercase tracking-wide text-white">
+            <h4 className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-white">
               Quick Links
             </h4>
+
             <ul className="space-y-4">
-              {links.map((item, index) => (
-                <li key={index}>
+              {links.map((item) => (
+                <li key={item.name}>
                   <Link
                     href={item.href}
-                    onClick={item.name === "Home" ? handleHomeClick : undefined}
-                    className="group flex items-center text-sm transition-all duration-300 hover:translate-x-1.5"
+                    onClick={
+                      item.name === "Home"
+                        ? handleHomeClick
+                        : undefined
+                    }
+                    className="group inline-flex items-center text-sm transition-all duration-300 hover:translate-x-1.5"
                     style={{ color: BRAND.slate }}
                   >
-                    <span
-                      className="mr-0 h-[2px] w-0 transition-all duration-300 group-hover:mr-3 group-hover:w-4"
+                    <span className="mr-0 h-[2px] w-0 transition-all duration-300 group-hover:mr-3 group-hover:w-4"
                       style={{ background: GRAD_LOGO }}
                     />
                     <span className="transition-colors duration-300 group-hover:text-white">
@@ -141,19 +203,19 @@ const Footer = () => {
             </ul>
           </motion.div>
           <motion.div variants={fadeUp}>
-            <h4 className="mb-6 text-lg font-bold uppercase tracking-wide text-white">
+            <h4 className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-white">
               Our Services
             </h4>
+
             <ul className="space-y-4">
-              {services.map((item, index) => (
-                <li key={index}>
+              {services.map((item) => (
+                <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="group flex items-center text-sm transition-all duration-300 hover:translate-x-1.5"
+                    className="group inline-flex items-center text-sm transition-all duration-300 hover:translate-x-1.5"
                     style={{ color: BRAND.slate }}
                   >
-                    <span
-                      className="mr-0 h-[2px] w-0 transition-all duration-300 group-hover:mr-3 group-hover:w-4"
+                    <span className="mr-0 h-[2px] w-0 transition-all duration-300 group-hover:mr-3 group-hover:w-4"
                       style={{ background: GRAD_LOGO }}
                     />
                     <span className="transition-colors duration-300 group-hover:text-white">
@@ -165,50 +227,76 @@ const Footer = () => {
             </ul>
           </motion.div>
           <motion.div variants={fadeUp}>
-            <h4 className="mb-6 text-lg font-bold uppercase tracking-wide text-white">
+            <h4 className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-white">
               Contact Us
             </h4>
+
             <div className="space-y-5">
-              {contactItems.map((item, idx) => {
+              {contactItems.map((item, index) => {
                 const Icon = item.icon;
+                const isExternal = item.href.startsWith("http");
                 return (
                   <a
-                    key={idx}
+                    key={index}
                     href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={
+                      isExternal
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                     className="group flex items-start gap-4"
                   >
-                    <div
-                      className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border transition-all duration-300 group-hover:scale-110"
-                      style={{ borderColor: `${BRAND.cyan}40`, backgroundColor: `${BRAND.cyan}12` }}
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border transition-all duration-300 group-hover:scale-105"
+                      style={{
+                        borderColor: `${BRAND.cyan}40`,
+                        backgroundColor: `${BRAND.cyan}12`,
+                      }}
                     >
-                      <Icon size={18} style={{ color: BRAND.cyan }} className="transition-colors group-hover:text-white" />
+                      <Icon
+                        size={18}
+                        strokeWidth={1.8}
+                        style={{ color: BRAND.cyan }}
+                        className="transition-colors duration-300 group-hover:text-white"
+                      />
                     </div>
-                    <p
-                      className="text-sm leading-6 pt-2.5 transition-colors duration-300 group-hover:text-white"
+                    <p className="min-w-0 pt-1 text-sm leading-6 transition-colors duration-300 group-hover:text-white"
                       style={{ color: BRAND.slate }}
                     >
                       {item.content}
                     </p>
+
+                    <ArrowUpRight
+                      size={15}
+                      className="ml-auto mt-1 flex-shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                      style={{ color: BRAND.cyan }}
+                    />
                   </a>
                 );
               })}
             </div>
           </motion.div>
         </motion.div>
-        <div className="mt-10 border-t pt-6" style={{ borderColor: `${BRAND.mist}14` }}>
-          <div className="flex flex-col items-center justify-between gap-4 text-sm md:flex-row" style={{ color: BRAND.slate }}>
+
+        <div className="mt-14 border-t pt-6 md:mt-16"
+          style={{
+            borderColor: `${BRAND.mist}14`,
+          }}
+        >
+          <div className="flex flex-col items-center justify-between gap-4 text-xs sm:text-sm md:flex-row"
+            style={{ color: BRAND.slate }}
+          >
             <p className="text-center md:text-left">
               © {new Date().getFullYear()} Samrat Global. All Rights Reserved.
             </p>
+
             <p className="text-center md:text-right">
               Developed by{" "}
               <a
                 href="https://www.nakshatranamahacreations.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold transition-colors duration-300"
+                className="font-semibold transition-colors duration-300 hover:text-white"
                 style={{ color: BRAND.cyan }}
               >
                 Nakshatra Namaha Creations

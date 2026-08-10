@@ -20,19 +20,19 @@ export default function Navbar() {
     <Disclosure
       as="nav"
       className="sticky top-0 z-50 bg-[#0F172A]/95 backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
+            // className="sticky top-0 z-50 bg-[#ffffff] backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
+
     >
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <div className="flex h-20 items-center justify-between">
               <Link href="/" className="flex items-center">
-                <Image
+                <img
                   src="/logo-.png"
                   alt="Import Export Business World"
-                  width={220}
-                  height={90}
                   priority
-                  className="h-20 md:h-20 w-auto object-contain"
+                  className="h-20 md:h-32 w-auto object-contain"
                 />
               </Link>
               <div className="hidden md:flex items-center gap-3">

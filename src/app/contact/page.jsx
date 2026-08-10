@@ -172,7 +172,7 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
       
-      {/* Background Floating Ambient Particles */}
+    
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -198,9 +198,8 @@ const ContactPage = () => {
         ))}
       </div>
 
-      {/* ================= HERO SECTION ================= */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-16 md:py-28 text-white">
-        {/* Glow Spheres */}
+
         <div className="absolute top-10 right-10 w-80 h-80 bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#0052D4]/20 rounded-full blur-[140px] pointer-events-none" />
 

@@ -312,10 +312,9 @@ const page = () => {
         ))}
       </div>
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#EBF4FF] via-[#F4F9FF] to-white py-20 md:py-28 border-b border-slate-100">
+      <section className="relative md:py-20  mx-auto min-h-screen overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] ">
         <div className="absolute top-10 right-10 w-96 h-96 bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-0 left-10 w-96 h-96 bg-[#0052D4]/10 rounded-full blur-[130px] pointer-events-none" />
-
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -327,8 +326,8 @@ const page = () => {
               whileHover={{ scale: 1.03 }}
               className="inline-flex items-center gap-2.5 bg-white/90 shadow-md backdrop-blur-md px-5 py-2.5 rounded-full border border-[#00D2FF]/40 mb-6"
             >
-              <FaUsers className="text-[#0052D4]" />
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#0052D4]">
+              <FaUsers className="text-[#00D2FF]" />
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#00D2FF]">
                 Our Leadership & Team
               </span>
             </motion.div>
@@ -337,10 +336,10 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0A2540] tracking-tight leading-[1.1]"
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-50 tracking-tight leading-[1.1]"
             >
               Meet Our{" "}
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] via-[#0072FF] to-[#00D2FF]">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 Core Leadership Team
               </span>
             </motion.h1>
@@ -349,11 +348,11 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed mt-6 max-w-2xl"
+              className="text-base sm:text-lg md:text-xl text-slate-50 leading-relaxed mt-6 max-w-2xl"
             >
               Dedicated professionals committed to your global trade success, bringing decades of combined operational excellence and strategic vision.
             </motion.p>
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -373,7 +372,7 @@ const page = () => {
                   <span>{badge.text}</span>
                 </motion.div>
               ))}
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
       </section>
