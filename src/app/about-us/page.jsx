@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {FaGlobe,FaShippingFast,FaHandshake,FaAward,FaUsers,FaRocket,FaCheckCircle,FaStar,FaBuilding,FaBullseye,FaEye,FaShieldAlt,FaHeart,FaCogs,FaQuoteLeft,FaArrowRight} from "react-icons/fa";
+import { FaGlobe, FaShippingFast, FaHandshake, FaAward, FaUsers, FaRocket, FaCheckCircle, FaStar, FaBuilding, FaBullseye, FaEye, FaShieldAlt, FaHeart, FaCogs, FaQuoteLeft, FaArrowRight } from "react-icons/fa";
 import { MdVerified, MdOutlineVerifiedUser } from "react-icons/md";
 
 if (typeof window !== "undefined") {
@@ -173,86 +173,78 @@ const page = () => {
           />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-1 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16">
+          <div className="grid grid-cols-1 items-center gap-10 sm:gap-12 lg:gap-16">
+
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
+              className="w-full"
             >
               <div
                 ref={badgeRef}
-                className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 mb-8"
+                className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2
+          backdrop-blur-md sm:gap-2.5 sm:px-5 sm:py-2.5"
               >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#00D2FF] animate-pulse" />
-                <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#00D2FF]">
+                <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#00D2FF] sm:h-2.5 sm:w-2.5" />
+                <span className="truncate text-[10px] font-bold uppercase tracking-[1.5px] text-[#00D2FF] sm:text-xs sm:tracking-[2px] md:text-sm">
                   Welcome to Samrat Global
                 </span>
               </div>
 
-              <h1
-                ref={headingRef}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white"
-              >
+              <h1 ref={headingRef} className="mt-6 max-w-5xl text-3xl font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:mt-7
+          sm:text-4xl md:text-5xl lg:mt-8 lg:text-6xl xl:text-7xl">
                 Vision,{" "}
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
+                <span className="mt-1 block bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-clip-text text-transparent sm:mt-2">
                   Mission & Values
                 </span>
               </h1>
-
-              <p
-                ref={paragraphRef}
-                className="mt-6 max-w-xl text-base sm:text-lg md:text-xl leading-relaxed text-slate-50"
-              >
-                Learn about Samrat Global, an India-based sourcing and export company focused on premium quality, reliability, and customer-first trade partnerships worldwide.
+              <p ref={paragraphRef} className="mt-5 max-w-2xl text-sm leading-7 text-slate-200 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl">
+                Learn about Samrat Global, an India-based sourcing and export company
+                focused on premium quality, reliability, and customer-first trade
+                partnerships worldwide.
               </p>
-              <div ref={badgeRowRef} className="flex flex-wrap gap-3 mt-8">
+
+              <div ref={badgeRowRef} className="mt-7 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3">
                 {[
-                  { icon: <MdVerified className="text-[#00D2FF] text-lg" />, text: "ISO Certified" },
-                  { icon: <FaGlobe className="text-[#0072FF] text-lg" />, text: "Global Reach" },
-                  { icon: <FaAward className="text-[#0052D4] text-lg" />, text: "15+ Years" },
+                  {
+                    icon: <MdVerified className="text-base text-[#00D2FF] sm:text-lg" />,
+                    text: "ISO Certified",
+                  },
+                  {
+                    icon: <FaGlobe className="text-base text-[#0072FF] sm:text-lg" />,
+                    text: "Global Reach",
+                  },
+                  {
+                    icon: <FaAward className="text-base text-[#0052D4] sm:text-lg" />,
+                    text: "15+ Years",
+                  },
                 ].map((item, index) => (
                   <motion.div
                     key={index}
-                    whileHover={{ y: -4, scale: 1.03 }}
-                    className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white shadow-sm border border-slate-200 text-slate-700 text-sm font-semibold transition-all hover:border-[#00D2FF] hover:shadow-md"
+                    whileHover={{
+                      y: -4,
+                      scale: 1.03,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 20,
+                    }}
+                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white px-3.5 py-2.5 text-xs font-semibold text-slate-700 shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-[#00D2FF]/60 hover:shadow-[0_8px_30px_rgba(0,210,255,0.15)] sm:gap-2.5 sm:rounded-2xl sm:px-4 sm:py-2.5 sm:text-sm"
                   >
-                    {item.icon}
-                    <span>{item.text}</span>
+                    <span className="flex shrink-0 items-center justify-center">
+                      {item.icon}
+                    </span>
+
+                    <span className="whitespace-nowrap">
+                      {item.text}
+                    </span>
                   </motion.div>
                 ))}
               </div>
             </motion.div>
-            {/* <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: 50 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.9, ease: "easeOut" }}
-              className="relative flex justify-center"
-            >
-              <div className="absolute w-[360px] h-[360px] rounded-full blur-[100px] opacity-40 bg-[#00D2FF]" />
-              <div className="relative z-10 rounded-[32px] overflow-hidden border-4 border-white shadow-[0_25px_60px_rgba(0,82,212,0.15)] group">
-                <img
-                  src="/commercial.jpg"
-                  alt="Samrat Global Sourcing"
-                  className="w-[340px] sm:w-[420px] lg:w-[480px] h-[440px] object-cover transition duration-700 group-hover:scale-105"
-                />
-                <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/85 backdrop-blur-md border border-white/60 p-4 shadow-lg">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-[#0A2540] font-bold text-base">
-                        Global Export Excellence
-                      </h3>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        Trusted sourcing & logistics from India
-                      </p>
-                    </div>
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#0052D4] to-[#00D2FF] flex items-center justify-center text-white text-lg shadow-md">
-                      <FaGlobe />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div> */}
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {FaUsers,FaUserTie,FaBriefcase,FaAward,FaStar,FaGlobe,FaShieldAlt,FaRocket,FaClock,FaCheckCircle,FaArrowRight,FaTimes} from "react-icons/fa";
+import { FaUsers, FaUserTie, FaBriefcase, FaAward, FaStar, FaGlobe, FaShieldAlt, FaRocket, FaClock, FaCheckCircle, FaArrowRight, FaTimes } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
@@ -286,7 +286,7 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
+    <div className=" bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -312,19 +312,18 @@ const page = () => {
         ))}
       </div>
 
-      <section className="relative md:py-20  mx-auto min-h-screen overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] ">
-        <div className="absolute top-10 right-10 w-96 h-96 bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-96 h-96 bg-[#0052D4]/10 rounded-full blur-[130px] pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl"
-          >
+
+      <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540]">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-[#00D2FF]/10 blur-[100px] sm:h-96 sm:w-96" />
+          <div className="absolute left-1/2 top-1/2 h-40 w-[70%] -translate-x-1/2 rounded-full bg-[#60EFFF]/5 blur-[100px]" />
+        </div>
+
+        <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16">
+          <div className="max-w-4xl ">
             <motion.div
               whileHover={{ scale: 1.03 }}
-              className="inline-flex items-center gap-2.5 bg-white/90 shadow-md backdrop-blur-md px-5 py-2.5 rounded-full border border-[#00D2FF]/40 mb-6"
+              className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 mb-6"
             >
               <FaUsers className="text-[#00D2FF]" />
               <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#00D2FF]">
@@ -336,10 +335,10 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-50 tracking-tight leading-[1.1]"
+              className="text-3xl font-extrabold leading-[1.08] tracking-[-0.02em] text-slate-50 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             >
               Meet Our{" "}
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
+              <span className="mt-1 block bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-[length:200%_auto] bg-clip-text text-transparent sm:mt-2">
                 Core Leadership Team
               </span>
             </motion.h1>
@@ -348,34 +347,26 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-base sm:text-lg md:text-xl text-slate-50 leading-relaxed mt-6 max-w-2xl"
+              className="mx-auto mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl"
             >
-              Dedicated professionals committed to your global trade success, bringing decades of combined operational excellence and strategic vision.
+              Dedicated professionals committed to your global trade success,
+              bringing decades of combined operational excellence and strategic
+              vision.
             </motion.p>
-            {/* <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-wrap gap-3 mt-8"
-            >
-              {[
-                { icon: <FaBriefcase />, text: "100+ Combined Experience" },
-                { icon: <FaGlobe />, text: "50+ Countries" },
-                { icon: <FaAward />, text: "Global Expertise" },
-              ].map((badge, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  className="flex items-center gap-2.5 bg-white shadow-sm px-4 py-2.5 rounded-full border border-slate-200 text-slate-700 text-sm font-semibold hover:border-[#00D2FF] hover:shadow-md transition-all"
-                >
-                  <span className="text-[#0072FF]">{badge.icon}</span>
-                  <span>{badge.text}</span>
-                </motion.div>
-              ))}
-            </motion.div> */}
-          </motion.div>
+              className="mx-auto mt-8 h-px w-20 origin-center bg-gradient-to-r from-transparent via-[#00D2FF] to-transparent sm:mt-10 sm:w-24"
+            />
+          </div>
         </div>
       </section>
+
+
+
+
 
       <section className="py-14 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
