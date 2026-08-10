@@ -347,7 +347,7 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="mx-auto mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl"
+              className=" mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl"
             >
               Dedicated professionals committed to your global trade success,
               bringing decades of combined operational excellence and strategic

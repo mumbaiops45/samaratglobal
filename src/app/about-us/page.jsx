@@ -182,10 +182,7 @@ const page = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="w-full"
             >
-              <div
-                ref={badgeRef}
-                className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2
-          backdrop-blur-md sm:gap-2.5 sm:px-5 sm:py-2.5"
+              <div ref={badgeRef} className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md sm:gap-2.5 sm:px-5 sm:py-2.5"
               >
                 <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#00D2FF] sm:h-2.5 sm:w-2.5" />
                 <span className="truncate text-[10px] font-bold uppercase tracking-[1.5px] text-[#00D2FF] sm:text-xs sm:tracking-[2px] md:text-sm">
