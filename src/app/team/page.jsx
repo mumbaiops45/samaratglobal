@@ -521,7 +521,7 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="py-20 bg-gradient-to-r from-[#0052D4] via-[#0072FF] to-[#00D2FF] text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] relative overflow-hidden">
         <div className="absolute right-0 top-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center relative z-10">
@@ -531,7 +531,7 @@ const page = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
               Join Our Global <span className="text-[#60EFFF]">Team</span>
             </h2>
             <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">

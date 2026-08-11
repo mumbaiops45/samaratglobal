@@ -19,8 +19,8 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="sticky top-0 z-50 bg-[#0F172A]/95 backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
-            // className="sticky top-0 z-50 bg-[#ffffff] backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
+      // className="sticky top-0 z-50 bg-[#0F172A]/95 backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
+            className="sticky top-0 z-50 bg-[#ffffff] backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
 
     >
       {({ open }) => (
@@ -46,7 +46,7 @@ export default function Navbar() {
                         ${
                           active
                             ? "text-cyan-400"
-                            : "text-white hover:text-cyan-400"
+                            : "text-black hover:text-cyan-400"
                         } 
                         after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-cyan-400 after:transition-all after:duration-300
                         ${
@@ -62,7 +62,7 @@ export default function Navbar() {
                 })}
               </div>
               <div className="md:hidden">
-                <DisclosureButton className="rounded-lg p-2 text-white hover:bg-white/10">
+                <DisclosureButton className="rounded-lg p-2 text-black hover:bg-white/10">
                   {open ? (
                     <XMarkIcon className="h-8 w-8" />
                   ) : (

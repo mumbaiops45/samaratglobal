@@ -330,7 +330,8 @@ const CargoKiteTechSection = () => {
 
         const scene = new THREE.Scene();
         sceneRef.current = scene;
-        scene.background = new THREE.Color(0x050b14);
+        // scene.background = new THREE.Color(0x050b14);
+         scene.background = new THREE.Color(0xF5F9FF);
         scene.fog = new THREE.FogExp2(0x050b14, 0.004);
 
         const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
@@ -551,7 +552,8 @@ const CargoKiteTechSection = () => {
     }, [activeIndex]);
 
     return (
-        <section ref={sectionContainerRef} className="relative w-full text-slate-100 font-sans" style={{ backgroundColor: BRAND.ink }}>
+        <section ref={sectionContainerRef} className="relative w-full text-slate-100 font-sans " >
+            {/* style={{ backgroundColor: BRAND.ink }} */}
             <div className="sticky top-0 h-screen w-full overflow-hidden z-0 pointer-events-auto">
                 <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
                 {hotspots2D.map((pos, idx) => {
@@ -605,10 +607,12 @@ const CargoKiteTechSection = () => {
                         <Sparkles className="w-3.5 h-3.5 animate-pulse" />
                         <span>The Samrat Global</span>
                     </div>
-                    <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tight leading-none mb-4">
+                    <h1 className="text-4xl lg:text-6xl font-black text-black tracking-tight leading-none mb-4">
                         About <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Us</span>
                     </h1>
-                    <p className="text-slate-300 text-sm lg:text-base leading-relaxed backdrop-blur-md p-4 rounded-2xl border" style={{ backgroundColor: "#050B1466", borderColor: `${BRAND.mist}0d` }}>
+                    <p className="text-slate-800 text-sm lg:text-base leading-relaxed backdrop-blur-md p-4 rounded-2xl"
+                    //  style={{ backgroundColor: "#050B1466", borderColor: `${BRAND.mist}0d` }}
+                     >
                         Building global partnerships through reliable sourcing, procurement and export solutions.
                     </p>
                 </motion.div>
@@ -622,7 +626,7 @@ const CargoKiteTechSection = () => {
                                 <div
                                     className="relative p-8 lg:p-10 rounded-3xl backdrop-blur-2xl border shadow-2xl transition-all duration-700"
                                     style={isActive
-                                        ? { backgroundColor: "#0A1A2Ce6", borderColor: `${BRAND.cyan}cc`, boxShadow: `0 25px 70px -20px ${BRAND.cyan}33`, transform: "scale(1.05)" }
+                                        ? { backgroundColor: "#F3F4F6", borderColor: `${BRAND.cyan}cc`, boxShadow: `0 25px 70px -20px ${BRAND.cyan}33`, transform: "scale(1.05)" }
                                         : { backgroundColor: "#0A1A2C80", borderColor: `${BRAND.mist}1a`, opacity: 0.6 }}
                                 >
                                     <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl font-black text-xs font-mono shadow-lg" style={{ background: GRAD_LOGO, color: BRAND.ink }}>
@@ -632,17 +636,17 @@ const CargoKiteTechSection = () => {
                                         {IconComponent && <IconComponent className="w-6 h-6" style={{ color: BRAND.cyan }} />}
                                         <span className="text-xs font-mono font-bold uppercase tracking-widest" style={{ color: BRAND.cyan }}>{sec.badge}</span>
                                     </div>
-                                    <h2 className="text-3xl font-black text-white mb-1 tracking-tight">{sec.title}</h2>
+                                    <h2 className="text-3xl font-black text-black mb-1 tracking-tight">{sec.title}</h2>
                                     <p className="text-[11px] font-mono uppercase tracking-wider mb-6" style={{ color: `${BRAND.cyan}cc` }}>{sec.subtitle}</p>
                                     <div className="space-y-4 mb-8">
                                         {sec.paragraphs.map((p, pIdx) => (
-                                            <p key={pIdx} className="text-sm text-slate-200 leading-relaxed">{p}</p>
+                                            <p key={pIdx} className="text-sm text-slate-800 leading-relaxed">{p}</p>
                                         ))}
                                     </div>
                                     <div className="grid grid-cols-3 gap-3 pt-4 border-t mb-6" style={{ borderColor: `${BRAND.steel}cc` }}>
                                         {Object.values(sec.telemetry).map((t, tIdx) => (
-                                            <div key={tIdx} className="p-3 rounded-2xl border" style={{ backgroundColor: "#050B14cc", borderColor: BRAND.steel }}>
-                                                <div className="text-[9px] font-mono text-slate-400 uppercase truncate">{t.label}</div>
+                                            <div key={tIdx} className="p-3 rounded-2xl border" >
+                                                <div className="text-[11px] font-mono text-slate-800 uppercase truncate">{t.label}</div>
                                                 <div className="text-sm font-bold font-mono mt-0.5" style={{ color: BRAND.cyan }}>{t.value}</div>
                                             </div>
                                         ))}
@@ -774,8 +778,7 @@ export default function Home() {
                     playsInline
                     preload="auto"
                 />
-                <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${BRAND.ink}cc 0%, ${BRAND.ink}66 45%, ${BRAND.azureDeep}55 100%)` }} />
-
+                <div className='absolute inset-0 bg-black/15' />
                 <div className="relative z-10 h-full flex items-center  px-4 sm:px-6 md:px-10">
                     <div className="max-w-4xl lg:max-w-5xl  text-white">
                         <AnimatePresence mode="wait">
@@ -800,7 +803,7 @@ export default function Home() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-100 max-w-2xl lg:max-w-3xl leading-relaxed px-2"
+                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-50 max-w-2xl lg:max-w-3xl leading-relaxed px-2"
                             >
                                 {content[currentIndex].description}
                             </motion.p>
@@ -877,7 +880,8 @@ export default function Home() {
                         ref={(el) => (panelRefs.current[i] = el)}
                         className="relative lg:absolute lg:inset-0 flex items-center py-16 lg:py-0"
                         style={{
-                            backgroundColor: panel.theme === "dark" ? BRAND.ink : BRAND.mist,
+                            // backgroundColor: panel.theme === "dark" ? BRAND.ink : BRAND.mist,
+                            backgroundColor: panel.theme === BRAND.mist ? BRAND.ink : BRAND.mist,
                             willChange: "transform, opacity",
                         }}
                     >
@@ -918,10 +922,10 @@ export default function Home() {
                                         {panel.eyebrow}
                                     </span>
                                 </div>
-                                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight whitespace-pre-line" style={{ color: panel.theme === "dark" ? "#fff" : BRAND.azureDeep }}>
+                                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight whitespace-pre-line" style={{ color: panel.theme === "dark" ? BRAND.azureDeep : BRAND.azureDeep }}>
                                     {panel.title}
                                 </h3>
-                                <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#B9C9DB" : "#475569" }}>
+                                <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#475569" : "#475569" }}>
                                     {panel.body}
                                 </p>
                                 {panel.stats && (
@@ -1020,14 +1024,17 @@ export default function Home() {
                     </motion.div>
                 </div>
             </section>
+
             <CargoKiteTechSection />
+
+
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.ink }}>
-                <div className="absolute inset-0 bg-cover bg-center opacity-90" 
-                   style={{ backgroundImage: "url('ship.jpg')" }} 
+                <div className="absolute inset-0 bg-cover bg-center opacity-90"
+                    style={{ backgroundImage: "url('ship.jpg')" }}
                 />
 
 
-                
+
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl">
                         <p className="mb-3 sm:mb-5 text-xs sm:text-sm font-semibold uppercase tracking-[3px] sm:tracking-[5px]" style={{ color: BRAND.cyan }}>WHAT WE DO</p>

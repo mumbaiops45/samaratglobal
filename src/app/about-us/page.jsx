@@ -490,7 +490,7 @@ const page = () => {
         </div>
       </section>
 
-      <section className="py-14 bg-gradient-to-r from-[#0052D4] via-[#0072FF] to-[#00D2FF] text-white overflow-hidden relative shadow-inner">
+      <section className="py-14 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] overflow-hidden relative shadow-inner">
         <div className="text-center mb-8">
           <span className="text-xs uppercase font-bold tracking-[4px] text-white/80 bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
             End-To-End Capabilities
@@ -660,10 +660,10 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className="py-20 bg-gradient-to-r from-[#0052D4] to-[#0072FF] text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-[#00D2FF]/20 rounded-full blur-[120px] pointer-events-none" />
+      <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] relative overflow-hidden">
+        {/* <div className="absolute right-0 top-0 w-96 h-96 bg-[#00D2FF]/20 rounded-full blur-[120px] pointer-events-none" /> */}
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] tracking-tight mb-6">
             Ready to Scale Your Global Trade Operations?
           </h2>
           <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8">
