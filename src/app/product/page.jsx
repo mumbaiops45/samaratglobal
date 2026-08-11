@@ -467,7 +467,7 @@ const page = () => {
         </div>
       </section>
 
-      <section className="py-14 bg-white border-b border-slate-100">
+      {/* <section className="py-14 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
@@ -498,7 +498,7 @@ const page = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="py-16 md:py-24 bg-[#F4F9FF]">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <motion.div
