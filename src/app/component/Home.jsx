@@ -61,6 +61,7 @@ const TECH_SECTIONS = [
         subtitle: "GLOBAL SOURCING & EXPORT PARTNER",
         badge: "Company",
         icon: Building2,
+        images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyY2RYj6GEWQiZxKknVPWGK6GtjC6BAT_O_EqCRnuFEy7o0ys3LeL5TVDP&s=10",
         paragraphs: [
             "The Samrat Global is a sourcing and export company based in India.",
             "Driven by innovation and a customer-centric approach, we serve as a strategic sourcing partner for businesses worldwide."
@@ -81,6 +82,7 @@ const TECH_SECTIONS = [
         subtitle: "BUILDING VALUE THROUGH TRUST & QUALITY",
         badge: "Our Purpose",
         icon: Target,
+        images: "https://intoindia.blog/wp-content/uploads/2021/07/india_office-1.jpg?w=1200",
         paragraphs: [
             "To create lasting value for customers worldwide by delivering excellence through quality, innovation, and trust.",
             "We build sustainable partnerships that help businesses grow across global markets."
@@ -101,6 +103,7 @@ const TECH_SECTIONS = [
         subtitle: "CONNECTING GLOBAL MARKETS",
         badge: "Future",
         icon: Eye,
+        images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiMVqiPm1Ov9L9-IMcuDP_uFgMBVkwVCtUbJDRZgsZMsNBr-kGkdGaeACR&s=10",
         paragraphs: [
             "To connect global markets through premium-quality products.",
             "We foster trust, reliability, and long-term value with customer-focused service."
@@ -121,8 +124,9 @@ const TECH_SECTIONS = [
         subtitle: "EXCELLENCE IN EVERY SHIPMENT",
         badge: "Quality",
         icon: Award,
+        images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Ir96KElaEbdbxSTrZeN9mHZd4cdPqAsyMgIw5IOvjfXC_6vXH12id6Y&s=10",
         paragraphs: [
-            "Consistency in quality is not just a standard — it's our commitment to excellence.",
+            "Consistency in quality is not just a standard  it's our commitment to excellence.",
             "Every product is carefully sourced and inspected to exceed customer expectations."
         ],
         cameraPos: [-22, -2, -48],
@@ -141,6 +145,7 @@ const TECH_SECTIONS = [
         subtitle: "EFFICIENT & DEPENDABLE OPERATIONS",
         badge: "Logistics",
         icon: Truck,
+        images: "https://varuna-media-prod.s3.ap-south-1.amazonaws.com/030725111210_supply_chain_management_6f0a642fa0.jpg",
         paragraphs: [
             "A strong and dependable supply chain ensures timely delivery and cost efficiency.",
             "We continuously refine our operations to maintain reliability and customer satisfaction."
@@ -161,6 +166,7 @@ const TECH_SECTIONS = [
         subtitle: "EXCEEDING EXPECTATIONS",
         badge: "Service",
         icon: Handshake,
+        images: "https://t3.ftcdn.net/jpg/10/43/42/06/360_F_1043420602_HhmKNYUQrQKmIsriU2W0u8ZWSLn7e9zs.jpg",
         paragraphs: [
             "At The Samrat Global, we don't just meet customer expectations — we exceed them.",
             "Continuous improvement allows us to build lasting relationships and deliver unmatched satisfaction."
@@ -247,414 +253,401 @@ const staggerParent = {
     show: { transition: { staggerChildren: 0.12 } },
 };
 
+
+
 const CargoKiteTechSection = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [hotspots2D, setHotspots2D] = useState([]);
-    const [isCurrentlyScrolling, setIsCurrentlyScrolling] = useState(false);
+
     const sectionContainerRef = useRef(null);
     const sectionRefs = useRef([]);
-    const mountRef = useRef(null);
-    const sceneRef = useRef(null);
-    const cameraRef = useRef(null);
-    const rendererRef = useRef(null);
-    const shipGroupRef = useRef(null);
-    const kiteMeshRef = useRef(null);
-    const tetherLineRef = useRef(null);
-    const oceanMeshRef = useRef(null);
-    const digitalTwinWireRef = useRef(null);
-    const craneContainerRef = useRef(null);
-    const currentCamPos = useRef(new THREE.Vector3(0, 85, 115));
-    const targetCamPos = useRef(new THREE.Vector3(0, 85, 115));
-    const currentCamTarget = useRef(new THREE.Vector3(0, 75, -10));
-    const targetCamTarget = useRef(new THREE.Vector3(0, 75, -10));
-    const isScrollingRef = useRef(false);
-    const scrollTimeoutRef = useRef(null);
-    const motionTimeRef = useRef(0);
-
 
     useEffect(() => {
-        const handleScroll = () => {
-            isScrollingRef.current = true;
-            setIsCurrentlyScrolling(true);
-
-            if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-            scrollTimeoutRef.current = setTimeout(() => {
-                isScrollingRef.current = false;
-                setIsCurrentlyScrolling(false);
-            }, 150);
+        const observerOptions = {
+            root: null,
+            rootMargin: "-35% 0px -35% 0px",
+            threshold: 0.25,
         };
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-            if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-        };
-    }, []);
-
-
-    useEffect(() => {
-        const observerOptions = { root: null, rootMargin: "-35% 0px -35% 0px", threshold: 0.25 };
         const handleIntersect = (entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const index = Number(entry.target.getAttribute("data-index"));
-                    if (!isNaN(index) && index !== activeIndex) {
-                        setActiveIndex(index);
-                        const section = TECH_SECTIONS[index];
-                        targetCamPos.current.set(...section.cameraPos);
-                        targetCamTarget.current.set(...section.cameraTarget);
-                    }
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const index = Number(
+                    entry.target.getAttribute(
+                        "data-index"
+                    )
+                );
+
+                if (
+                    !Number.isNaN(index) &&
+                    index >= 0 &&
+                    index < TECH_SECTIONS.length
+                ) {
+                    setActiveIndex(index);
                 }
             });
         };
 
-        const observer = new IntersectionObserver(handleIntersect, observerOptions);
-        sectionRefs.current.forEach((el) => { if (el) observer.observe(el); });
-        return () => observer.disconnect();
-    }, [activeIndex]);
+        const observer =
+            new IntersectionObserver(
+                handleIntersect,
+                observerOptions
+            );
 
-    const scrollToCard = (index) => {
-        setActiveIndex(index);
-        const section = TECH_SECTIONS[index];
-        targetCamPos.current.set(...section.cameraPos);
-        targetCamTarget.current.set(...section.cameraTarget);
-        const targetEl = sectionRefs.current[index];
-        if (targetEl) targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
-    };
-
-    useEffect(() => {
-        if (!mountRef.current) return;
-        const container = mountRef.current;
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-
-        const scene = new THREE.Scene();
-        sceneRef.current = scene;
-        // scene.background = new THREE.Color(0x050b14);
-         scene.background = new THREE.Color(0xF5F9FF);
-        scene.fog = new THREE.FogExp2(0x050b14, 0.004);
-
-        const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
-        camera.position.set(...TECH_SECTIONS[0].cameraPos);
-        cameraRef.current = camera;
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        rendererRef.current = renderer;
-        container.appendChild(renderer.domElement);
-
-        const ambientLight = new THREE.AmbientLight(0xdbeafe, 1.4);
-        scene.add(ambientLight);
-
-        const sunLight = new THREE.DirectionalLight(0xffffff, 3.0);
-        sunLight.position.set(80, 140, 100);
-        sunLight.castShadow = true;
-        scene.add(sunLight);
-
-        const cyanGlow = new THREE.PointLight(0x22d3ee, 4.5, 130);
-        cyanGlow.position.set(0, 14, 0);
-        scene.add(cyanGlow);
-
-        const oceanGeo = new THREE.PlaneGeometry(380, 380, 60, 60);
-        oceanGeo.rotateX(-Math.PI / 2);
-        const oceanMat = new THREE.MeshStandardMaterial({ color: 0x071c38, roughness: 0.15, metalness: 0.85, flatShading: true });
-        const oceanMesh = new THREE.Mesh(oceanGeo, oceanMat);
-        oceanMesh.position.y = -6;
-        scene.add(oceanMesh);
-        oceanMeshRef.current = oceanMesh;
-
-        const gridHelper = new THREE.GridHelper(380, 50, 0x2e6bff, 0x0d2a4a);
-        gridHelper.position.y = -5.9;
-        scene.add(gridHelper);
-
-        const shipGroup = new THREE.Group();
-        shipGroupRef.current = shipGroup;
-        scene.add(shipGroup);
-
-        const hullMat = new THREE.MeshStandardMaterial({ color: 0x0e2338, metalness: 0.75, roughness: 0.2 });
-        const stripeMat = new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.8 });
-
-        const createHull = (xOffset) => {
-            const hGroup = new THREE.Group();
-            const bodyMesh = new THREE.Mesh(new THREE.BoxGeometry(6.5, 4.8, 52), hullMat);
-            hGroup.add(bodyMesh);
-            const bowGeo = new THREE.ConeGeometry(3.25, 11, 4);
-            bowGeo.rotateX(Math.PI / 2);
-            bowGeo.rotateZ(Math.PI / 4);
-            const bowMesh = new THREE.Mesh(bowGeo, hullMat);
-            bowMesh.position.set(0, 0, 28);
-            hGroup.add(bowMesh);
-            const stripeMesh = new THREE.Mesh(new THREE.BoxGeometry(6.7, 0.45, 50), stripeMat);
-            stripeMesh.position.y = 0.5;
-            hGroup.add(stripeMesh);
-            hGroup.position.x = xOffset;
-            return hGroup;
-        };
-
-        shipGroup.add(createHull(-11));
-        shipGroup.add(createHull(11));
-
-        const deckMesh = new THREE.Mesh(new THREE.BoxGeometry(28, 1.6, 48), new THREE.MeshStandardMaterial({ color: 0x15304a, metalness: 0.5, roughness: 0.4 }));
-        deckMesh.position.set(0, 2.2, 0);
-        shipGroup.add(deckMesh);
-
-        const containerColors = [0x2e6bff, 0x0d9488, 0xe11d48, 0x475569, 0xd97706, 0x22d3ee, 0x059669];
-        const containerGroup = new THREE.Group();
-        for (let row = -3.5; row <= 3.5; row++) {
-            for (let col = -1; col <= 1; col++) {
-                for (let stack = 0; stack < 3; stack++) {
-                    const color = containerColors[(Math.abs(Math.floor(row)) + Math.abs(col) + stack) % containerColors.length];
-                    const cMat = new THREE.MeshStandardMaterial({ color, roughness: 0.35, metalness: 0.3 });
-                    const cMesh = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.2, 5.5), cMat);
-                    cMesh.position.set(col * 7.5, 4.5 + stack * 3.3, row * 5.8 - 2);
-                    containerGroup.add(cMesh);
-                }
+        sectionRefs.current.forEach((el) => {
+            if (el) {
+                observer.observe(el);
             }
-        }
-        shipGroup.add(containerGroup);
-
-        const craneGroup = new THREE.Group();
-        const craneMat = new THREE.MeshStandardMaterial({ color: 0x2e6bff, metalness: 0.8 });
-        const leg1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 18, 1.2), craneMat);
-        leg1.position.set(-13, 11, 2);
-        const leg2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 18, 1.2), craneMat);
-        leg2.position.set(13, 11, 2);
-        const crossBeam = new THREE.Mesh(new THREE.BoxGeometry(28, 1.5, 2), craneMat);
-        crossBeam.position.set(0, 19, 2);
-        const craneContainer = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.2, 5.5), new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.4 }));
-        craneContainer.position.set(0, 14, 2);
-        craneContainerRef.current = craneContainer;
-        craneGroup.add(leg1, leg2, crossBeam, craneContainer);
-        shipGroup.add(craneGroup);
-
-        const bridgeGroup = new THREE.Group();
-        const bridgeMesh = new THREE.Mesh(new THREE.BoxGeometry(18, 7, 9), new THREE.MeshStandardMaterial({ color: 0x0a1a2c, metalness: 0.85 }));
-        bridgeMesh.position.set(0, 6.5, 18);
-        bridgeGroup.add(bridgeMesh);
-        const glassMesh = new THREE.Mesh(new THREE.BoxGeometry(18.2, 2.4, 4.5), new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x2e6bff, transparent: true, opacity: 0.8 }));
-        glassMesh.position.set(0, 7.8, 19.5);
-        bridgeGroup.add(glassMesh);
-        const domeMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshStandardMaterial({ color: 0xf5f9ff, emissive: 0x38bdf8, emissiveIntensity: 0.5 }));
-        domeMesh.position.set(0, 15, 18);
-        bridgeGroup.add(domeMesh);
-        shipGroup.add(bridgeGroup);
-
-        const kiteGroup = new THREE.Group();
-        kiteMeshRef.current = kiteGroup;
-        const wingShape = new THREE.Shape();
-        wingShape.moveTo(-18, 0);
-        wingShape.quadraticCurveTo(0, 9, 18, 0);
-        wingShape.quadraticCurveTo(0, 2, -18, 0);
-        const kiteMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(wingShape, { depth: 1.6, bevelEnabled: true }), new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.65 }));
-        kiteMesh.rotation.x = Math.PI / 6;
-        kiteGroup.add(kiteMesh);
-        kiteGroup.position.set(0, 75, -15);
-        scene.add(kiteGroup);
-
-        const tetherLine = new THREE.Line(
-            new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 6, 22), new THREE.Vector3(0, 75, -15)]),
-            new THREE.LineBasicMaterial({ color: 0x38bdf8 })
-        );
-        scene.add(tetherLine);
-        tetherLineRef.current = tetherLine;
-
-        const digitalTwinGroup = new THREE.Group();
-        digitalTwinWireRef.current = digitalTwinGroup;
-        const wireMesh = new THREE.Mesh(new THREE.BoxGeometry(36, 32, 60), new THREE.MeshBasicMaterial({ color: 0x22d3ee, wireframe: true, transparent: true, opacity: 0.35 }));
-        wireMesh.position.set(0, 8, 0);
-        digitalTwinGroup.add(wireMesh);
-        digitalTwinGroup.visible = false;
-        scene.add(digitalTwinGroup);
-
-        const handleResize = () => {
-            if (!mountRef.current || !rendererRef.current || !cameraRef.current) return;
-            const w = mountRef.current.clientWidth;
-            const h = mountRef.current.clientHeight;
-            cameraRef.current.aspect = w / h;
-            cameraRef.current.updateProjectionMatrix();
-            rendererRef.current.setSize(w, h);
-        };
-        window.addEventListener("resize", handleResize);
-
-
-        let animId;
-        const animate = () => {
-            animId = requestAnimationFrame(animate);
-            if (isScrollingRef.current) motionTimeRef.current += 0.025;
-            const elapsed = motionTimeRef.current;
-
-            if (oceanMeshRef.current) {
-                const pos = oceanMeshRef.current.geometry.attributes.position;
-                for (let i = 0; i < pos.count; i++) {
-                    const z = Math.sin(pos.getX(i) * 0.08 + elapsed * 1.6) * 0.6 + Math.cos(pos.getY(i) * 0.08 + elapsed * 1.3) * 0.6;
-                    pos.setZ(i, z);
-                }
-                pos.needsUpdate = true;
-            }
-
-            if (shipGroupRef.current) {
-                shipGroupRef.current.position.y = Math.sin(elapsed * 1.8) * 0.45;
-                shipGroupRef.current.rotation.z = Math.sin(elapsed * 1.2) * 0.025;
-            }
-
-            if (craneContainerRef.current) {
-                craneContainerRef.current.position.y = 14 + Math.sin(elapsed * 2) * 2;
-            }
-
-            if (kiteMeshRef.current && tetherLineRef.current) {
-                const figX = Math.sin(elapsed * 1.2) * 15;
-                const figY = Math.sin(elapsed * 2.4) * 4.8;
-                kiteMeshRef.current.position.x = figX;
-                kiteMeshRef.current.position.y = 75 + figY;
-                const tPos = tetherLineRef.current.geometry.attributes.position;
-                tPos.setXYZ(1, figX, 75 + figY, -15);
-                tPos.needsUpdate = true;
-            }
-
-            currentCamPos.current.lerp(targetCamPos.current, 0.045);
-            currentCamTarget.current.lerp(targetCamTarget.current, 0.045);
-
-            if (cameraRef.current) {
-                cameraRef.current.position.copy(currentCamPos.current);
-                cameraRef.current.lookAt(currentCamTarget.current);
-            }
-
-            if (cameraRef.current && mountRef.current) {
-                const w = mountRef.current.clientWidth;
-                const h = mountRef.current.clientHeight;
-                const updated = TECH_SECTIONS.map((sec) => {
-                    const vec = new THREE.Vector3(...sec.hotspot3D);
-                    vec.project(cameraRef.current);
-                    return { x: (vec.x * 0.5 + 0.5) * w, y: (-(vec.y * 0.5) + 0.5) * h, visible: vec.z < 1 };
-                });
-                setHotspots2D(updated);
-            }
-
-            rendererRef.current?.render(scene, cameraRef.current);
-        };
-
-        animate();
+        });
 
         return () => {
-            window.removeEventListener("resize", handleResize);
-            cancelAnimationFrame(animId);
-            if (rendererRef.current && container.contains(rendererRef.current.domElement)) {
-                container.removeChild(rendererRef.current.domElement);
-            }
+            observer.disconnect();
         };
     }, []);
 
-    useEffect(() => {
-        if (digitalTwinWireRef.current) digitalTwinWireRef.current.visible = activeIndex === 5;
-    }, [activeIndex]);
+    const scrollToCard = (index) => {
+        if (
+            index < 0 ||
+            index >= TECH_SECTIONS.length
+        ) {
+            return;
+        }
+
+        setActiveIndex(index);
+
+        const targetEl =
+            sectionRefs.current[index];
+
+        if (targetEl) {
+            targetEl.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    };
+
+
+    const currentSection =
+        TECH_SECTIONS[activeIndex] ||
+        TECH_SECTIONS[0];
+
+    const currentImage =
+        currentSection?.images || "";
+
+
 
     return (
-        <section ref={sectionContainerRef} className="relative w-full text-slate-100 font-sans " >
-            {/* style={{ backgroundColor: BRAND.ink }} */}
-            <div className="sticky top-0 h-screen w-full overflow-hidden z-0 pointer-events-auto">
-                <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
-                {hotspots2D.map((pos, idx) => {
-                    if (!pos.visible) return null;
-                    const isActive = activeIndex === idx;
-                    const sec = TECH_SECTIONS[idx];
-                    return (
-                        <button
-                            key={sec.id}
-                            onClick={() => scrollToCard(idx)}
-                            style={{ left: `${pos.x}px`, top: `${pos.y}px`, transform: "translate(-50%, -50%)" }}
-                            className={`absolute z-20 transition-all duration-500 ${isActive ? "scale-125" : "scale-100 opacity-75 hover:scale-110"}`}
-                        >
-                            <div className={`absolute -inset-2 rounded-full animate-ping`} style={{ backgroundColor: isActive ? `${BRAND.cyan}66` : "#64748B33" }} />
-                            <div
-                                className="w-9 h-9 rounded-full flex items-center justify-center font-mono text-xs font-black shadow-2xl backdrop-blur-md"
-                                style={isActive
-                                    ? { background: GRAD_LOGO, color: BRAND.ink, boxShadow: `0 0 0 4px ${BRAND.cyan}40` }
-                                    : { backgroundColor: "#0A1A2Ce6", color: BRAND.mist, border: `1px solid ${BRAND.steel}` }}
-                            >
-                                {sec.number}
-                            </div>
-                        </button>
-                    );
-                })}
-                <div className="absolute top-24 right-8 z-20 pointer-events-none space-y-2 hidden sm:block text-right">
-                    <div
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl backdrop-blur-md border text-xs font-mono transition-all"
-                        style={isCurrentlyScrolling
-                            ? { backgroundColor: `${BRAND.cyan}22`, borderColor: `${BRAND.cyan}66`, color: BRAND.cyan }
-                            : { backgroundColor: "#0A1A2Ccc", borderColor: BRAND.steel, color: BRAND.slate }}
-                    >
-                        <span className={`w-2.5 h-2.5 rounded-full ${isCurrentlyScrolling ? "animate-ping" : ""}`} style={{ backgroundColor: isCurrentlyScrolling ? BRAND.cyan : "#475569" }} />
-                        <span>{isCurrentlyScrolling ? "SCROLL MOTION: RUNNING" : "SCROLL MOTION: PAUSED"}</span>
-                    </div>
-                </div>
-            </div>
+        <section ref={sectionContainerRef} className="relative w-full text-slate-100 font-sans bg-white">
 
-            <div className="relative z-10 -mt-[100vh] w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-48 pointer-events-none">
+            <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 lg:pt-32 pb-32">
                 <motion.div
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true, margin: "-10%" }}
+                    viewport={{
+                        once: true,
+                        margin: "-10%",
+                    }}
                     variants={fadeUp}
-                    className="max-w-xl mb-32 pointer-events-auto"
+                    className="max-w-2xl mb-20 lg:mb-28"
                 >
-                    <div
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase mb-4 backdrop-blur-md border"
-                        style={{ backgroundColor: `${BRAND.cyan}14`, borderColor: `${BRAND.cyan}4d`, color: BRAND.cyan }}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase mb-4 border"
+                        style={{
+                            backgroundColor:
+                                `${BRAND.cyan}14`,
+                            borderColor:
+                                `${BRAND.cyan}4d`,
+                            color: BRAND.cyan,
+                        }}
                     >
-                        <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+                        <Sparkles className="w-3.5 h-3.5" />
                         <span>The Samrat Global</span>
                     </div>
-                    <h1 className="text-4xl lg:text-6xl font-black text-black tracking-tight leading-none mb-4">
-                        About <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Us</span>
+
+                    <h1 className="text-4xl lg:text-6xl font-black text-black tracking-tight leading-none mb-5">
+                        About{" "}
+                        <span className="bg-clip-text text-transparent"
+                            style={{
+                                backgroundImage:
+                                    GRAD_LOGO,
+                            }}
+                        >
+                            Us
+                        </span>
                     </h1>
-                    <p className="text-slate-800 text-sm lg:text-base leading-relaxed backdrop-blur-md p-4 rounded-2xl"
-                    //  style={{ backgroundColor: "#050B1466", borderColor: `${BRAND.mist}0d` }}
-                     >
+                    <p className="text-slate-700 text-sm lg:text-base leading-relaxed max-w-xl">
                         Building global partnerships through reliable sourcing, procurement and export solutions.
                     </p>
-                </motion.div>
 
-                <div className="space-y-[75vh]">
-                    {TECH_SECTIONS.map((sec, idx) => {
-                        const IconComponent = sec.icon;
-                        const isActive = activeIndex === idx;
-                        return (
-                            <div key={sec.id} ref={(el) => (sectionRefs.current[idx] = el)} data-index={idx} className="max-w-xl pointer-events-auto transition-all duration-700">
-                                <div
-                                    className="relative p-8 lg:p-10 rounded-3xl backdrop-blur-2xl border shadow-2xl transition-all duration-700"
-                                    style={isActive
-                                        ? { backgroundColor: "#F3F4F6", borderColor: `${BRAND.cyan}cc`, boxShadow: `0 25px 70px -20px ${BRAND.cyan}33`, transform: "scale(1.05)" }
-                                        : { backgroundColor: "#0A1A2C80", borderColor: `${BRAND.mist}1a`, opacity: 0.6 }}
-                                >
-                                    <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl font-black text-xs font-mono shadow-lg" style={{ background: GRAD_LOGO, color: BRAND.ink }}>
-                                        {sec.number} / 06
-                                    </div>
-                                    <div className="flex items-center gap-3 mb-3">
-                                        {IconComponent && <IconComponent className="w-6 h-6" style={{ color: BRAND.cyan }} />}
-                                        <span className="text-xs font-mono font-bold uppercase tracking-widest" style={{ color: BRAND.cyan }}>{sec.badge}</span>
-                                    </div>
-                                    <h2 className="text-3xl font-black text-black mb-1 tracking-tight">{sec.title}</h2>
-                                    <p className="text-[11px] font-mono uppercase tracking-wider mb-6" style={{ color: `${BRAND.cyan}cc` }}>{sec.subtitle}</p>
-                                    <div className="space-y-4 mb-8">
-                                        {sec.paragraphs.map((p, pIdx) => (
-                                            <p key={pIdx} className="text-sm text-slate-800 leading-relaxed">{p}</p>
-                                        ))}
-                                    </div>
-                                    <div className="grid grid-cols-3 gap-3 pt-4 border-t mb-6" style={{ borderColor: `${BRAND.steel}cc` }}>
-                                        {Object.values(sec.telemetry).map((t, tIdx) => (
-                                            <div key={tIdx} className="p-3 rounded-2xl border" >
-                                                <div className="text-[11px] font-mono text-slate-800 uppercase truncate">{t.label}</div>
-                                                <div className="text-sm font-bold font-mono mt-0.5" style={{ color: BRAND.cyan }}>{t.value}</div>
+                </motion.div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch">
+
+                    <div className="space-y-[55vh]">
+
+                        {TECH_SECTIONS.map(
+                            (sec, idx) => {
+                                const IconComponent =
+                                    sec.icon;
+
+                                const isActive =
+                                    activeIndex ===
+                                    idx;
+
+                                return (
+                                    <div
+                                        key={
+                                            sec.id
+                                        }
+                                        ref={(el) => {
+                                            sectionRefs.current[
+                                                idx
+                                            ] = el;
+                                        }}
+                                        data-index={
+                                            idx
+                                        }
+                                        className="max-w-xl transition-all duration-700"
+                                    >
+                                        <motion.div
+                                            initial={{
+                                                opacity: 0.45,
+                                                y: 30,
+                                            }}
+                                            whileInView={{
+                                                opacity: 1,
+                                                y: 0,
+                                            }}
+                                            viewport={{
+                                                once: false,
+                                                margin: "-20%",
+                                            }}
+                                            transition={{
+                                                duration: 0.6,
+                                            }}
+                                            className="relative p-7 lg:p-10 md:h-[500px] rounded-3xl border shadow-xl transition-all duration-700 overflow-hidden"
+                                            style={
+                                                isActive
+                                                    ? {
+                                                        backgroundColor:
+                                                            "#F3F4F6",
+
+                                                        borderColor:
+                                                            `${BRAND.cyan}cc`,
+
+                                                        boxShadow:
+                                                            `0 25px 70px -20px ${BRAND.cyan}33`,
+
+                                                        transform:
+                                                            "scale(1.03)",
+                                                    }
+                                                    : {
+                                                        backgroundColor:
+                                                            "#FFFFFF",
+
+                                                        borderColor:
+                                                            "#E2E8F0",
+
+                                                        opacity: 0.72,
+                                                    }
+                                            }
+                                        >
+                                            <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl font-black text-xs font-mono shadow-lg"
+                                                style={{
+                                                    background:
+                                                        GRAD_LOGO,
+                                                    color:
+                                                        BRAND.ink,
+                                                }}
+                                            >
+                                                {
+                                                    sec.number
+                                                }
+
+                                                {" / "}
+
+                                                {String(
+                                                    TECH_SECTIONS.length
+                                                ).padStart(
+                                                    2,
+                                                    "0"
+                                                )}
                                             </div>
-                                        ))}
+                                            <div className="h-full flex flex-col">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    {IconComponent && (
+                                                        <IconComponent
+                                                            className="w-6 h-6"
+                                                            style={{
+                                                                color:
+                                                                    BRAND.cyan,
+                                                            }}
+                                                        />
+                                                    )}
+
+                                                    <span className="text-xs font-mono font-bold uppercase tracking-widest"
+                                                        style={{
+                                                            color:
+                                                                BRAND.cyan,
+                                                        }}
+                                                    >
+                                                        {
+                                                            sec.badge
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <h2 className="text-3xl font-black text-black mb-1 tracking-tight"
+                                                >{sec.title}</h2>
+                                                <p className="text-[11px] font-mono uppercase tracking-wider mb-6"
+                                                    style={{
+                                                        color:
+                                                            `${BRAND.cyan}cc`,
+                                                    }}
+                                                >{sec.subtitle}
+                                                </p>
+                                                <div className="space-y-4 mb-8">
+                                                    {sec.paragraphs?.map(
+                                                        (
+                                                            p,
+                                                            pIdx
+                                                        ) => (
+                                                            <p key={pIdx}
+                                                                className="text-sm text-slate-700 leading-relaxed">
+                                                                {p}</p>
+                                                        )
+                                                    )}
+                                                </div>
+                                                {sec.telemetry && (
+                                                    <div className="grid grid-cols-3 gap-3 pt-4 border-t mb-6"
+                                                        style={{ borderColor: "#CBD5E1" }}
+                                                    >
+                                                        {Object.values(sec.telemetry).map((t, tIdx) => (
+                                                            <div key={tIdx}
+                                                                className="p-3 rounded-2xl  border-slate-200 bg-white"
+                                                            >
+
+                                                                <div className="text-[10px] font-mono text-slate-500 uppercase truncate">
+                                                                    {t.label}
+                                                                </div>
+                                                                <div className="text-sm font-bold font-mono mt-0.5"
+                                                                    style={{color:BRAND.cyan,}}
+                                                                >
+                                                                    {t.value}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                );
+                            }
+                        )}
+
+                    </div>
+                    <div className="lg:sticky lg:top-22 lg:self-start flex items-start w-full">
+                    <div className="w-full">
+                            <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px] rounded-[2rem] overflow-hidden border border-slate-200 shadow-2xl bg-slate-100">
+                                <AnimatePresence mode="wait">
+                                    {currentImage ? (
+                                        <motion.img
+                                            key={currentImage}
+                                            src={currentImage}
+                                            alt={currentSection?.title ||"The Samrat Global"}
+                                            initial={{
+                                                opacity: 0,
+                                                scale: 1.05,
+                                            }}
+                                            animate={{
+                                                opacity: 1,
+                                                scale: 1,
+                                            }}
+                                            exit={{
+                                                opacity: 0,
+                                                scale: 1,
+                                            }}
+                                            transition={{
+                                                duration: 0.6,
+                                                ease:"easeInOut",
+                                            }}
+                                            className="absolute inset-0 w-full h-full object-cover object-center"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center bg-slate-100">
+                                            <span className="text-sm text-slate-400 font-mono">
+                                                Image unavailable
+                                            </span>
+                                        </div>
+                                    )}
+
+                                </AnimatePresence>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none"/>
+                                <div className="absolute-bottom-24-right-24 w-72 h-72 rounded-full blur-3xl opacity-30 pointer-events-none"
+                                    style={{backgroundColor:BRAND.cyan}}
+                                />
+
+                                <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
+                                    <div className="text-[10px] font-mono uppercase tracking-[0.25em] mb-2"
+                                        style={{color:BRAND.cyan}}
+                                    >
+                                        {currentSection?.badge}
+                                    </div>
+                                    <h3 className="text-2xl lg:text-4xl font-black tracking-tight">
+                                        {currentSection?.title}
+                                    </h3>
+                                    <p className="text-sm text-white/75 mt-2 max-w-md">
+                                        {currentSection?.subtitle}
+                                    </p>
+                                </div>
+                                <div className="absolute top-6 right-6">
+                                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black font-mono backdrop-blur-md border"
+                                        style={{backgroundColor:`${BRAND.cyan}22`,borderColor:`${BRAND.cyan}66`,color: "#fff"}}
+                                    >
+                                        {String(activeIndex +1).padStart(2,"0")}
                                     </div>
                                 </div>
                             </div>
-                        );
-                    })}
+
+                            <div className="flex items-center justify-center gap-2 mt-6">
+                                {TECH_SECTIONS.map((sec,idx) => {
+                                        const isActive =activeIndex === idx;
+                                        return (
+                                            <button key={sec.id}
+                                                type="button"
+                                                onClick={() =>
+                                                    scrollToCard(
+                                                        idx
+                                                    )
+                                                }
+                                                aria-label={`Go to ${sec.title}`}
+                                                className="group relative h-2 transition-all duration-500"
+                                                style={{width:isActive? "36px": "10px"}}
+                                            >
+                                                <span className="absolute inset-0 rounded-full transition-all duration-500"
+                                                    style={{backgroundColor:isActive? BRAND.cyan: "#CBD5E1"}}
+                                                />
+                                            </button>
+                                        );
+                                    }
+                                )}
+                            </div>
+
+                            <div className="flex items-center justify-between mt-4 px-1">
+                                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+                                    Scroll to explore
+                                </span>
+                                <span className="text-[10px] font-mono uppercase tracking-widest"
+                                    style={{color:BRAND.cyan}}
+                                >
+                                    {String(activeIndex +1).padStart(2,"0")}
+                                    {" / "}
+                                    {String(TECH_SECTIONS.length).padStart(2,"0")}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

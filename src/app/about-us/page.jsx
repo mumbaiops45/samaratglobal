@@ -31,29 +31,29 @@ const page = () => {
   const teamMembers = [
     {
       name: "Arun Pandey",
-      role: "Director",
-      image: "/arnun.jpg",
+      role: "Founder and Director",
+      image: "/arun.jpeg",
       description: "Visionary leader with 20+ years of experience in global trade",
       expertise: "Strategic Planning",
     },
     {
       name: "Jay Kumar Sinha",
-      role: "Marketing Head",
-      image: "/jay.jpg",
+      role: "Co-founder and Director",
+      image: "/jaykumar.jpeg",
       description: "Marketing expert driving brand excellence worldwide",
       expertise: "Brand Strategy",
     },
+    // {
+    //   name: "Vibu Kumar Nair",
+    //   role: "Overseas Head",
+    //   image: "/vibu.jpg",
+    //   description: "International trade specialist with global network",
+    //   expertise: "Global Partnerships",
+    // },
     {
-      name: "Vibu Kumar Nair",
-      role: "Overseas Head",
-      image: "/vibu.jpg",
-      description: "International trade specialist with global network",
-      expertise: "Global Partnerships",
-    },
-    {
-      name: "R R Mishra",
-      role: "Logistics Head",
-      image: "/rrmishra.jpg",
+      name: "Lalita Pandey",
+      role: "Co-founder and Director",
+      image: "/lalita.jpeg",
       description: "Supply chain expert ensuring seamless operations",
       expertise: "Logistics Management",
     },
@@ -571,7 +571,7 @@ const page = () => {
               Dedicated professionals committed to driving your business growth worldwide.
             </p>
           </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
@@ -582,13 +582,14 @@ const page = () => {
                 whileHover={{ y: -8 }}
                 className="group relative"
               >
-                <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100">
-                  <div className="relative overflow-hidden h-72">
+                <div className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100">
+                  <div className="relative overflow-hidden h-[288px] bg-white flex items-center justify-center">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
+                    
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540] via-[#0A2540]/80 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <p className="text-white text-xs leading-relaxed mb-3">
                         {member.description}
@@ -661,7 +662,6 @@ const page = () => {
         </div>
       </section>
       <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] relative overflow-hidden">
-        {/* <div className="absolute right-0 top-0 w-96 h-96 bg-[#00D2FF]/20 rounded-full blur-[120px] pointer-events-none" /> */}
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center relative z-10">
           <h2 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] tracking-tight mb-6">
             Ready to Scale Your Global Trade Operations?

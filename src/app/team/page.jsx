@@ -14,8 +14,8 @@ const page = () => {
     {
       id: 1,
       name: "Arun Pandey",
-      role: "Director",
-      image: "/arun.jpg",
+      role: "Founder and Director",
+      image: "/arun.jpeg",
       description:
         "Visionary leader with 20+ years of experience in global trade, logistics, and business development.",
       expertise: ["Strategic Planning", "Business Development", "Global Trade"],
@@ -32,8 +32,8 @@ const page = () => {
     {
       id: 2,
       name: "Jay Kumar Sinha",
-      role: "Marketing Head",
-      image: "/jaikumar.jpg",
+      role: "C-founder and Director",
+      image: "/jaykumar.jpeg",
       description:
         "Marketing strategist with expertise in brand building, digital marketing, and market expansion.",
       expertise: ["Brand Strategy", "Digital Marketing", "Market Research"],
@@ -50,8 +50,8 @@ const page = () => {
     {
       id: 3,
       name: "R R Mishra",
-      role: "Logistics Head",
-      image: "/rrmishra1.jpg",
+      role: "Co-founder and Director",
+      image: "/lalita.jpeg",
       description:
         "Logistics expert with extensive experience in supply chain management, warehousing, and distribution.",
       expertise: ["Supply Chain", "Warehousing", "Fleet Management"],
@@ -439,7 +439,6 @@ const page = () => {
               </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -478,11 +477,14 @@ const page = () => {
                 onClick={() => setSelectedMember(member)}
                 className="group relative bg-[#F4F9FF] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 hover:border-[#00D2FF] cursor-pointer"
               >
-                <div className="relative overflow-hidden h-72">
+                <div className="relative overflow-hidden aspect-[1.22/1] bg-slate-100">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    // className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+
+
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md border border-white">

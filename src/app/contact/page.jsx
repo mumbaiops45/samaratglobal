@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {FaMapMarkerAlt,FaClock,FaPaperPlane,FaCheckCircle,FaArrowRight,FaStar,FaGlobe,FaShieldAlt,FaRegClock,FaExclamationCircle,FaHandshake,FaRocket,} from "react-icons/fa";
+import {FaMapMarkerAlt,FaClock,FaPaperPlane,FaCheckCircle,FaArrowRight,FaExclamationCircle,FaHandshake,FaRocket,} from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
@@ -159,12 +159,7 @@ const ContactPage = () => {
     },
   ];
 
-  const stats = [
-    { number: "500+", label: "Happy Clients", icon: <FaStar className="text-amber-400 text-2xl sm:text-3xl" /> },
-    { number: "50+", label: "Countries Served", icon: <FaGlobe className="text-[#00D2FF] text-2xl sm:text-3xl" /> },
-    { number: "15+", label: "Years Experience", icon: <FaShieldAlt className="text-[#0052D4] text-2xl sm:text-3xl" /> },
-    { number: "24/7", label: "Trade Desk Support", icon: <FaRegClock className="text-[#0072FF] text-2xl sm:text-3xl" /> },
-  ];
+
 
   const mapEmbedSrc =
     "https://www.google.com/maps?q=Kurkeja+complex+L.B.S.+Marg+Bhandup+West+Mumbai+Maharashtra+400078&output=embed";
@@ -249,11 +244,10 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* ================= CONTACT MAIN SECTION ================= */}
+     
       <section className="py-16 md:py-24 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           
-          {/* Left Column: Contact Cards & Google Maps */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -297,7 +291,6 @@ const ContactPage = () => {
               </div>
             </div>
 
-            {/* Embedded Google Map */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -315,8 +308,6 @@ const ContactPage = () => {
               />
             </motion.div>
           </motion.div>
-
-          {/* Right Column: Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -506,34 +497,6 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* ================= STATS BANNER ================= */}
-      <section className="py-14 bg-white border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -4 }}
-                className="text-center group p-4 rounded-2xl bg-[#F4F9FF] hover:bg-white border border-slate-100 hover:border-[#00D2FF]/40 transition-all duration-300"
-              >
-                <div className="mb-2 flex justify-center group-hover:scale-110 transition-transform">
-                  {stat.icon}
-                </div>
-                <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#0A2540] tracking-tight">
-                  {stat.number}
-                </div>
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
     </div>
   );
