@@ -583,13 +583,18 @@ const page = () => {
                 className="group relative"
               >
                 <div className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100">
-                  <div className="relative overflow-hidden h-[288px] bg-white flex items-center justify-center">
+                  {/* <div className="relative overflow-hidden w-full h-full bg-white flex items-center justify-center">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    
+                      className="w-full h-[405px] object-contain transition-transform duration-700 group-hover:scale-105"
+                    /> */}
+                    <div className="relative w-full  bg-slate-100">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-[465px] object-cover object-center group-hover:scale-100 transition-transform duration-700"
+                  />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540] via-[#0A2540]/80 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <p className="text-white text-xs leading-relaxed mb-3">
                         {member.description}
