@@ -175,7 +175,7 @@ const page = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="w-full"
             >
-              <div ref={badgeRef} className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md sm:gap-2.5 sm:px-5 sm:py-2.5"
+              <div ref={badgeRef} className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 backdrop-blur-md sm:gap-2.5 sm:px-5 sm:py-2"
               >
                 <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#00D2FF] sm:h-2.5 sm:w-2.5" />
                 <span className="truncate text-[10px] font-bold uppercase tracking-[1.5px] text-[#00D2FF] sm:text-xs sm:tracking-[2px] md:text-sm">
@@ -183,11 +183,10 @@ const page = () => {
                 </span>
               </div>
 
-              <h1 ref={headingRef} className="h1 mt-6 max-w-5xl text-white sm:mt-7
-          lg:mt-8">
-                Vision,{" "}
-                <span className="mt-1 block bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-clip-text text-transparent sm:mt-2">
-                  Mission & Values
+              <h1 ref={headingRef} className="h2 mt-6 max-w-5xl text-white sm:mt-7 lg:mt-8">
+                Vision{" "}
+                <span className="mt-1  bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-clip-text text-transparent sm:mt-2">
+                  Mission &  Values
                 </span>
               </h1>
               <p ref={paragraphRef} className="mt-5 max-w-2xl text-sm leading-7 text-slate-200 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl">
@@ -311,7 +310,7 @@ const page = () => {
                 What began as a focused sourcing desk has grown into a full-stack import–export operation spanning warehousing, quality control, and last-mile distribution.
               </p>
               <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-                Every shipment that leaves our facility carries the same standard — checked, documented, and delivered on time, every time.
+                Every shipment that leaves our facility carries the same standard  checked, documented, and delivered on time, every time.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-8">
@@ -473,7 +472,7 @@ const page = () => {
                   <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-300">
                     {value.icon}
                   </div>
-                  <h3 className="h3 text-[#0A2540] mb-3">{value.title}</h3>
+                  <h3 className="h4 text-[#0A2540] mb-3">{value.title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">{value.description}</p>
                   <div className="mt-6 h-1 w-12 bg-[#00D2FF] rounded-full group-hover:w-24 transition-all duration-500" />
                 </div>
@@ -592,7 +591,7 @@ const page = () => {
                     </div>
                   </div>
                   <div className="p-5 text-center">
-                    <h3 className="h3 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
+                    <h3 className="h4 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
                       {member.name}
                     </h3>
                     <p className="text-xs font-bold text-[#0072FF] uppercase tracking-wider mt-1">
@@ -655,9 +654,12 @@ const page = () => {
       </section>
       <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center relative z-10">
-          <h2 className="h2 text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] mb-6">
-            Ready to Scale Your Global Trade Operations?
-          </h2>
+           <h2 className="h2 text-white mb-3">
+              Ready to Scale Your{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
+                Global Trade Operations?
+              </span>
+            </h2>
           <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8">
             Partner with Samrat Global today for seamless sourcing, quality assurance, and global export solutions.
           </p>

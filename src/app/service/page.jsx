@@ -370,14 +370,14 @@ const page = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 mb-6">
+            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-1 rounded-full border border-white/20 mb-6">
               <FaRocket className="text-[#00D2FF]" />
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#60EFFF]">
-                Our Trade & Logistics Services
+              <span className="text-xs sm:text-sm font-bold capitalize tracking-[2px] text-[#60EFFF]">
+                Our Trade & Logistics services
               </span>
             </div>
 
-            <h1 className="h1 text-white">
+            <h1 className="h2 text-white">
               Your Trusted Partner{" "}
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 In International Trade
@@ -461,7 +461,7 @@ const page = () => {
                 </div>
                 <div className="flex flex-col justify-center p-8 lg:p-12">
                   <div className="flex items-center gap-3 mb-4">
-                    {service.icon}
+                    {/* {service.icon} */}
                     <h3 className="h3 text-[#0A2540]">
                       {service.title}
                     </h3>
@@ -651,7 +651,7 @@ const page = () => {
                     {service.icon}
                   </div>
                   <div>
-                    <h3 className="h3 text-[#0A2540]">{service.title}</h3>
+                    <h3 className="h4 text-[#0A2540]">{service.title}</h3>
                     <p className="text-slate-500 text-sm mt-1 leading-relaxed">
                       {service.description}
                     </p>
@@ -718,11 +718,8 @@ const page = () => {
                   className="relative group"
                 >
                   <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:bg-white/10 hover:border-[#00D2FF]/50 transition-all duration-300 h-full">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#0052D4] to-[#00D2FF] flex items-center justify-center text-white font-extrabold text-base shadow-lg mb-6">
-                      {item.step}
-                    </div>
                     <div className="mb-4">{item.icon}</div>
-                    <h3 className="h3 text-white mb-3">{item.title}</h3>
+                    <h3 className="h4 text-white mb-3">{item.title}</h3>
                     <p className="text-slate-300 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>

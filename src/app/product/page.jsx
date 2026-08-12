@@ -429,14 +429,14 @@ const page = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 mb-6">
+            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-1 rounded-full border border-white/20 mb-6">
               <FaGlobe className="text-[#00D2FF]" />
               <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#60EFFF]">
                 Global Trade Catalog
               </span>
             </div>
 
-            <h1 className="h1 text-white">
+            <h1 className="h2 text-white">
               Your Trusted Partner{" "}
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 In International Trade
@@ -504,7 +504,6 @@ const page = () => {
                       : "bg-[#F4F9FF] text-slate-700 hover:bg-slate-100 border border-slate-200"
                   }`}
                 >
-                  {/* {cat.icon} */}
                   <span>{cat.label}</span>
                 </motion.button>
               ))}
@@ -596,7 +595,7 @@ const page = () => {
                 >
                   <div>
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="h3 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
+                      <h3 className="h4 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
                         {product.name}
                       </h3>
                       <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-[#F4F9FF] px-2.5 py-1 rounded-full border border-slate-200">
@@ -775,7 +774,7 @@ const page = () => {
                 <div className="text-3xl text-[#0052D4] group-hover:text-[#00D2FF] group-hover:scale-110 transition-all flex justify-center">
                   {cat.icon}
                 </div>
-                <h3 className="h4 text-[#0A2540] mt-3">
+                <h3 className="text-xl font-bold text-[#0A2540] mt-3">
                   {cat.label}
                 </h3>
               </motion.div>

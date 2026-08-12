@@ -204,14 +204,14 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
             transition={{ duration: 0.8 }}
             className="max-w-4xl text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-1 rounded-full border border-white/20 mb-6">
               <FaPaperPlane className="text-[#00D2FF] text-xs sm:text-sm" />
               <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#60EFFF]">
                 Let's Connect
               </span>
             </div>
 
-            <h1 className="h1 text-white">
+            <h1 className="h2 text-white">
               Let's{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 Connect
@@ -315,7 +315,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
             className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 md:p-10 border border-slate-100"
           >
             <div className="mb-8">
-              <h2 className="h2 text-[#0A2540]">
+              <h2 className="h3 text-[#0A2540]">
                 Send Us a{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                   Message

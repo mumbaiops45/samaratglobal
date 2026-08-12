@@ -341,48 +341,29 @@ const CargoKiteTechSection = () => {
                         <span>The Samrat Global</span>
                     </div>
 
-                    <h1 className="h1 text-black mb-5">
+                    <h1 className="h2 text-black mb-5">
                         About{" "}
                         <span className="bg-clip-text text-transparent"
-                            style={{
-                                backgroundImage:
-                                    GRAD_LOGO,
-                            }}
+                            style={{backgroundImage:GRAD_LOGO}}
                         >
                             Us
                         </span>
                     </h1>
-                    <p className="text-slate-700 text-sm lg:text-base leading-relaxed max-w-xl">
+                    <p className="text-slate-700 text-xl leading-relaxed max-w-xl">
                         Building global partnerships through reliable sourcing, procurement and export solutions.
                     </p>
 
                 </motion.div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch">
-
                     <div className="space-y-[55vh]">
-
                         {TECH_SECTIONS.map(
                             (sec, idx) => {
-                                const IconComponent =
-                                    sec.icon;
-
-                                const isActive =
-                                    activeIndex ===
-                                    idx;
-
+                                const IconComponent =sec.icon;
+                                const isActive = activeIndex === idx;
                                 return (
-                                    <div
-                                        key={
-                                            sec.id
-                                        }
-                                        ref={(el) => {
-                                            sectionRefs.current[
-                                                idx
-                                            ] = el;
-                                        }}
-                                        data-index={
-                                            idx
-                                        }
+                                    <div key={sec.id}
+                                        ref={(el) => {sectionRefs.current[idx] = el}}
+                                        data-index={idx}
                                         className="max-w-xl transition-all duration-700"
                                     >
                                         <motion.div
@@ -402,94 +383,36 @@ const CargoKiteTechSection = () => {
                                                 duration: 0.6,
                                             }}
                                             className="relative p-7 lg:p-10 md:h-[500px] rounded-3xl border shadow-xl transition-all duration-700 overflow-hidden"
-                                            style={
-                                                isActive
-                                                    ? {
-                                                        backgroundColor:
-                                                            "#F3F4F6",
-
-                                                        borderColor:
-                                                            `${BRAND.cyan}cc`,
-
-                                                        boxShadow:
-                                                            `0 25px 70px -20px ${BRAND.cyan}33`,
-
-                                                        transform:
-                                                            "scale(1.03)",
-                                                    }
-                                                    : {
-                                                        backgroundColor:
-                                                            "#FFFFFF",
-
-                                                        borderColor:
-                                                            "#E2E8F0",
-
+                                            style={isActive ? {backgroundColor: "#F3F4F6",borderColor:`${BRAND.cyan}cc`,boxShadow:`0 25px 70px -20px ${BRAND.cyan}33`,
+                                                        transform:"scale(1.03)",
+                                                    }: {
+                                                        backgroundColor:"#FFFFFF",
+                                                        borderColor:"#E2E8F0",
                                                         opacity: 0.72,
                                                     }
                                             }
                                         >
-                                            <div className="absolute top-0 right-0 translate-x-3 -translate-y-3 px-4 py-1.5 rounded-xl font-black text-xs font-mono shadow-lg"
-                                                style={{
-                                                    background:
-                                                        GRAD_LOGO,
-                                                    color:
-                                                        BRAND.ink,
-                                                }}
-                                            >
-                                                {
-                                                    sec.number
-                                                }
-
-                                                {" / "}
-
-                                                {String(
-                                                    TECH_SECTIONS.length
-                                                ).padStart(
-                                                    2,
-                                                    "0"
-                                                )}
-                                            </div>
+                                            
                                             <div className="h-full flex flex-col">
                                                 <div className="flex items-center gap-3 mb-3">
                                                     {IconComponent && (
-                                                        <IconComponent
-                                                            className="w-6 h-6"
-                                                            style={{
-                                                                color:
-                                                                    BRAND.cyan,
-                                                            }}
+                                                        <IconComponent className="w-6 h-6"
+                                                            style={{color:BRAND.cyan}}
                                                         />
                                                     )}
 
-                                                    <span className="text-xs font-mono font-bold uppercase tracking-widest"
-                                                        style={{
-                                                            color:
-                                                                BRAND.cyan,
-                                                        }}
-                                                    >
-                                                        {
-                                                            sec.badge
-                                                        }
-                                                    </span>
+                                                    <span className="text-sm font-mono font-bold uppercase tracking-widest" style={{color:BRAND.cyan}}
+                                                    >{sec.badge}</span>
                                                 </div>
                                                 <h2 className="h3 text-black mb-1"
                                                 >{sec.title}</h2>
-                                                <p className="text-[11px] font-mono uppercase tracking-wider mb-6"
-                                                    style={{
-                                                        color:
-                                                            `${BRAND.cyan}cc`,
-                                                    }}
+                                                <p className="text-sm  uppercase tracking-wider mb-6"
+                                                    style={{color:`${BRAND.cyan}cc`}}
                                                 >{sec.subtitle}
                                                 </p>
                                                 <div className="space-y-4 mb-8">
-                                                    {sec.paragraphs?.map(
-                                                        (
-                                                            p,
-                                                            pIdx
-                                                        ) => (
-                                                            <p key={pIdx}
-                                                                className="text-sm text-slate-700 leading-relaxed">
-                                                                {p}</p>
+                                                    {sec.paragraphs?.map((p,pIdx) => (
+                                                            <p key={pIdx} className="text-md text-slate-700 leading-relaxed">{p}</p>
                                                         )
                                                     )}
                                                 </div>
@@ -499,10 +422,9 @@ const CargoKiteTechSection = () => {
                                                     >
                                                         {Object.values(sec.telemetry).map((t, tIdx) => (
                                                             <div key={tIdx}
-                                                                className="p-3 rounded-2xl  border-slate-200 bg-white"
+                                                                className="p-3 rounded-2xl border-slate-200 bg-white"
                                                             >
-
-                                                                <div className="text-[10px] font-mono text-slate-500 uppercase truncate">
+                                                                <div className="text-md font-mono text-slate-500  truncate">
                                                                     {t.label}
                                                                 </div>
                                                                 <div className="text-sm font-bold font-mono mt-0.5"
@@ -593,9 +515,7 @@ const CargoKiteTechSection = () => {
                                             <button key={sec.id}
                                                 type="button"
                                                 onClick={() =>
-                                                    scrollToCard(
-                                                        idx
-                                                    )
+                                                    scrollToCard(idx)
                                                 }
                                                 aria-label={`Go to ${sec.title}`}
                                                 className="group relative h-2 transition-all duration-500"
@@ -757,7 +677,7 @@ export default function Home() {
                                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                                 exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
                                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                                className="h1 mb-4 sm:mb-6"
+                                className="h2 mb-4 sm:mb-6"
                             >
                                 <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>
                                     {content[currentIndex].blueTitle}
@@ -793,7 +713,7 @@ export default function Home() {
                             </Link>
                             <Link
                                 href="/contact"
-                                className="rounded-full px-7 py-3.5 cursor-pointer font-semibold text-sm text-white border backdrop-blur-md transition-all hover:bg-white/10"
+                                className="rounded-full px-7 py-3.5 cursor-pointer font-semibold text-sm text-white border backdrop-blur-md bg-white/15 transition-all hover:bg-white/10"
                                 style={{ borderColor: `${BRAND.mist}33` }}
                             >
                                 Contact Us
@@ -891,7 +811,7 @@ export default function Home() {
                                         {panel.eyebrow}
                                     </span>
                                 </div>
-                                <h3 className="h3 mb-5 whitespace-pre-line" style={{ color: panel.theme === "dark" ? BRAND.azureDeep : BRAND.azureDeep }}>
+                                <h3 className="text-4xl font-bold mb-5 whitespace-pre-line" style={{ color: panel.theme === "dark" ? BRAND.azureDeep : BRAND.azureDeep }}>
                                     {panel.title}
                                 </h3>
                                 <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#475569" : "#475569" }}>
