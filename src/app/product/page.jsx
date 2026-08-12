@@ -467,38 +467,7 @@ const page = () => {
         </div>
       </section>
 
-      {/* <section className="py-14 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {[
-              { number: "100+", label: "Products", icon: <FaBoxes className="text-[#0052D4]" /> },
-              { number: "50+", label: "Countries", icon: <FaGlobe className="text-[#00D2FF]" /> },
-              { number: "500+", label: "Happy Clients", icon: <FaStar className="text-amber-400" /> },
-              { number: "15+", label: "Years Experience", icon: <FaShippingFast className="text-[#0072FF]" /> },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -4 }}
-                className="text-center group p-4 rounded-2xl bg-[#F4F9FF] hover:bg-white border border-slate-100 hover:border-[#00D2FF]/40 transition-all duration-300"
-              >
-                <div className="text-3xl mb-2 flex justify-center group-hover:scale-110 transition-transform">
-                  {stat.icon}
-                </div>
-                <div className="text-2xl md:text-3xl font-extrabold text-[#0A2540] tracking-tight">
-                  {stat.number}
-                </div>
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+     
       <section className="py-16 md:py-24 bg-[#F4F9FF]">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <motion.div

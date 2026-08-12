@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {FaMapMarkerAlt,FaClock,FaPaperPlane,FaCheckCircle,FaArrowRight,FaExclamationCircle,FaHandshake,FaRocket,} from "react-icons/fa";
+import { FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle, FaArrowRight, FaExclamationCircle, FaHandshake, FaRocket, } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
@@ -148,8 +148,8 @@ const ContactPage = () => {
     {
       icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
       title: "Corporate Office",
-      value: "Kurkeja Complex, L.B.S. Marg, Bhandup (West), Mumbai - 400078",
-      link: "https://www.google.com/maps?q=Kurkeja+complex+L.B.S.+Marg+Bhandup+West+Mumbai+Maharashtra+400078",
+      value: "OFF NO 11, THE SIGNATURE, GANESH MANDIR, Dombivli, Kalyan, Thane - 421201, Maharashtra",
+      link: "https://www.google.com/maps/search/?api=1&query=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra",
     },
     {
       icon: <FaClock className="text-xl sm:text-2xl text-[#60EFFF]" />,
@@ -161,13 +161,12 @@ const ContactPage = () => {
 
 
 
-  const mapEmbedSrc =
-    "https://www.google.com/maps?q=Kurkeja+complex+L.B.S.+Marg+Bhandup+West+Mumbai+Maharashtra+400078&output=embed";
+const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra&output=embed";
 
   return (
     <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
-      
-    
+
+
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -244,10 +243,10 @@ const ContactPage = () => {
         </div>
       </section>
 
-     
+
       <section className="py-16 md:py-24 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-          
+
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -339,9 +338,8 @@ const ContactPage = () => {
                     placeholder="John"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-[#F4F9FF] border ${
-                      errors.firstName ? "border-red-500" : "border-slate-200"
-                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
+                    className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.firstName ? "border-red-500" : "border-slate-200"
+                      } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
                   />
                   {errors.firstName && (
                     <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
@@ -376,9 +374,8 @@ const ContactPage = () => {
                   placeholder="you@company.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${
-                    errors.email ? "border-red-500" : "border-slate-200"
-                  } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
+                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.email ? "border-red-500" : "border-slate-200"
+                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
                 />
                 {errors.email && (
                   <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
@@ -399,9 +396,8 @@ const ContactPage = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   maxLength="10"
-                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${
-                    errors.phone ? "border-red-500" : "border-slate-200"
-                  } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
+                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.phone ? "border-red-500" : "border-slate-200"
+                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
                 />
                 {errors.phone && (
                   <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
@@ -440,9 +436,8 @@ const ContactPage = () => {
                   placeholder="Describe your trade requirement, quantity, or questions..."
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${
-                    errors.message ? "border-red-500" : "border-slate-200"
-                  } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm resize-none`}
+                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.message ? "border-red-500" : "border-slate-200"
+                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm resize-none`}
                 />
                 {errors.message && (
                   <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">

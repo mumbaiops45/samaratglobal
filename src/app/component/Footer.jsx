@@ -110,12 +110,12 @@ const Footer = () => {
   const contactItems = [
     {
       icon: MapPin,
-      href: "https://www.google.com/maps/search/?api=1&query=3+B+Wing+Kurkeja+Complex+LBS+Marg+Bhandup+West+Mumbai+Maharashtra+400078",
+      href: "https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra&output=embed",
       content: (
         <>
-          <span className="block">3, B Wing, Kurkeja Complex,</span>
-          <span className="block">L.B.S. Marg, Bhandup (West),</span>
-          <span className="block">Mumbai, Maharashtra 400078</span>
+          <span className="block">OFF NO 11 THE SIGNATURE,</span>
+          <span className="block">GANESH MANDIR, Dombivali, Kalyan,</span>
+          <span className="block">Thane- 421201, Maharashtra</span>
         </>
       ),
     },
