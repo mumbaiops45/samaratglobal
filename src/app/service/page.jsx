@@ -652,7 +652,7 @@ const page = () => {
                   </div>
                   <div>
                     <h3 className="h3 text-[#0A2540]">{service.title}</h3>
-                    <p className="text-slate-500 text-xs mt-1 leading-relaxed">
+                    <p className="text-slate-500 text-sm mt-1 leading-relaxed">
                       {service.description}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-3">

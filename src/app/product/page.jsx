@@ -775,7 +775,7 @@ const page = () => {
                 <div className="text-3xl text-[#0052D4] group-hover:text-[#00D2FF] group-hover:scale-110 transition-all flex justify-center">
                   {cat.icon}
                 </div>
-                <h3 className="h3 text-[#0A2540] mt-3">
+                <h3 className="h4 text-[#0A2540] mt-3">
                   {cat.label}
                 </h3>
               </motion.div>

@@ -366,7 +366,7 @@ const page = () => {
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0052D4] to-[#00D2FF] text-white flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md">
                   {service.icon}
                 </div>
-                <h3 className="h3 text-[#0A2540] mb-2">
+                <h3 className="h4 text-[#0A2540] mb-2">
                   {service.title}
                 </h3>
                 <p className="text-slate-500 text-sm leading-relaxed">

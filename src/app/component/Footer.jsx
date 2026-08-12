@@ -174,7 +174,7 @@ const Footer = () => {
           </motion.div>
 
           <motion.div variants={fadeUp}>
-            <h4 className="eyebrow mb-6 text-white">
+            <h4 className="eyebrow mb-2 text-lg text-bold text-white">
               Quick Links
             </h4>
 
@@ -202,7 +202,7 @@ const Footer = () => {
             </ul>
           </motion.div>
           <motion.div variants={fadeUp}>
-            <h4 className="eyebrow mb-6 text-white">
+            <h4 className="eyebrow mb-2 text-lg text-white">
               Our Services
             </h4>
 
@@ -226,7 +226,7 @@ const Footer = () => {
             </ul>
           </motion.div>
           <motion.div variants={fadeUp}>
-            <h4 className="eyebrow mb-6 text-white">
+            <h4 className="eyebrow mb-2 text-lg text-white">
               Contact Us
             </h4>
 
@@ -275,7 +275,7 @@ const Footer = () => {
           </motion.div>
         </motion.div>
 
-        <div className="mt-14 border-t pt-6 md:mt-16"
+        <div className="mt-4 border-t pt-6 md:mt-4"
           style={{
             borderColor: `${BRAND.mist}14`,
           }}

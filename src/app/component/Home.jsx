@@ -472,7 +472,7 @@ const CargoKiteTechSection = () => {
                                                         }
                                                     </span>
                                                 </div>
-                                                <h2 className="h2 text-black mb-1"
+                                                <h2 className="h3 text-black mb-1"
                                                 >{sec.title}</h2>
                                                 <p className="text-[11px] font-mono uppercase tracking-wider mb-6"
                                                     style={{
@@ -983,7 +983,7 @@ export default function Home() {
                                      >
                                         {String(index + 1).padStart(2, '0')}
                                     </div>
-                                    <h2 className="h2 lg:col-span-7 text-slate-900 transition-colors duration-500" style={{ "--hover-color": BRAND.azureDeep }}>
+                                    <h2 className="text-3xl font-bold lg:col-span-7 text-slate-900 transition-colors duration-500" style={{ "--hover-color": BRAND.azureDeep }}>
                                         {item.title}
                                     </h2>
                                     <div className="lg:col-span-4">
