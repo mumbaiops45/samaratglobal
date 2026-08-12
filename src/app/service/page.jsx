@@ -327,7 +327,7 @@ const page = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
+    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden  selection:bg-[#00D2FF]/30">
     
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(10)].map((_, i) => (
@@ -377,7 +377,7 @@ const page = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight text-white">
+            <h1 className="h1 text-white">
               Your Trusted Partner{" "}
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 In International Trade
@@ -422,7 +422,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
               What We Offer
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Our Core{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Trade Services
@@ -462,7 +462,7 @@ const page = () => {
                 <div className="flex flex-col justify-center p-8 lg:p-12">
                   <div className="flex items-center gap-3 mb-4">
                     {service.icon}
-                    <h3 className="text-2xl lg:text-3xl font-extrabold text-[#0A2540]">
+                    <h3 className="h3 text-[#0A2540]">
                       {service.title}
                     </h3>
                   </div>
@@ -533,7 +533,7 @@ const page = () => {
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#EBF4FF] text-[#0052D4] mb-3">
                   {activeService.badge}
                 </span>
-                <h3 className="text-2xl font-extrabold text-[#0A2540] mb-2">
+                <h3 className="h3 text-[#0A2540] mb-2">
                   {activeService.title}
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed mb-4">
@@ -573,7 +573,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
               Why Samrat Global
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Built Different,{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Delivered Better
@@ -602,7 +602,7 @@ const page = () => {
                   <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#0052D4] to-[#00D2FF] flex items-center justify-center mb-3 shadow-md">
                     {item.icon}
                   </div>
-                  <h3 className="text-white font-bold text-xl">{item.title}</h3>
+                  <h3 className="h3 text-white">{item.title}</h3>
                   <p className="text-slate-200 text-xs mt-1 leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
                     {item.description}
                   </p>
@@ -627,7 +627,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
               Shipping & Moving Services
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Customer Shipping{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Solutions
@@ -651,7 +651,7 @@ const page = () => {
                     {service.icon}
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#0A2540] text-lg">{service.title}</h3>
+                    <h3 className="h3 text-[#0A2540]">{service.title}</h3>
                     <p className="text-slate-500 text-xs mt-1 leading-relaxed">
                       {service.description}
                     </p>
@@ -689,7 +689,7 @@ const page = () => {
             <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#00D2FF] mb-4">
               Our Process
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+            <h2 className="h2">
               How We{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 Operate
@@ -722,7 +722,7 @@ const page = () => {
                       {item.step}
                     </div>
                     <div className="mb-4">{item.icon}</div>
-                    <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                    <h3 className="h3 text-white mb-3">{item.title}</h3>
                     <p className="text-slate-300 text-sm leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>
@@ -738,7 +738,7 @@ const page = () => {
           <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-2">
             Global Trade Corridors
           </span>
-          <h2 className="text-3xl font-extrabold text-[#0A2540]">
+          <h2 className="h2 text-[#0A2540]">
             Present Across The World
           </h2>
         </div>
@@ -780,7 +780,7 @@ const page = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-extrabold text-[#0A2540]">
+            <h2 className="h2 text-[#0A2540]">
               Our Global Impact in{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Numbers
@@ -819,7 +819,7 @@ const page = () => {
       </section>
       <section className="py-16 bg-white border-t border-slate-100">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center">
-          <h2 className="text-2xl font-bold text-[#0A2540] mb-8">
+          <h2 className="h2 text-[#0A2540] mb-8">
             Additional Specialty Trade Services
           </h2>
 

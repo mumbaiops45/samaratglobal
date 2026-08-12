@@ -15,6 +15,61 @@ body {
     font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+/* Fluid heading scale.
+
+   Every level scales linearly from a 375px viewport to a 1280px viewport,
+   then holds. The slopes are set so each level stays strictly larger than
+   the one below it at EVERY width — no crossover, no cliff:
+
+                   375px        1280px+      step down
+     .h1            40px    →     68px         1.42x
+     .h2            32px    →     48px         1.50x
+     .h3            24px    →     32px         1.60x
+     .h4            17px    →     20px           —
+     .eyebrow       13px (fixed, uppercase label)
+
+   Lives in the components layer so any Tailwind utility (font-black,
+   text-2xl, leading-none, …) still overrides it per-instance. */
+@layer components {
+  .h1 {
+    font-size: clamp(2.5rem, 1.78rem + 3.1vw, 4.25rem); /* 40 → 68px */
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .h2 {
+    font-size: clamp(2rem, 1.59rem + 1.77vw, 3rem); /* 32 → 48px */
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  .h3 {
+    font-size: clamp(1.5rem, 1.29rem + 0.88vw, 2rem); /* 24 → 32px */
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+
+  .h4 {
+    font-size: clamp(1.0625rem, 0.99rem + 0.33vw, 1.25rem); /* 17 → 20px */
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  /* Uppercase micro-label ("ROLE", "EXPERTISE", footer column titles).
+     Deliberately below .h4 — it labels content rather than heading it. */
+  .eyebrow {
+    font-size: 0.8125rem; /* 13px */
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+}
+
 @keyframes fadeInUp {
           from {
             opacity: 0;

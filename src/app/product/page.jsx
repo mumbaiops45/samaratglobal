@@ -275,7 +275,7 @@ const page = () => {
                 >
                   {product.type} Solution
                 </span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-[#0A2540] mt-2">
+                <h2 className="h2 text-[#0A2540] mt-2">
                   {product.name}
                 </h2>
               </div>
@@ -324,7 +324,7 @@ const page = () => {
                 </p>
 
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-400 mb-2">
                     Key Features
                   </h4>
                   <ul className="space-y-2">
@@ -341,7 +341,7 @@ const page = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-400 mb-2">
                     Compliance & Certifications
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -395,7 +395,7 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
+    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-[#00D2FF]/30">
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -436,7 +436,7 @@ const page = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight text-white">
+            <h1 className="h1 text-white">
               Your Trusted Partner{" "}
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 In International Trade
@@ -480,7 +480,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
               Our Products
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Premium Export & Import{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Products
@@ -596,7 +596,7 @@ const page = () => {
                 >
                   <div>
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-xl font-bold text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
+                      <h3 className="h3 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
                         {product.name}
                       </h3>
                       <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-[#F4F9FF] px-2.5 py-1 rounded-full border border-slate-200">
@@ -694,7 +694,7 @@ const page = () => {
             <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#00D2FF] mb-4">
               Global Trade Flow
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+            <h2 className="h2">
               Connecting <span className="text-[#60EFFF]">India</span> to the World
             </h2>
           </motion.div>
@@ -732,7 +732,7 @@ const page = () => {
                 <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-6">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                <h3 className="h3 text-white mb-3">{item.title}</h3>
                 <p className="text-slate-300 text-xs leading-relaxed">
                   {item.description}
                 </p>
@@ -752,7 +752,7 @@ const page = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-extrabold text-[#0A2540]">
+            <h2 className="h2 text-[#0A2540]">
               Browse By{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Product Category
@@ -775,7 +775,7 @@ const page = () => {
                 <div className="text-3xl text-[#0052D4] group-hover:text-[#00D2FF] group-hover:scale-110 transition-all flex justify-center">
                   {cat.icon}
                 </div>
-                <h3 className="text-xs font-bold text-[#0A2540] mt-3">
+                <h3 className="h3 text-[#0A2540] mt-3">
                   {cat.label}
                 </h3>
               </motion.div>

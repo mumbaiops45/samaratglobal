@@ -7,8 +7,7 @@ import Lenis from 'lenis';
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
-import * as THREE from 'three';
-import { Sparkles, Building2, Eye, Award, Truck, Handshake, Target, Globe2, ArrowUpRight } from "lucide-react";
+import { Eye, Award, Truck, Handshake, Target,Building2 ,Sparkles , Globe2, ArrowUpRight } from "lucide-react";
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -28,30 +27,7 @@ const BRAND = {
 };
 
 const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
-const GRAD_LOGO_SOFT = `linear-gradient(135deg, ${BRAND.azureDeep}22, ${BRAND.cyanDeep}22)`;
 
-
-const OrbitMark = ({ size = 34, spin = true }) => (
-    <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
-        <motion.svg
-            viewBox="0 0 100 100"
-            width={size}
-            height={size}
-            animate={spin ? { rotate: 360 } : {}}
-            transition={spin ? { duration: 14, repeat: Infinity, ease: "linear" } : {}}
-        >
-            <defs>
-                <linearGradient id="orbitGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor={BRAND.azure} />
-                    <stop offset="100%" stopColor={BRAND.cyan} />
-                </linearGradient>
-            </defs>
-            <circle cx="50" cy="50" r="34" fill="none" stroke="url(#orbitGrad)" strokeWidth="4" strokeDasharray="14 10" strokeLinecap="round" />
-            <path d="M78 30 L90 26 L86 38" fill="none" stroke="url(#orbitGrad)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-        </motion.svg>
-        <Globe2 className="absolute inset-0 m-auto" style={{ color: BRAND.mist }} size={size * 0.42} strokeWidth={1.75} />
-    </div>
-);
 
 const TECH_SECTIONS = [
     {
@@ -183,9 +159,9 @@ const TECH_SECTIONS = [
 ];
 
 const commitments = [
-    { title: "QUALITY YOU CAN TRUST", description: "Consistent, strict quality control across sourcing and export." },
-    { title: "RELIABLE SUPPLY CHAIN", description: "Processes designed for continuity, cost-effectiveness and customer satisfaction." },
-    { title: "CUSTOMER FIRST POLICY", description: "Service that aims to exceed expectations and build long-term partnerships." },
+    { title: "Quality You Can Trust", description: "Consistent, strict quality control across sourcing and export." },
+    { title: "Reliable Supply Chain", description: "Processes designed for continuity, cost-effectiveness and customer satisfaction." },
+    { title: "Customer First Policy", description: "Service that aims to exceed expectations and build long-term partnerships." },
 ];
 
 const services = [
@@ -339,7 +315,7 @@ const CargoKiteTechSection = () => {
 
 
     return (
-        <section ref={sectionContainerRef} className="relative w-full text-slate-100 font-sans bg-white">
+        <section ref={sectionContainerRef} className="relative w-full text-slate-100  bg-white">
 
             <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 lg:pt-32 pb-32">
                 <motion.div
@@ -365,7 +341,7 @@ const CargoKiteTechSection = () => {
                         <span>The Samrat Global</span>
                     </div>
 
-                    <h1 className="text-4xl lg:text-6xl font-black text-black tracking-tight leading-none mb-5">
+                    <h1 className="h1 text-black mb-5">
                         About{" "}
                         <span className="bg-clip-text text-transparent"
                             style={{
@@ -496,7 +472,7 @@ const CargoKiteTechSection = () => {
                                                         }
                                                     </span>
                                                 </div>
-                                                <h2 className="text-3xl font-black text-black mb-1 tracking-tight"
+                                                <h2 className="h2 text-black mb-1"
                                                 >{sec.title}</h2>
                                                 <p className="text-[11px] font-mono uppercase tracking-wider mb-6"
                                                     style={{
@@ -594,7 +570,7 @@ const CargoKiteTechSection = () => {
                                     >
                                         {currentSection?.badge}
                                     </div>
-                                    <h3 className="text-2xl lg:text-4xl font-black tracking-tight">
+                                    <h3 className="h3">
                                         {currentSection?.title}
                                     </h3>
                                     <p className="text-sm text-white/75 mt-2 max-w-md">
@@ -781,7 +757,7 @@ export default function Home() {
                                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                                 exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
                                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6"
+                                className="h1 mb-4 sm:mb-6"
                             >
                                 <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>
                                     {content[currentIndex].blueTitle}
@@ -915,7 +891,7 @@ export default function Home() {
                                         {panel.eyebrow}
                                     </span>
                                 </div>
-                                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-5 leading-tight whitespace-pre-line" style={{ color: panel.theme === "dark" ? BRAND.azureDeep : BRAND.azureDeep }}>
+                                <h3 className="h3 mb-5 whitespace-pre-line" style={{ color: panel.theme === "dark" ? BRAND.azureDeep : BRAND.azureDeep }}>
                                     {panel.title}
                                 </h3>
                                 <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: panel.theme === "dark" ? "#475569" : "#475569" }}>
@@ -950,7 +926,8 @@ export default function Home() {
             <section className="relative overflow-hidden  py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.ink }}>
                 <div
                     className="absolute inset-0 bg-cover object-cover bg-center opacity-100"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1604506522146-316c8bedd874?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}
+                    style={{ backgroundImage: "url('https://images.pexels.com/photos/14810111/pexels-photo-14810111.jpeg?_gl=1*1j98rqm*_ga*MTIxODIyODUuMTc4NjUxNzE2NQ..*_ga_8JE65Q40S6*czE3ODY1MTcxNjQkbzEkZzEkdDE3ODY1MTczODUkajU5JGwwJGgw')" }}
+                    
                 />
 
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -959,7 +936,7 @@ export default function Home() {
                             <p className="mb-2 sm:mb-4 font-semibold uppercase tracking-[3px] sm:tracking-[4px] text-xs sm:text-sm" style={{ color: BRAND.cyan }}>
                                 THE SAMRAT GLOBAL
                             </p>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white">
+                            <h2 className="h2 text-white">
                                 Connect The World<br />
                                 <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>With Excellence</span>
                             </h2>
@@ -979,7 +956,7 @@ export default function Home() {
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="mb-16 lg:mb-24">
                         <p className="mb-3 text-xs sm:text-sm font-semibold uppercase tracking-[4px]" style={{ color: BRAND.azureDeep }}>WHY CHOOSE US</p>
-                        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
+                        <h2 className="h2 text-slate-900">
                             Core
                             <span className="ml-3 bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Commitments</span>
                         </h2>
@@ -999,12 +976,14 @@ export default function Home() {
                                 whileHover={{ y: -6 }}
                                 className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200 px-6 py-8 sm:px-10 sm:py-10 shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-shadow duration-700 hover:shadow-[0_35px_80px_rgba(30,64,175,0.14)]"
                             >
-                                <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100" style={{ background: GRAD_LOGO_SOFT }} />
+                                {/* <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100" style={{ background: GRAD_LOGO_SOFT }} /> */}
                                 <div className="relative grid items-center gap-8 lg:grid-cols-12">
-                                    <div className="lg:col-span-1 flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-white shadow-lg transition-all duration-500 group-hover:scale-110" style={{ background: GRAD_LOGO }}>
+                                    <div className="lg:col-span-1 flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-black shadow-lg transition-all duration-500 group-hover:scale-110 bg-cyan-300"
+                                    //  style={{ background: GRAD_LOGO }}
+                                     >
                                         {String(index + 1).padStart(2, '0')}
                                     </div>
-                                    <h2 className="lg:col-span-7 text-3xl sm:text-4xl lg:text-6xl font-black uppercase tracking-tight text-slate-900 transition-colors duration-500" style={{ "--hover-color": BRAND.azureDeep }}>
+                                    <h2 className="h2 lg:col-span-7 text-slate-900 transition-colors duration-500" style={{ "--hover-color": BRAND.azureDeep }}>
                                         {item.title}
                                     </h2>
                                     <div className="lg:col-span-4">
@@ -1022,7 +1001,7 @@ export default function Home() {
 
 
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.ink }}>
-                <div className="absolute inset-0 bg-cover bg-center opacity-90"
+                <div className="absolute inset-0 bg-cover bg-center opacity-70"
                     style={{ backgroundImage: "url('ship.jpg')" }}
                 />
 
@@ -1031,7 +1010,7 @@ export default function Home() {
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl">
                         <p className="mb-3 sm:mb-5 text-xs sm:text-sm font-semibold uppercase tracking-[3px] sm:tracking-[5px]" style={{ color: BRAND.cyan }}>WHAT WE DO</p>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white">
+                        <h2 className="h2 text-white">
                             Smart Sourcing & <span className="block bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Procurement Solutions</span>
                         </h2>
                         <p className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 text-slate-50 sm:leading-8">
@@ -1070,7 +1049,7 @@ export default function Home() {
                             className="rounded-[30px] sm:rounded-[40px] border p-6 sm:p-8 lg:p-10 backdrop-blur-xl"
                             style={{ borderColor: `${BRAND.mist}22`, backgroundColor: "#0E233833" }}
                         >
-                            <h3 className="mb-6 sm:mb-8 text-2xl sm:text-3xl lg:text-4xl font-bold text-white">Sourcing & Procurement</h3>
+                            <h3 className="h3 mb-6 sm:mb-8 text-white">Sourcing & Procurement</h3>
                             <div className="space-y-3 sm:space-y-4 lg:space-y-5">
                                 {services.map((service, index) => (
                                     <motion.div

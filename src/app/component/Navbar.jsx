@@ -8,7 +8,6 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about-us" },
-  // { name: "Team", href: "/team" },
   { name: "Services", href: "/service" },
   { name: "Products", href: "/product" },
   { name: "Contact", href: "/contact" },
@@ -20,7 +19,7 @@ export default function Navbar() {
     <Disclosure
       as="nav"
       // className="sticky top-0 z-50 bg-[#0F172A]/95 backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
-            className="sticky top-0 z-50 bg-[#ffffff] backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
+      className="sticky top-0 z-50 bg-[#ffffff] backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
 
     >
       {({ open }) => (

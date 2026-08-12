@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle, FaArrowRight, FaExclamationCircle, FaHandshake, FaRocket, } from "react-icons/fa";
+import { FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle, FaArrowRight,FaExclamationCircle, FaHandshake, FaRocket, } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
@@ -164,7 +164,7 @@ const ContactPage = () => {
 const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra&output=embed";
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
+    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-[#00D2FF]/30">
 
 
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -211,7 +211,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+            <h1 className="h1 text-white">
               Let's{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 Connect
@@ -255,7 +255,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
             className="flex flex-col gap-8"
           >
             <div className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 border border-slate-100">
-              <h3 className="text-xl sm:text-2xl font-extrabold text-[#0A2540] mb-6 flex items-center gap-3">
+              <h3 className="h3 text-[#0A2540] mb-6 flex items-center gap-3">
                 <span className="w-1.5 h-7 bg-gradient-to-b from-[#0052D4] to-[#00D2FF] rounded-full"></span>
                 Contact Information
               </h3>
@@ -315,7 +315,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
             className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 md:p-10 border border-slate-100"
           >
             <div className="mb-8">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A2540]">
+              <h2 className="h2 text-[#0A2540]">
                 Send Us a{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                   Message

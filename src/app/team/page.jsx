@@ -178,7 +178,7 @@ const page = () => {
                   {member.name.charAt(0)}
                 </div>
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-extrabold text-[#0A2540]">
+                  <h2 className="h2 text-[#0A2540]">
                     {member.name}
                   </h2>
                   <p className="text-[#0072FF] font-bold text-sm uppercase tracking-wider mt-0.5">
@@ -220,7 +220,7 @@ const page = () => {
 
               <div className="space-y-5">
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+                  <h4 className="eyebrow text-slate-400 mb-1">
                     About
                   </h4>
                   <p className="text-slate-600 text-sm leading-relaxed">
@@ -229,7 +229,7 @@ const page = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-400 mb-2">
                     Expertise
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -245,7 +245,7 @@ const page = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-400 mb-2">
                     Certifications
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -262,7 +262,7 @@ const page = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-400 mb-2">
                     Key Achievements
                   </h4>
                   <ul className="space-y-2">
@@ -286,7 +286,7 @@ const page = () => {
   };
 
   return (
-    <div className=" bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
+    <div className=" bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden  selection:bg-[#00D2FF]/30">
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -335,7 +335,7 @@ const page = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-3xl font-extrabold leading-[1.08] tracking-[-0.02em] text-slate-50 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              className="h1 text-slate-50"
             >
               Meet Our{" "}
               <span className="mt-1 block bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-[length:200%_auto] bg-clip-text text-transparent sm:mt-2">
@@ -408,7 +408,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
               Team Culture
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Our Driven{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Values
@@ -430,7 +430,7 @@ const page = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-[#0052D4] to-[#00D2FF] rounded-2xl flex items-center justify-center text-white text-2xl mx-auto group-hover:scale-110 transition-transform duration-300 shadow-md">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#0A2540] mt-5 mb-2">
+                <h3 className="h3 text-[#0A2540] mt-5 mb-2">
                   {value.title}
                 </h3>
                 <p className="text-slate-500 text-xs leading-relaxed">
@@ -454,7 +454,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
               Meet The Team
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Leadership{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Team
@@ -492,7 +492,7 @@ const page = () => {
                   </div>
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
+                  <h3 className="h3 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
                     {member.name}
                   </h3>
                   <p className="text-[#0072FF] font-bold text-xs uppercase tracking-wider mt-1">
@@ -531,7 +531,7 @@ const page = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            <h2 className="h2 text-white mb-4">
               Join Our Global <span className="text-[#60EFFF]">Team</span>
             </h2>
             <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">

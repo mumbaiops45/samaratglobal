@@ -43,13 +43,6 @@ const page = () => {
       description: "Marketing expert driving brand excellence worldwide",
       expertise: "Brand Strategy",
     },
-    // {
-    //   name: "Vibu Kumar Nair",
-    //   role: "Overseas Head",
-    //   image: "/vibu.jpg",
-    //   description: "International trade specialist with global network",
-    //   expertise: "Global Partnerships",
-    // },
     {
       name: "Lalita Pandey",
       role: "Co-founder and Director",
@@ -158,7 +151,7 @@ const page = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden font-sans selection:bg-[#00D2FF]/30">
+    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden  selection:bg-[#00D2FF]/30">
       <section ref={heroRef} className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-20 md:py-22">
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-0 left-10 w-[450px] h-[450px] bg-[#0052D4]/10 rounded-full blur-[130px] pointer-events-none" />
@@ -190,8 +183,8 @@ const page = () => {
                 </span>
               </div>
 
-              <h1 ref={headingRef} className="mt-6 max-w-5xl text-3xl font-extrabold leading-[1.08] tracking-[-0.02em] text-white sm:mt-7
-          sm:text-4xl md:text-5xl lg:mt-8 lg:text-6xl xl:text-7xl">
+              <h1 ref={headingRef} className="h1 mt-6 max-w-5xl text-white sm:mt-7
+          lg:mt-8">
                 Vision,{" "}
                 <span className="mt-1 block bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-clip-text text-transparent sm:mt-2">
                   Mission & Values
@@ -308,7 +301,7 @@ const page = () => {
               <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
                 Our Story
               </span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight leading-tight mb-6">
+              <h2 className="h2 text-[#0A2540] mb-6">
                 Built on Trade Routes,{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                   Built on Trust
@@ -348,7 +341,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
               Your One Stop Solution
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               One Umbrella for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Global Trade Solutions
@@ -373,7 +366,7 @@ const page = () => {
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0052D4] to-[#00D2FF] text-white flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#0A2540] mb-2">
+                <h3 className="h3 text-[#0A2540] mb-2">
                   {service.title}
                 </h3>
                 <p className="text-slate-500 text-sm leading-relaxed">
@@ -399,7 +392,7 @@ const page = () => {
             <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#00D2FF] mb-4">
               Company Snapshot
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+            <h2 className="h2">
               About{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 Samrat Global
@@ -439,7 +432,7 @@ const page = () => {
                 <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
+                <h3 className="h3 text-white mb-3">{item.title}</h3>
                 <p className="text-slate-300 text-sm leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
@@ -458,7 +451,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
               Why Choose Us
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Core{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Commitments
@@ -480,7 +473,7 @@ const page = () => {
                   <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-300">
                     {value.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-[#0A2540] mb-3">{value.title}</h3>
+                  <h3 className="h3 text-[#0A2540] mb-3">{value.title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">{value.description}</p>
                   <div className="mt-6 h-1 w-12 bg-[#00D2FF] rounded-full group-hover:w-24 transition-all duration-500" />
                 </div>
@@ -561,7 +554,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
               Leadership Team
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               Meet Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Leadership
@@ -599,7 +592,7 @@ const page = () => {
                     </div>
                   </div>
                   <div className="p-5 text-center">
-                    <h3 className="text-lg font-bold text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
+                    <h3 className="h3 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
                       {member.name}
                     </h3>
                     <p className="text-xs font-bold text-[#0072FF] uppercase tracking-wider mt-1">
@@ -624,7 +617,7 @@ const page = () => {
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
               Testimonials
             </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0A2540] tracking-tight">
+            <h2 className="h2 text-[#0A2540]">
               What Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                 Clients Say
@@ -651,7 +644,7 @@ const page = () => {
                     {testimonial.author.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#0A2540]">{testimonial.author}</h4>
+                    <h4 className="h4 text-[#0A2540]">{testimonial.author}</h4>
                     <p className="text-xs text-slate-500 font-semibold">{testimonial.role}</p>
                   </div>
                 </div>
@@ -662,7 +655,7 @@ const page = () => {
       </section>
       <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] tracking-tight mb-6">
+          <h2 className="h2 text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] mb-6">
             Ready to Scale Your Global Trade Operations?
           </h2>
           <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8">

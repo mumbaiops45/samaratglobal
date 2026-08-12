@@ -134,7 +134,7 @@ const Footer = () => {
   return (
     <footer
       className="relative overflow-hidden"
-      // style={{ backgroundColor: BRAND.ink }}
+      style={{ backgroundColor: BRAND.ink }}
     >
       <div className="h-[2px] w-full" style={{ background: GRAD_LOGO }}/>
       <div className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full blur-[140px]"
@@ -166,7 +166,7 @@ const Footer = () => {
                 className="h-[150px] w-auto max-w-full object-contain object-left"
               />
             </Link>
-            <p className="mt-[-10px] max-w-sm text-sm text-slate-700 leading-7" >
+            <p className="mt-[-10px] max-w-sm text-md text-slate-100 leading-7" >
               A trusted sourcing and export partner from India, connecting
               global markets with quality products, reliable solutions, and
               seamless supply chains.
@@ -174,7 +174,7 @@ const Footer = () => {
           </motion.div>
 
           <motion.div variants={fadeUp}>
-            <h4 className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-black">
+            <h4 className="eyebrow mb-6 text-white">
               Quick Links
             </h4>
 
@@ -188,12 +188,12 @@ const Footer = () => {
                         ? handleHomeClick
                         : undefined
                     }
-                    className="group inline-flex items-center text-sm text-slate-700 transition-all duration-300 hover:translate-x-1.5"
+                    className="group inline-flex items-center text-sm text-slate-100 transition-all duration-300 hover:translate-x-1.5"
                   >
                     <span className="mr-0 h-[2px] w-0 transition-all duration-300 group-hover:mr-3 group-hover:w-4"
                       style={{ background: GRAD_LOGO }}
                     />
-                    <span className="transition-colors duration-300 group-hover:text-black">
+                    <span className="transition-colors duration-300 group-hover:text-slate-200">
                       {item.name}
                     </span>
                   </Link>
@@ -202,7 +202,7 @@ const Footer = () => {
             </ul>
           </motion.div>
           <motion.div variants={fadeUp}>
-            <h4 className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-black">
+            <h4 className="eyebrow mb-6 text-white">
               Our Services
             </h4>
 
@@ -211,13 +211,13 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="group inline-flex items-center text-sm text-slate-700 transition-all duration-300 hover:translate-x-1.5"
+                    className="group inline-flex items-center text-sm text-slate-100 transition-all duration-300 hover:translate-x-1.5"
                    
                   >
                     <span className="mr-0 h-[2px] w-0 transition-all duration-300 group-hover:mr-3 group-hover:w-4"
                       style={{ background: GRAD_LOGO }}
                     />
-                    <span className="transition-colors duration-300 group-hover:text-black">
+                    <span className="transition-colors duration-300 group-hover:text-slate-200">
                       {item.name}
                     </span>
                   </Link>
@@ -226,7 +226,7 @@ const Footer = () => {
             </ul>
           </motion.div>
           <motion.div variants={fadeUp}>
-            <h4 className="mb-6 text-sm font-bold uppercase tracking-[0.18em] text-black">
+            <h4 className="eyebrow mb-6 text-white">
               Contact Us
             </h4>
 
@@ -256,10 +256,10 @@ const Footer = () => {
                         size={18}
                         strokeWidth={1.8}
                         style={{ color: BRAND.cyan }}
-                        className="transition-colors duration-300 group-hover:text-black"
+                        className="transition-colors duration-300 group-hover:text-slate-100"
                       />
                     </div>
-                    <p className="min-w-0 pt-1 text-sm leading-6 transition-colors text-slate-700 duration-300 group-hover:text-black">
+                    <p className="min-w-0 pt-1 text-sm leading-6 transition-colors text-slate-100 duration-300 group-hover:text-slate-200">
                       {item.content}
                     </p>
 
@@ -280,7 +280,7 @@ const Footer = () => {
             borderColor: `${BRAND.mist}14`,
           }}
         >
-          <div className="flex flex-col items-center justify-between gap-4 text-slate-700 text-xs sm:text-sm md:flex-row"
+          <div className="flex flex-col items-center justify-between gap-4 text-slate-100 text-xs sm:text-sm md:flex-row"
             
           >
             <p className="text-center md:text-left">
