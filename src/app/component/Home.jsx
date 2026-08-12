@@ -209,7 +209,7 @@ const cards = [
     {
         theme: "dark",
         eyebrow: "Smart Forecasting",
-        title: "Optimized routes,\nlower cost",
+        title: "Optimized routes,lower cost",
         body: "In-house route intelligence calculates the most efficient path for every shipment, factoring seasonality, fuel cost and customs turnaround.",
         image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1600&auto=format&fit=crop",
         stats: [
