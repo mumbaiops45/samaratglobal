@@ -370,12 +370,12 @@ const page = () => {
                         {product.destination}
                       </p>
                     </div>
-                    <div>
+                    {/* <div>
                       <p className="text-[11px] font-semibold text-slate-400">Price Est.</p>
                       <p className="font-extrabold text-[#0052D4] text-xs mt-0.5">
                         {product.priceRange}
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -627,9 +627,9 @@ const page = () => {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                    <span className="text-xs font-extrabold text-[#0052D4]">
+                    {/* <span className="text-xs font-extrabold text-[#0052D4]">
                       {product.priceRange}
-                    </span>
+                    </span> */}
                     <button
                       onClick={() => setSelectedProduct(product)}
                       className="text-xs text-[#0072FF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#00D2FF]"

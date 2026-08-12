@@ -98,7 +98,7 @@ const ContactPage = () => {
 
     setIsSubmitting(true);
     const formDataToSend = new FormData(e.target);
-    formDataToSend.append("_subject", "New Samrat Global Trade Enquiry");
+    formDataToSend.append("_subject", "New Samrat Global India Private Limited Trade Enquiry");
     formDataToSend.append("_template", "table");
     formDataToSend.append("_captcha", "false");
 
@@ -299,7 +299,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
             >
               <iframe
                 src={mapEmbedSrc}
-                title="Samrat Global Location"
+                title="Samrat Global India Private Limited Location"
                 className="absolute inset-0 w-full h-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

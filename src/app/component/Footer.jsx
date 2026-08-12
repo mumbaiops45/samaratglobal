@@ -162,7 +162,7 @@ const Footer = () => {
             >
               <img
                 src="/logo-.png"
-                alt="Samrat Global"
+                alt="Samrat Global India Private Limited"
                 className="h-[150px] w-auto max-w-full object-contain object-left"
               />
             </Link>
@@ -284,7 +284,7 @@ const Footer = () => {
             
           >
             <p className="text-center md:text-left">
-              © {new Date().getFullYear()} Samrat Global. All Rights Reserved.
+              © {new Date().getFullYear()} Samrat Global India Private Limited. All Rights Reserved.
             </p>
 
             <p className="text-center md:text-right">

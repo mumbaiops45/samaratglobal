@@ -571,7 +571,7 @@ const page = () => {
             className="text-center mb-16"
           >
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
-              Why Samrat Global
+              Why Samrat Global India Private Limited
             </span>
             <h2 className="h2 text-[#0A2540]">
               Built Different,{" "}

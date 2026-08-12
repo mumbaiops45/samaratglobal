@@ -39,7 +39,7 @@ const TECH_SECTIONS = [
         icon: Building2,
         images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyY2RYj6GEWQiZxKknVPWGK6GtjC6BAT_O_EqCRnuFEy7o0ys3LeL5TVDP&s=10",
         paragraphs: [
-            "The Samrat Global is a sourcing and export company based in India.",
+            "The Samrat Global India Private Limited is a sourcing and export company based in India.",
             "Driven by innovation and a customer-centric approach, we serve as a strategic sourcing partner for businesses worldwide."
         ],
         cameraPos: [0, 85, 115],
@@ -144,7 +144,7 @@ const TECH_SECTIONS = [
         icon: Handshake,
         images: "https://t3.ftcdn.net/jpg/10/43/42/06/360_F_1043420602_HhmKNYUQrQKmIsriU2W0u8ZWSLn7e9zs.jpg",
         paragraphs: [
-            "At The Samrat Global, we don't just meet customer expectations — we exceed them.",
+            "At The Samrat Global India Private Limited, we don't just meet customer expectations — we exceed them.",
             "Continuous improvement allows us to build lasting relationships and deliver unmatched satisfaction."
         ],
         cameraPos: [65, 45, 65],
@@ -174,7 +174,7 @@ const services = [
 
 const content = [
     { blueTitle: "Sourcing", whiteTitle: "and Procurement", description: "Water transport is a cost effective logistic solution, ideal for moving large quantities across vast distances." },
-    { blueTitle: "Global Fulfilment", whiteTitle: "& Exports", description: "At Samrat Global, we export a diverse range of high quality products to partners across the globe." },
+    { blueTitle: "Global Fulfilment", whiteTitle: "& Exports", description: "At Samrat Global India Private Limited, we export a diverse range of high quality products to partners across the globe." },
     { blueTitle: "Domestic", whiteTitle: "Distribution", description: "We take pride in supplying and distributing our premium products and services to businesses across PAN India." }
 ];
 
@@ -187,7 +187,7 @@ const cards = [
         image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=1600&auto=format&fit=crop",
         body: (
             <>
-                <span className="font-semibold" style={{ color: BRAND.cyan }}>Samrat Global Private Limited</span> — quality is not just a promise, it&apos;s the foundation of everything we do. As a trusted Indian sourcing and export company, we bring the richness of India&apos;s agricultural heritage to global markets with precision, consistency, and integrity.
+                <span className="font-semibold" style={{ color: BRAND.cyan }}>Samrat Global India Private Limited</span> — quality is not just a promise, it&apos;s the foundation of everything we do. As a trusted Indian sourcing and export company, we bring the richness of India&apos;s agricultural heritage to global markets with precision, consistency, and integrity.
             </>
         ),
         badges: ["ISO Certified", "Global Standards", "Sustainable Sourcing"]
@@ -196,9 +196,9 @@ const cards = [
         theme: "light",
         tag: "Trusted Partner",
         eyebrow: "Who We Are",
-        title: "Samrat Global",
+        title: "Samrat Global India Private Limited",
         image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop",
-        body: <>Samrat Global Private Limited is a trusted import–export and logistics company delivering complete end-to-end trade solutions across India.</>,
+        body: <>Samrat Global India Private Limited is a trusted import–export and logistics company delivering complete end-to-end trade solutions across India.</>,
         stats: [
             { value: "500+", label: "Clients Served" },
             { value: "50+", label: "Countries" },
@@ -338,7 +338,7 @@ const CargoKiteTechSection = () => {
                         }}
                     >
                         <Sparkles className="w-3.5 h-3.5" />
-                        <span>The Samrat Global</span>
+                        <span>The Samrat Global India Private Limited</span>
                     </div>
 
                     <h1 className="h2 text-black mb-5">
@@ -354,8 +354,10 @@ const CargoKiteTechSection = () => {
                     </p>
 
                 </motion.div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch">
-                    <div className="space-y-[55vh]">
+                {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch"> */}
+                <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-20 items-start">
+                    {/* <div className="space-y-[55vh]"> */}
+                    <div className="space-y-10 sm:space-y-14 md:space-y-[55vh]">
                         {TECH_SECTIONS.map(
                             (sec, idx) => {
                                 const IconComponent =sec.icon;
@@ -453,7 +455,7 @@ const CargoKiteTechSection = () => {
                                         <motion.img
                                             key={currentImage}
                                             src={currentImage}
-                                            alt={currentSection?.title ||"The Samrat Global"}
+                                            alt={currentSection?.title ||"The Samrat Global India Private Limited"}
                                             initial={{
                                                 opacity: 0,
                                                 scale: 1.05,
@@ -656,10 +658,13 @@ export default function Home() {
 
     return (
         <>
-            <section id="hero" className="relative h-screen w-full overflow-hidden" style={{ backgroundColor: BRAND.ink }}>
+            <section id="hero" 
+            className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen overflow-hidden" 
+            style={{ backgroundColor: BRAND.ink }}
+            >
                 <video
                     ref={videoRef}
-                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    className="absolute top-0 left-0 w-full h-full  object-cover"
                     src="/banner.mp4"
                     autoPlay
                     muted
@@ -669,6 +674,7 @@ export default function Home() {
                 />
                 <div className='absolute inset-0 bg-black/15' />
                 <div className="relative z-10 h-full flex items-center  px-4 sm:px-6 md:px-10">
+                 {/* <div className="relative z-10 h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen flex items-center px-4 sm:px-6 md:px-10"> */}
                     <div className="max-w-4xl lg:max-w-5xl  text-white">
                         <AnimatePresence mode="wait">
                             <motion.h1
@@ -692,7 +698,7 @@ export default function Home() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-50 max-w-2xl lg:max-w-3xl leading-relaxed px-2"
+                                className="text-base sm:text-lg md:text-xl lg:text-xl text-slate-50 max-w-2xl lg:max-w-3xl leading-relaxed px-2"
                             >
                                 {content[currentIndex].description}
                             </motion.p>
@@ -854,7 +860,7 @@ export default function Home() {
                     <div className="mb-12 sm:mb-16 lg:mb-20 grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
                         <motion.div initial={{ opacity: 0, x: -80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
                             <p className="mb-2 sm:mb-4 font-semibold uppercase tracking-[3px] sm:tracking-[4px] text-xs sm:text-sm" style={{ color: BRAND.cyan }}>
-                                THE SAMRAT GLOBAL
+                                THE Samrat Global India Private Limited
                             </p>
                             <h2 className="h2 text-white">
                                 Connect The World<br />
@@ -863,7 +869,7 @@ export default function Home() {
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} viewport={{ once: true }}>
                             <p className="text-base sm:text-lg md:text-xl leading-7 text-slate-50 sm:leading-9" >
-                                We, <span className="font-bold" style={{ color: BRAND.cyan }}>SAMRAT GLOBAL</span> are a sourcing & export company based in India, offering sourcing, procurement solutions and worldwide export services.
+                                We, <span className="font-bold" style={{ color: BRAND.cyan }}>Samrat Global India Private Limited</span> are a sourcing & export company based in India, offering sourcing, procurement solutions and worldwide export services.
                             </p>
                         </motion.div>
                     </div>

@@ -98,19 +98,19 @@ const page = () => {
   const testimonials = [
     {
       quote:
-        "Samrat Global has been an exceptional partner. Their commitment to quality and reliability is unmatched.",
+        "Samrat Global India Private Limited has been an exceptional partner. Their commitment to quality and reliability is unmatched.",
       author: "John Smith",
       role: "CEO, Global Trading Co.",
     },
     {
       quote:
-        "The professionalism and expertise of the Samrat Global team made our international expansion seamless.",
+        "The professionalism and expertise of the Samrat Global India Private Limited team made our international expansion seamless.",
       author: "Sarah Johnson",
       role: "Director, International Foods",
     },
     {
       quote:
-        "We trust Samrat Global for all our sourcing needs. They consistently deliver beyond expectations.",
+        "We trust Samrat Global India Private Limited for all our sourcing needs. They consistently deliver beyond expectations.",
       author: "Michael Chen",
       role: "VP Operations, Asia Imports",
     },
@@ -179,7 +179,7 @@ const page = () => {
               >
                 <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#00D2FF] sm:h-2.5 sm:w-2.5" />
                 <span className="truncate text-[10px] font-bold uppercase tracking-[1.5px] text-[#00D2FF] sm:text-xs sm:tracking-[2px] md:text-sm">
-                  Welcome to Samrat Global
+                  Welcome to Samrat Global India Private Limited
                 </span>
               </div>
 
@@ -190,7 +190,7 @@ const page = () => {
                 </span>
               </h1>
               <p ref={paragraphRef} className="mt-5 max-w-2xl text-sm leading-7 text-slate-200 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl">
-                Learn about Samrat Global, an India-based sourcing and export company
+                Learn about Samrat Global India Private Limited, an India-based sourcing and export company
                 focused on premium quality, reliability, and customer-first trade
                 partnerships worldwide.
               </p>
@@ -394,7 +394,7 @@ const page = () => {
             <h2 className="h2">
               About{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
-                Samrat Global
+                Samrat Global India Private Limited
               </span>
             </h2>
           </motion.div>
@@ -404,7 +404,7 @@ const page = () => {
                 icon: <FaBuilding className="text-4xl text-[#00D2FF]" />,
                 title: "Who We Are",
                 description:
-                  "Samrat Global is a sourcing and export company based in India offering strategic procurement solutions and worldwide export services.",
+                  "Samrat Global India Private Limited is a sourcing and export company based in India offering strategic procurement solutions and worldwide export services.",
               },
               {
                 icon: <FaEye className="text-4xl text-[#60EFFF]" />,
@@ -661,7 +661,7 @@ const page = () => {
               </span>
             </h2>
           <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8">
-            Partner with Samrat Global today for seamless sourcing, quality assurance, and global export solutions.
+            Partner with Samrat Global India Private Limited today for seamless sourcing, quality assurance, and global export solutions.
           </p>
           <motion.a
             whileHover={{ scale: 1.05 }}
