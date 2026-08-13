@@ -126,8 +126,8 @@ const Footer = () => {
     },
     {
       icon: Mail,
-      href: "mailto:info@samratglobal.com",
-      content: "info@samratglobal.com",
+      href: "mailto:info@samratglobalindia.com",
+      content: "info@samratglobalindia.com",
     },
   ];
 

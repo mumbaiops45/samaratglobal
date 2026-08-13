@@ -163,8 +163,8 @@ const ContactPage = () => {
     {
       icon: <HiOutlineMail className="text-xl sm:text-2xl text-[#0052D4]" />,
       title: "Email Us",
-      value: "info@samratglobal.com",
-      link: "mailto:info@samratglobal.com",
+      value: "info@samratglobalindia.com",
+      link: "mailto:info@samratglobalindia.com",
     },
     {
       icon: <IoMdCall className="text-xl sm:text-2xl text-[#00D2FF]" />,
