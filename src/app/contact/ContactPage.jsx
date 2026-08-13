@@ -2,12 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle, FaArrowRight,FaExclamationCircle, FaHandshake, FaRocket, } from "react-icons/fa";
+import {FaMapMarkerAlt,FaClock,FaPaperPlane,FaCheckCircle,FaArrowRight,FaExclamationCircle,FaHandshake,FaRocket,FaChevronDown} from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
 import { HiOutlineMail } from "react-icons/hi";
 import axios from "axios";
+
+
+const baseField =
+  "w-full px-4 py-3 bg-[#F4F9FF] rounded-2xl border focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-base sm:text-sm";
+const fieldBorder = (hasError) =>
+  hasError ? "border-red-500" : "border-slate-200";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -22,14 +28,23 @@ const ContactPage = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [particles, setParticles] = useState([]);
+  const [canHover, setCanHover] = useState(false);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    setParticles(
+      Array.from({ length: 10 }, () => ({
+        left: Math.random() * 90, 
+        top: Math.random() * 90,
+        size: Math.random() * 6 + 2,
+        duration: Math.random() * 4 + 3,
+        delay: Math.random() * 2,
+      }))
+    );
+    setCanHover(window.matchMedia("(hover: hover)").matches);
   }, []);
+
+  const hoverProps = (props) => (canHover ? { whileHover: props } : {});
 
   const validatePhoneNumber = (phone) => {
     const cleanPhone = phone.replace(/[\s\-()]/g, "");
@@ -66,9 +81,11 @@ const ContactPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
+    if (!formData.firstName.trim())
+      newErrors.firstName = "First name is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -79,26 +96,29 @@ const ContactPage = () => {
     if (!formData.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      const firstErrorField = Object.keys(errors)[0];
-      if (firstErrorField) {
-        const element = document.querySelector(`[name="${firstErrorField}"]`);
-        if (element) {
-          element.focus();
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
+    const validationErrors = validateForm();
+
+    if (Object.keys(validationErrors).length > 0) {
+      const firstErrorField = Object.keys(validationErrors)[0];
+      const element = document.querySelector(`[name="${firstErrorField}"]`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        element.focus({ preventScroll: true });
       }
       return;
     }
 
     setIsSubmitting(true);
     const formDataToSend = new FormData(e.target);
-    formDataToSend.append("_subject", "New Samrat Global India Private Limited Trade Enquiry");
+    formDataToSend.append(
+      "_subject",
+      "New Samrat Global India Private Limited Trade Enquiry"
+    );
     formDataToSend.append("_template", "table");
     formDataToSend.append("_captcha", "false");
 
@@ -106,7 +126,12 @@ const ContactPage = () => {
       const response = await axios.post(
         "https://formsubmit.co/ajax/info@thesamratglobal.com",
         formDataToSend,
-        { headers: { "Content-Type": "multipart/form-data", Accept: "application/json" } }
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+          },
+        }
       );
 
       if (response.data.success === "true" || response.status === 200) {
@@ -126,7 +151,9 @@ const ContactPage = () => {
       }
     } catch (error) {
       console.error("FormSubmit Error:", error);
-      alert("Something went wrong. Please try again or email info@thesamratglobal.com");
+      alert(
+        "Something went wrong. Please try again or email info@thesamratglobal.com"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -148,54 +175,51 @@ const ContactPage = () => {
     {
       icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
       title: "Corporate Office",
-      value: "OFF NO 11, THE SIGNATURE, GANESH MANDIR, Dombivli, Kalyan, Thane - 421201, Maharashtra",
+      value:
+        "OFF NO 11, THE SIGNATURE, GANESH MANDIR, Dombivli, Kalyan, Thane - 421201, Maharashtra",
       link: "https://www.google.com/maps/search/?api=1&query=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra",
     },
     {
       icon: <FaClock className="text-xl sm:text-2xl text-[#60EFFF]" />,
       title: "Working Hours",
       value: "Mon - Sat: 9:00 AM - 6:00 PM (IST)",
-      link: "#",
+      link: null, 
     },
   ];
 
-
-
-const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra&output=embed";
+  const mapEmbedSrc =
+    "https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra&output=embed";
 
   return (
     <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-[#00D2FF]/30">
-
-
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {[...Array(10)].map((_, i) => (
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden sm:block">
+        {particles.map((p, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-gradient-to-r from-[#00D2FF] to-[#0052D4] opacity-10"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 6 + 2}px`,
-              height: `${Math.random() * 6 + 2}px`,
+              left: `${p.left}%`,
+              top: `${p.top}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
             }}
             animate={{
               y: [0, -30, 0],
               opacity: [0.1, 0.3, 0.1],
             }}
             transition={{
-              duration: Math.random() * 4 + 3,
+              duration: p.duration,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * 2,
+              delay: p.delay,
             }}
           />
         ))}
       </div>
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-16 md:py-28 text-white">
-
-        <div className="absolute top-10 right-10 w-80 h-80 bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#0052D4]/20 rounded-full blur-[140px] pointer-events-none" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-14 sm:py-16 md:py-28 text-white">
+        <div className="absolute top-10 right-0 sm:right-10 w-48 h-48 sm:w-80 sm:h-80 bg-[#00D2FF]/15 rounded-full blur-[70px] sm:blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-10 left-0 sm:left-10 w-56 h-56 sm:w-96 sm:h-96 bg-[#0052D4]/20 rounded-full blur-[70px] sm:blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <motion.div
@@ -204,35 +228,49 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
             transition={{ duration: 0.8 }}
             className="max-w-4xl text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-1 rounded-full border border-white/20 mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 sm:px-5 py-1 rounded-full border border-white/20 mb-5 sm:mb-6">
               <FaPaperPlane className="text-[#00D2FF] text-xs sm:text-sm" />
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#60EFFF]">
-                Let's Connect
+              <span className="text-[10px] sm:text-sm font-bold uppercase tracking-[1.5px] sm:tracking-[2px] text-[#60EFFF]">
+                Let&apos;s Connect
               </span>
             </div>
 
-            <h1 className="h2 text-white">
-              Let's{" "}
+            {/* clamp() overrides the global .h2 size so the headline can't
+                overflow on 320-360px screens */}
+            <h1 className="h2 text-white [font-size:clamp(1.875rem,7vw,3.75rem)] leading-[1.15] break-words">
+              Let&apos;s{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
                 Connect
               </span>
-              <span className="block text-white mt-1">For Global Trade Growth</span>
+              <span className="block text-white mt-1">
+                For Global Trade Growth
+              </span>
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed mt-4 sm:mt-6 max-w-2xl mx-auto lg:mx-0">
-              Have questions or ready to initiate import-export partnerships? Our dedicated trade specialists are ready to help.
+            <p className="text-sm sm:text-lg md:text-xl text-slate-300 leading-relaxed mt-4 sm:mt-6 max-w-2xl mx-auto lg:mx-0">
+              Have questions or ready to initiate import-export partnerships?
+              Our dedicated trade specialists are ready to help.
             </p>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-8">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mt-6 sm:mt-8">
               {[
-                { icon: <MdOutlineSecurity className="text-[#00D2FF]" />, text: "Trusted Partner" },
-                { icon: <FaHandshake className="text-[#60EFFF]" />, text: "100% Satisfaction" },
-                { icon: <FaRocket className="text-[#00D2FF]" />, text: "Quick Response" },
+                {
+                  icon: <MdOutlineSecurity className="text-[#00D2FF]" />,
+                  text: "Trusted Partner",
+                },
+                {
+                  icon: <FaHandshake className="text-[#60EFFF]" />,
+                  text: "100% Satisfaction",
+                },
+                {
+                  icon: <FaRocket className="text-[#00D2FF]" />,
+                  text: "Quick Response",
+                },
               ].map((badge, i) => (
                 <motion.div
                   key={i}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/15 text-xs sm:text-sm font-semibold text-white hover:border-[#00D2FF] transition-all"
+                  {...hoverProps({ scale: 1.03, y: -2 })}
+                  className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 sm:px-4 py-2 rounded-full border border-white/15 text-[11px] sm:text-sm font-semibold text-white transition-all"
                 >
                   {badge.icon}
                   <span>{badge.text}</span>
@@ -243,50 +281,59 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
         </div>
       </section>
 
-
-      <section className="py-16 md:py-24 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-
+      <section className="py-14 sm:py-16 md:py-24 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-start">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="flex flex-col gap-8"
+            className="flex flex-col gap-6 sm:gap-8 w-full"
           >
-            <div className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 border border-slate-100">
-              <h3 className="h3 text-[#0A2540] mb-6 flex items-center gap-3">
-                <span className="w-1.5 h-7 bg-gradient-to-b from-[#0052D4] to-[#00D2FF] rounded-full"></span>
+            <div className="bg-white rounded-3xl shadow-sm p-5 sm:p-8 border border-slate-100">
+              <h3 className="h3 text-[#0A2540] mb-5 sm:mb-6 flex items-center gap-3 [font-size:clamp(1.25rem,4.5vw,1.75rem)]">
+                <span className="w-1.5 h-6 sm:h-7 bg-gradient-to-b from-[#0052D4] to-[#00D2FF] rounded-full shrink-0"></span>
                 Contact Information
               </h3>
 
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={index}
-                    href={info.link}
-                    target={info.link !== "#" ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    whileHover={{ x: 4 }}
-                    className="flex items-start gap-4 p-4 bg-[#F4F9FF] rounded-2xl border border-slate-100 hover:border-[#00D2FF] hover:bg-white transition-all group"
-                  >
-                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
-                      {info.icon}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                        {info.title}
-                      </p>
-                      <p className="text-sm sm:text-base text-[#0A2540] font-bold truncate mt-0.5">
-                        {info.value}
-                      </p>
-                    </div>
-                  </motion.a>
-                ))}
+              <div className="space-y-3 sm:space-y-4">
+                {contactInfo.map((info, index) => {
+                  const Wrapper = info.link ? motion.a : motion.div;
+                  const linkProps = info.link
+                    ? {
+                        href: info.link,
+                        ...(info.link.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {}),
+                      }
+                    : {};
+
+                  return (
+                    <Wrapper
+                      key={index}
+                      {...linkProps}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      {...hoverProps({ x: 4 })}
+                      className="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 bg-[#F4F9FF] rounded-2xl border border-slate-100 hover:border-[#00D2FF] hover:bg-white transition-all group"
+                    >
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
+                        {info.icon}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                          {info.title}
+                        </p>
+                        {/* break-words, not truncate — the address is 3 lines on a phone */}
+                        <p className="text-[13px] sm:text-base text-[#0A2540] font-bold mt-0.5 break-words leading-snug">
+                          {info.value}
+                        </p>
+                      </div>
+                    </Wrapper>
+                  );
+                })}
               </div>
             </div>
 
@@ -295,7 +342,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="relative w-full h-[260px] md:h-[300px] rounded-3xl overflow-hidden shadow-sm border border-slate-100"
+              className="relative w-full h-[220px] sm:h-[260px] md:h-[300px] rounded-3xl overflow-hidden shadow-sm border border-slate-100"
             >
               <iframe
                 src={mapEmbedSrc}
@@ -307,15 +354,16 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
               />
             </motion.div>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl shadow-sm p-6 sm:p-8 md:p-10 border border-slate-100"
+            className="bg-white rounded-3xl shadow-sm p-5 sm:p-8 md:p-10 border border-slate-100 w-full"
           >
-            <div className="mb-8">
-              <h2 className="h3 text-[#0A2540]">
+            <div className="mb-6 sm:mb-8">
+              <h2 className="h3 text-[#0A2540] [font-size:clamp(1.375rem,5vw,2rem)] leading-tight">
                 Send Us a{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
                   Message
@@ -326,7 +374,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
@@ -336,14 +384,14 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                     type="text"
                     name="firstName"
                     placeholder="John"
+                    autoComplete="given-name"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.firstName ? "border-red-500" : "border-slate-200"
-                      } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
+                    className={`${baseField} ${fieldBorder(errors.firstName)}`}
                   />
                   {errors.firstName && (
-                    <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
-                      <FaExclamationCircle className="text-xs" />
+                    <div className="flex items-start gap-1 mt-1.5 text-red-500 text-xs font-semibold">
+                      <FaExclamationCircle className="text-xs mt-0.5 shrink-0" />
                       <span>{errors.firstName}</span>
                     </div>
                   )}
@@ -357,9 +405,10 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                     type="text"
                     name="lastName"
                     placeholder="Doe"
+                    autoComplete="family-name"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[#F4F9FF] border border-slate-200 rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm"
+                    className={`${baseField} border-slate-200`}
                   />
                 </div>
               </div>
@@ -372,14 +421,15 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                   type="email"
                   name="email"
                   placeholder="you@company.com"
+                  autoComplete="email"
+                  inputMode="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.email ? "border-red-500" : "border-slate-200"
-                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
+                  className={`${baseField} ${fieldBorder(errors.email)}`}
                 />
                 {errors.email && (
-                  <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
-                    <FaExclamationCircle className="text-xs" />
+                  <div className="flex items-start gap-1 mt-1.5 text-red-500 text-xs font-semibold">
+                    <FaExclamationCircle className="text-xs mt-0.5 shrink-0" />
                     <span>{errors.email}</span>
                   </div>
                 )}
@@ -387,21 +437,25 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                  Phone Number <span className="text-slate-400 font-normal text-xs">(10 Digits)</span>
+                  Phone Number{" "}
+                  <span className="text-slate-400 font-normal text-xs">
+                    (10 Digits)
+                  </span>
                 </label>
                 <input
                   type="tel"
                   name="phone"
                   placeholder="9876543210"
+                  autoComplete="tel"
+                  inputMode="numeric"
+                  maxLength="10"
                   value={formData.phone}
                   onChange={handleChange}
-                  maxLength="10"
-                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.phone ? "border-red-500" : "border-slate-200"
-                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm`}
+                  className={`${baseField} ${fieldBorder(errors.phone)}`}
                 />
                 {errors.phone && (
-                  <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
-                    <FaExclamationCircle className="text-xs" />
+                  <div className="flex items-start gap-1 mt-1.5 text-red-500 text-xs font-semibold">
+                    <FaExclamationCircle className="text-xs mt-0.5 shrink-0" />
                     <span>{errors.phone}</span>
                   </div>
                 )}
@@ -411,19 +465,24 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                   Inquiry Subject
                 </label>
-                <select
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-[#F4F9FF] border border-slate-200 rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm appearance-none"
-                >
-                  <option value="">Select a subject</option>
-                  <option value="general">General Trade Inquiry</option>
-                  <option value="sourcing">Global Sourcing Services</option>
-                  <option value="export">Export & Trade Solutions</option>
-                  <option value="logistics">Logistics & Supply Chain</option>
-                  <option value="partnership">Global Partnership</option>
-                </select>
+                {/* appearance-none strips the native arrow — without a chevron
+                    the select reads as a plain text box on mobile */}
+                <div className="relative">
+                  <select
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className={`${baseField} border-slate-200 pr-11 appearance-none cursor-pointer`}
+                  >
+                    <option value="">Select a subject</option>
+                    <option value="general">General Trade Inquiry</option>
+                    <option value="sourcing">Global Sourcing Services</option>
+                    <option value="export">Export &amp; Trade Solutions</option>
+                    <option value="logistics">Logistics &amp; Supply Chain</option>
+                    <option value="partnership">Global Partnership</option>
+                  </select>
+                  <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none" />
+                </div>
               </div>
 
               <div>
@@ -432,16 +491,17 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                 </label>
                 <textarea
                   name="message"
-                  rows={windowWidth < 640 ? 3 : 4}
+                  rows={3}
                   placeholder="Describe your trade requirement, quantity, or questions..."
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-[#F4F9FF] border ${errors.message ? "border-red-500" : "border-slate-200"
-                    } rounded-2xl focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-sm resize-none`}
+                  className={`${baseField} ${fieldBorder(
+                    errors.message
+                  )} resize-none min-h-[100px] sm:min-h-[130px]`}
                 />
                 {errors.message && (
-                  <div className="flex items-center gap-1 mt-1.5 text-red-500 text-xs font-semibold">
-                    <FaExclamationCircle className="text-xs" />
+                  <div className="flex items-start gap-1 mt-1.5 text-red-500 text-xs font-semibold">
+                    <FaExclamationCircle className="text-xs mt-0.5 shrink-0" />
                     <span>{errors.message}</span>
                   </div>
                 )}
@@ -450,9 +510,9 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
+                {...hoverProps({ scale: 1.02 })}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 px-6 bg-gradient-to-r from-[#0052D4] to-[#00D2FF] rounded-2xl font-bold text-white shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+                className="w-full py-4 px-5 sm:px-6 bg-gradient-to-r from-[#0052D4] to-[#00D2FF] rounded-2xl font-bold text-white text-sm sm:text-base shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -466,7 +526,7 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                   </>
                 ) : (
                   <>
-                    <BiSend className="text-xl" />
+                    <BiSend className="text-lg sm:text-xl" />
                     <span>Send Message</span>
                     <FaArrowRight className="text-xs" />
                   </>
@@ -479,20 +539,19 @@ const mapEmbedSrc ="https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-emerald-800 text-sm font-semibold"
+                    className="flex items-start gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-emerald-800 text-xs sm:text-sm font-semibold"
                   >
-                    <FaCheckCircle className="text-emerald-500 text-lg shrink-0" />
-                    <span>Thank you! Your message has been sent to our trade desk.</span>
+                    <FaCheckCircle className="text-emerald-500 text-lg shrink-0 mt-0.5" />
+                    <span>
+                      Thank you! Your message has been sent to our trade desk.
+                    </span>
                   </motion.div>
                 )}
               </AnimatePresence>
             </form>
           </motion.div>
-
         </div>
       </section>
-
-
     </div>
   );
 };
