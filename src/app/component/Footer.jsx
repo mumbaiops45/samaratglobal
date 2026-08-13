@@ -121,13 +121,13 @@ const Footer = () => {
     },
     {
       icon: Phone,
-      href: "tel:+919820423852",
-      content: "+91 98204 23852",
+      href: "tel:+919920220309",
+      content: "+91 9920220309",
     },
     {
       icon: Mail,
-      href: "mailto:info@thesamratglobal.com",
-      content: "info@thesamratglobal.com",
+      href: "mailto:info@samratglobal.com",
+      content: "info@samratglobal.com",
     },
   ];
 

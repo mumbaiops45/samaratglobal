@@ -124,7 +124,7 @@ const ContactPage = () => {
 
     try {
       const response = await axios.post(
-        "https://formsubmit.co/ajax/info@thesamratglobal.com",
+        "https://formsubmit.co/ajax/info@samratglobal.com",
         formDataToSend,
         {
           headers: {
@@ -163,14 +163,14 @@ const ContactPage = () => {
     {
       icon: <HiOutlineMail className="text-xl sm:text-2xl text-[#0052D4]" />,
       title: "Email Us",
-      value: "info@thesamratglobal.com",
-      link: "mailto:info@thesamratglobal.com",
+      value: "info@samratglobal.com",
+      link: "mailto:info@samratglobal.com",
     },
     {
       icon: <IoMdCall className="text-xl sm:text-2xl text-[#00D2FF]" />,
       title: "Call Us Direct",
-      value: "+91 9820423852",
-      link: "tel:+919820423852",
+      value: "+91 9920220309",
+      link: "tel:+919920220309",
     },
     {
       icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
