@@ -37,7 +37,7 @@ const AboutPage = () => {
       expertise: "Strategic Planning",
     },
     {
-      name: "Jay Kumar Sinha",
+      name: "JayKumar Sinha",
       role: "Co-founder and Director",
       image: "/jaykumar.jpeg",
       description: "Marketing expert driving brand excellence worldwide",
