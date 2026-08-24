@@ -44,6 +44,13 @@ const AboutPage = () => {
       expertise: "Brand Strategy",
     },
     {
+      name: "Rajeev Paul ",
+      role: "Chief Executive Officer (CEO)",
+      image: "/rajiv.jpeg",
+      description: "A results-driven executive responsible for leading business operations, driving organizational growth, and turning strategic goals into sustainable business outcomes.",
+      expertise: "Strategic Planning",
+    },
+    {
       name: "Lalita Pandey",
       role: "Co-founder and Director",
       image: "/lalita.jpeg",
@@ -563,7 +570,7 @@ const AboutPage = () => {
               Dedicated professionals committed to driving your business growth worldwide.
             </p>
           </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
