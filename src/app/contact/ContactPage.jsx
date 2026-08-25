@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {FaMapMarkerAlt,FaClock,FaPaperPlane,FaCheckCircle,FaArrowRight,FaExclamationCircle,FaHandshake,FaRocket,FaChevronDown} from "react-icons/fa";
+import { FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle, FaArrowRight, FaExclamationCircle, FaHandshake, FaRocket, FaChevronDown } from "react-icons/fa";
 import { MdOutlineSecurity } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
@@ -34,7 +34,7 @@ const ContactPage = () => {
   useEffect(() => {
     setParticles(
       Array.from({ length: 10 }, () => ({
-        left: Math.random() * 90, 
+        left: Math.random() * 90,
         top: Math.random() * 90,
         size: Math.random() * 6 + 2,
         duration: Math.random() * 4 + 3,
@@ -172,18 +172,33 @@ const ContactPage = () => {
       value: "+91 9920220309",
       link: "tel:+919920220309",
     },
+    // {
+    //   icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
+    //   title: "Corporate Office",
+    //   value:
+    //     "OFF NO 11, THE SIGNATURE, GANESH MANDIR, Dombivli, Kalyan, Thane - 421201, Maharashtra",
+    //   link: "https://www.google.com/maps/search/?api=1&query=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra",
+    // },
     {
       icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
       title: "Corporate Office",
-      value:
-        "OFF NO 11, THE SIGNATURE, GANESH MANDIR, Dombivli, Kalyan, Thane - 421201, Maharashtra",
-      link: "https://www.google.com/maps/search/?api=1&query=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra",
+      value: (
+        <>
+          The Signature Building,
+          Office No. 11, Ground Floor,
+          Ganesh Mandir Road, Dombivli East,
+          <br />
+          Maharashtra 421201
+        </>
+      ),
+      link: "https://www.google.com/maps/search/?api=1&query=The+Signature+Building+Office+No+11+Ground+Floor+Ganesh+Mandir+Road+Dombivli+East+Maharashtra+421201",
     },
+
     {
       icon: <FaClock className="text-xl sm:text-2xl text-[#60EFFF]" />,
       title: "Working Hours",
       value: "Mon - Sat: 9:00 AM - 6:00 PM (IST)",
-      link: null, 
+      link: null,
     },
   ];
 
@@ -301,11 +316,11 @@ const ContactPage = () => {
                   const Wrapper = info.link ? motion.a : motion.div;
                   const linkProps = info.link
                     ? {
-                        href: info.link,
-                        ...(info.link.startsWith("http")
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {}),
-                      }
+                      href: info.link,
+                      ...(info.link.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {}),
+                    }
                     : {};
 
                   return (
