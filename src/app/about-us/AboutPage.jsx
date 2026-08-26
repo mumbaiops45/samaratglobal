@@ -39,7 +39,7 @@ const AboutPage = () => {
     {
       name: "JayKumar Sinha",
       role: "Co-founder and Director",
-      image: "/jaykumar.jpeg",
+      image: "/jaykumar.jpg",
       description: "Marketing expert driving brand excellence worldwide",
       expertise: "Brand Strategy",
     },
