@@ -122,11 +122,11 @@ const Footer = () => {
       href: "https://www.google.com/maps/search/?api=1&query=Office+No+11+The+Signature+Ganesh+Mandir+Road+Dombivli+East+Maharashtra+421201",
       content: (
         <>
-          <span className="block">Office No. 11, Ground Floor</span>
-          <span className="block">
+          <span> The Signature Building,Office No. 11, Ground Floor</span>
+          <span>
             Ganesh Mandir Road, Dombivli East,
           </span>
-          <span className="block">Maharashtra 421201</span>
+          <span>Maharashtra 421201</span>
         </>
       ),
     },
