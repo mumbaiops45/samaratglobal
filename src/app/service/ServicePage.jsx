@@ -87,7 +87,7 @@ const ServicePage = () => {
       slug: "international-shipping",
       title: "International Shipping",
       icon: <FaShip className="text-4xl text-[#00D2FF]" />,
-      image: "/international.jpg",
+      image: "/International.jpg",
       description:
         "Global freight solutions connecting India to over 150+ countries via sea and air freight corridors.",
       details: [
