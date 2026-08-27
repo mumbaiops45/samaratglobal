@@ -172,18 +172,11 @@ const ContactPage = () => {
       value: "+91 9920220309",
       link: "tel:+919920220309",
     },
-    // {
-    //   icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
-    //   title: "Corporate Office",
-    //   value:
-    //     "OFF NO 11, THE SIGNATURE, GANESH MANDIR, Dombivli, Kalyan, Thane - 421201, Maharashtra",
-    //   link: "https://www.google.com/maps/search/?api=1&query=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra",
-    // },
     {
       icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
       title: "Corporate Office",
       value: (
-        <>
+        <> Samrat Global India Private Limited
           The Signature Building,
           Office No. 11, Ground Floor,
           Ganesh Mandir Road, Dombivli East,

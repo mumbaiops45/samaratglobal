@@ -122,13 +122,25 @@ const Footer = () => {
       href: "https://www.google.com/maps/search/?api=1&query=Office+No+11+The+Signature+Ganesh+Mandir+Road+Dombivli+East+Maharashtra+421201",
       content: (
         <>
-          <span> The Signature Building,Office No. 11, Ground Floor {" "}</span>
+          <span>Samrat Global India Private Limited The Signature Building,Office No. 11, Ground Floor {" "}</span>
           <span>
             Ganesh Mandir Road, Dombivli East,
           </span>
           <span>Maharashtra 421201</span>
         </>
       ),
+    },
+    {
+      icon: Building2,
+      title: "CIN",
+      href: "",
+      content: "U52292MR2026PTC478348",
+    },
+     {
+      icon: Building2,
+      title: "GSTIN",
+      href: "",
+      content: "27ABUCS3200J1Z3",
     },
     {
       icon: Phone,
@@ -197,8 +209,8 @@ const Footer = () => {
                 className="h-[105px] w-auto max-w-full object-contain object-left transition-transform duration-500 group-hover:scale-[1.02] sm:h-[115px]"
               />
             </Link>
-
-            <p className="mt-[-2px] max-w-sm text-sm leading-6 text-slate-300">
+             <p className=" max-w-sm text-xl font-bold leading-6 text-slate-300">Samrat Global India Private Limited </p>
+            <p className="mt-[2px] max-w-sm text-sm leading-6 text-slate-300">
               A trusted sourcing and export partner from India,
               connecting global markets with quality products,
               reliable solutions, and seamless supply chains.
@@ -351,21 +363,21 @@ const Footer = () => {
               }}
             >
               <div className="mb-3 flex items-center gap-2">
-                <span
+                {/* <span
                   className="h-px w-5 rounded-full"
                   style={{
                     background: GRAD_LOGO,
                   }}
-                />
+                /> */}
 
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {/* <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                   Company Registration
-                </p>
+                </p> */}
               </div>
 
               <div className="space-y-2">
-                {/* CIN */}
-                <div className="flex items-center gap-2.5">
+               
+                {/* <div className="flex items-center gap-2.5">
                   <div
                     className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border"
                     style={{
@@ -419,7 +431,7 @@ const Footer = () => {
                       27ABUCS3200J1Z3
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </motion.div>
