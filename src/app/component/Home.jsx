@@ -7,7 +7,7 @@ import Lenis from 'lenis';
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
-import { Eye, Award, Truck, Handshake, Target,Building2 ,Sparkles , Globe2, ArrowUpRight } from "lucide-react";
+import { Eye, Award, Truck, Handshake, Target, Building2, Sparkles, Globe2, ArrowUpRight } from "lucide-react";
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -28,6 +28,41 @@ const BRAND = {
 
 const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
 
+const faqs = [
+    {
+        q: "What does Samrat Global India do?",
+        a: "Samrat Global India provides sourcing, procurement and export support, coordinating with suppliers from product sourcing through delivery.",
+    },
+    {
+        q: "Can you help me find suppliers in international markets?",
+        a: "Yes. We help identify suitable suppliers based on your product requirements, specifications and purchasing needs.",
+    },
+    {
+        q: "Do you provide sourcing and procurement services?",
+        a: (
+            <>
+                Yes. Our <b>Global Procurement Solutions</b> include product
+                sourcing, supplier coordination, purchasing support and order
+                monitoring.
+            </>
+        ),
+    },
+    {
+        q: "Do you provide export services from India?",
+        a: (
+            <>
+                Yes. Our <b>Export Company in India</b> services support
+                sourcing, procurement, shipment coordination and international
+                trade requirements.
+            </>
+        ),
+    },
+    {
+        q: "Why should I choose Samrat Global India?",
+        a: "We combine sourcing expertise, procurement coordination, quality-focused processes and customer-first service to simplify global trade and build lasting partnerships.",
+    },
+];
+
 
 const TECH_SECTIONS = [
     {
@@ -37,20 +72,26 @@ const TECH_SECTIONS = [
         subtitle: "GLOBAL SOURCING & EXPORT PARTNER",
         badge: "Company",
         icon: Building2,
-        images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyY2RYj6GEWQiZxKknVPWGK6GtjC6BAT_O_EqCRnuFEy7o0ys3LeL5TVDP&s=10",
+        images:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyY2RYj6GEWQiZxKknVPWGK6GtjC6BAT_O_EqCRnuFEy7o0ys3LeL5TVDP&s=10",
+
         paragraphs: [
-            "The Samrat Global India Private Limited is a sourcing and export company based in India.",
-            "Driven by innovation and a customer-centric approach, we serve as a strategic sourcing partner for businesses worldwide."
+            'As a <span className="BRAND.cyan">global sourcing company</span>, we support businesses through supplier identification, product sourcing, procurement coordination and export assistance.',
+            "Our customer-first approach is built around three principles.",
+            "We work to create reliable business connections that support efficient sourcing and sustainable international growth.",
         ],
+
         cameraPos: [0, 85, 115],
         cameraTarget: [0, 75, -10],
         hotspot3D: [0, 75, -15],
+
         telemetry: {
-            stat1: { label: "Industry", value: "Export" },
-            stat2: { label: "Focus", value: "Global" },
-            stat3: { label: "Approach", value: "Customer First" }
-        }
+            stat1: { label: "Industry", value: "Global Trade" },
+            stat2: { label: "Focus", value: "Export & Sourcing" },
+            stat3: { label: "Approach", value: "Customer First" },
+        },
     },
+
     {
         id: "mission",
         number: "02",
@@ -58,41 +99,56 @@ const TECH_SECTIONS = [
         subtitle: "BUILDING VALUE THROUGH TRUST & QUALITY",
         badge: "Our Purpose",
         icon: Target,
-        images: "https://intoindia.blog/wp-content/uploads/2021/07/india_office-1.jpg?w=1200",
+        images:
+            "https://intoindia.blog/wp-content/uploads/2021/07/india_office-1.jpg?w=1200",
+
         paragraphs: [
-            "To create lasting value for customers worldwide by delivering excellence through quality, innovation, and trust.",
-            "We build sustainable partnerships that help businesses grow across global markets."
+            "<strong>Our Purpose</strong>",
+            "<h3>Building Value Through Trust & Quality</h3>",
+            'Our purpose is to simplify global trade by connecting businesses with dependable sourcing, procurement and export opportunities.',
+            'Our mission is to deliver dependable <span className="BRAND.cyan">Sourcing & Procurement Solutions</span> that help businesses access quality products, reliable suppliers and efficient international trade support.',
         ],
+
         cameraPos: [-48, 6, 48],
         cameraTarget: [0, -1, 0],
         hotspot3D: [-14, -1, 5],
+
         telemetry: {
-            stat1: { label: "Quality", value: "Premium" },
-            stat2: { label: "Innovation", value: "Driven" },
-            stat3: { label: "Partnerships", value: "Long-Term" }
-        }
+            stat1: { label: "Quality", value: "Premium Standards" },
+            stat2: { label: "Innovation", value: "Driven Solutions" },
+            stat3: { label: "Partnerships", value: "Long-Term Relationships" },
+        },
     },
+
     {
         id: "vision",
         number: "03",
         title: "Vision",
-        subtitle: "CONNECTING GLOBAL MARKETS",
+        subtitle: "A GLOBAL PARTNER FOR SOURCING & TRADE",
         badge: "Future",
         icon: Eye,
-        images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiMVqiPm1Ov9L9-IMcuDP_uFgMBVkwVCtUbJDRZgsZMsNBr-kGkdGaeACR&s=10",
+        images:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiMVqiPm1Ov9L9-IMcuDP_uFgMBVkwVCtUbJDRZgsZMsNBr-kGkdGaeACR&s=10",
+
         paragraphs: [
-            "To connect global markets through premium-quality products.",
-            "We foster trust, reliability, and long-term value with customer-focused service."
+            "<h3>FUTURE</h3>",
+            "<h2>CONNECTING GLOBAL MARKETS</h2>",
+            "We envision a connected business ecosystem where companies can access reliable suppliers, quality products and international markets with greater confidence and efficiency.",
+            'Our vision is to become a trusted <span className="BRAND.cyan">global sourcing company</span>,',
+            "connecting businesses across markets through reliable sourcing, procurement and export solutions.",
         ],
+
         cameraPos: [34, 26, 40],
         cameraTarget: [0, 4, 0],
         hotspot3D: [0, 6, 2],
+
         telemetry: {
             stat1: { label: "Markets", value: "Global" },
             stat2: { label: "Trust", value: "Core Value" },
-            stat3: { label: "Growth", value: "Sustainable" }
-        }
+            stat3: { label: "Growth", value: "Sustainable" },
+        },
     },
+
     {
         id: "quality",
         number: "04",
@@ -100,20 +156,25 @@ const TECH_SECTIONS = [
         subtitle: "EXCELLENCE IN EVERY SHIPMENT",
         badge: "Quality",
         icon: Award,
-        images: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Ir96KElaEbdbxSTrZeN9mHZd4cdPqAsyMgIw5IOvjfXC_6vXH12id6Y&s=10",
+        images:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Ir96KElaEbdbxSTrZeN9mHZd4cdPqAsyMgIw5IOvjfXC_6vXH12id6Y&s=10",
+
         paragraphs: [
-            "Consistency in quality is not just a standard  it's our commitment to excellence.",
-            "Every product is carefully sourced and inspected to exceed customer expectations."
+            "Quality is at the heart of our sourcing and export approach. We work to maintain consistent standards through supplier coordination, product evaluation and inspection support.",
+            "Our commitment is to help businesses source with greater confidence while reducing avoidable quality concerns throughout the procurement process.",
         ],
+
         cameraPos: [-22, -2, -48],
         cameraTarget: [0, -4, -22],
         hotspot3D: [0, -3, -22],
+
         telemetry: {
-            stat1: { label: "Quality", value: "Consistent" },
-            stat2: { label: "Inspection", value: "Strict" },
-            stat3: { label: "Commitment", value: "Excellence" }
-        }
+            stat1: { label: "Quality", value: "Consistent Standards" },
+            stat2: { label: "Inspection", value: "Strict Verification" },
+            stat3: { label: "Commitment", value: "Excellence at Every Stage" },
+        },
     },
+
     {
         id: "supply-chain",
         number: "05",
@@ -121,20 +182,25 @@ const TECH_SECTIONS = [
         subtitle: "EFFICIENT & DEPENDABLE OPERATIONS",
         badge: "Logistics",
         icon: Truck,
-        images: "https://varuna-media-prod.s3.ap-south-1.amazonaws.com/030725111210_supply_chain_management_6f0a642fa0.jpg",
+        images:
+            "https://varuna-media-prod.s3.ap-south-1.amazonaws.com/030725111210_supply_chain_management_6f0a642fa0.jpg",
+
         paragraphs: [
-            "A strong and dependable supply chain ensures timely delivery and cost efficiency.",
-            "We continuously refine our operations to maintain reliability and customer satisfaction."
+            "A reliable supply chain is essential for successful international trade. Our team coordinates sourcing, procurement, shipment and delivery activities to support smooth movement from supplier to destination.",
+            "Through organized logistics coordination and international trade support, we help businesses maintain greater efficiency and reliability across their supply operations.",
         ],
+
         cameraPos: [18, 22, 22],
         cameraTarget: [0, 11, 4],
         hotspot3D: [0, 12, 6],
+
         telemetry: {
             stat1: { label: "Delivery", value: "Reliable" },
             stat2: { label: "Efficiency", value: "High" },
-            stat3: { label: "Network", value: "Global" }
-        }
+            stat3: { label: "Network", value: "Global" },
+        },
     },
+
     {
         id: "customer-first",
         number: "06",
@@ -142,82 +208,214 @@ const TECH_SECTIONS = [
         subtitle: "EXCEEDING EXPECTATIONS",
         badge: "Service",
         icon: Handshake,
-        images: "https://t3.ftcdn.net/jpg/10/43/42/06/360_F_1043420602_HhmKNYUQrQKmIsriU2W0u8ZWSLn7e9zs.jpg",
+        images:
+            "https://t3.ftcdn.net/jpg/10/43/42/06/360_F_1043420602_HhmKNYUQrQKmIsriU2W0u8ZWSLn7e9zs.jpg",
+
         paragraphs: [
-            "At The Samrat Global India Private Limited, we don't just meet customer expectations — we exceed them.",
-            "Continuous improvement allows us to build lasting relationships and deliver unmatched satisfaction."
+            "Our customers are at the center of every sourcing and export engagement. We focus on understanding individual requirements, maintaining clear communication and providing responsive support throughout the process.",
+            'Whether you need supplier coordination, procurement assistance or <span className="BRAND.cyan">International Export Service</span>, we work to create a dependable experience built around your business needs.',
         ],
+
         cameraPos: [65, 45, 65],
         cameraTarget: [0, 8, 0],
         hotspot3D: [0, 10, -5],
+
         telemetry: {
             stat1: { label: "Support", value: "Dedicated" },
             stat2: { label: "Relationships", value: "Long-Term" },
-            stat3: { label: "Satisfaction", value: "Priority" }
-        }
-    }
+            stat3: { label: "Satisfaction", value: "Priority" },
+        },
+    },
 ];
+
 
 const commitments = [
-    { title: "Quality You Can Trust", description: "Consistent, strict quality control across sourcing and export." },
-    { title: "Reliable Supply Chain", description: "Processes designed for continuity, cost-effectiveness and customer satisfaction." },
-    { title: "Customer First Policy", description: "Service that aims to exceed expectations and build long-term partnerships." },
+    { title: "Quality You Can Trust", description: "Quality-focused sourcing, supplier coordination and inspection support esnsure your requirements are handled with care." },
+    { title: "Reliable Supply Chain", description: "We coordinate sourcing, procurement and logistics for efficenent, relaible movement of goods." },
+    { title: "Customer First Policy", description: "We provide responsive communication and trasport coordination, building lasting relationships around your business goals." },
 ];
+
 
 const services = [
-    "Product Development",
-    "Product Purchasing",
-    "Supplier Management",
-    "Order Monitoring",
-    "Delivery at Destination",
-];
+    {
+        title: "Product Development",
+        description: "Support for developing and identifying products accrding to business requirements.",
+    },
+    {
+        title: "Product Purchasing",
+        description: "Professional coordination for purchasing products from suitable suppliers.",
+    },
+    {
+        title: "Supplier Management",
+        description: "Supplier coordination and communication to support reliable procurement.",
+    },
+    {
+        title: "Order Monitoring",
+        description: "Ongoing coordination and monitoring of orders throughout the procurement process.",
+    },
+    {
+        title: "Delivery at Destination",
+        description: "Support for coordinating shipment movement and delivery to the required desctination."
+    }
+]
 
 const content = [
-    { blueTitle: "Sourcing", whiteTitle: "and Procurement", description: "Water transport is a cost effective logistic solution, ideal for moving large quantities across vast distances." },
-    { blueTitle: "Global Fulfilment", whiteTitle: "& Exports", description: "At Samrat Global India Private Limited, we export a diverse range of high quality products to partners across the globe." },
-    { blueTitle: "Domestic", whiteTitle: "Distribution", description: "We take pride in supplying and distributing our premium products and services to businesses across PAN India." }
+    {
+        heading: "Sourcing & Procurement",
+        blueTitle: (
+            <>
+                Your Trusted Global Sourcing <br />
+            </>
+        ),
+        whiteTitle: " Company for Seamless Trade",
+        description: (
+            <>
+                Samrat Global India is a trusted{" "}
+                <span className="font-bold">global sourcing company</span>{" "}
+                helping businesses source, procure and move quality products across
+                international markets. From supplier coordination and product
+                procurement to export support and delivery, we simplify the entire
+                process through reliable and efficient solutions.
+            </>
+        ),
+    },
 ];
+
 
 const cards = [
     {
         theme: "dark",
         tag: "Core Value",
         eyebrow: "Our Commitment",
-        title: "Quality",
-        image: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=1600&auto=format&fit=crop",
+        title: "Quality that Builds Global Trust",
+        image:
+            "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=1600&auto=format&fit=crop",
+
         body: (
             <>
-                <span className="font-semibold" style={{ color: BRAND.cyan }}>Samrat Global India Private Limited</span> — quality is not just a promise, it&apos;s the foundation of everything we do. As a trusted Indian sourcing and export company, we bring the richness of India&apos;s agricultural heritage to global markets with precision, consistency, and integrity.
+                <span>As a dependable </span>
+                <span
+                    className="font-semibold"
+                    style={{ color: BRAND.cyan }}
+                >
+                    Samrat Global India Private Limited
+                </span>
+                <span>
+                    , we make quality the foundation of every business relationship. We
+                    focus on reliable sourcing, supplier coordination and product
+                    verification to help clients purchase with confidence.
+                </span>
             </>
         ),
-        badges: ["ISO Certified", "Global Standards", "Sustainable Sourcing"]
+
+        stats: [
+            {
+                value: "Quality",
+                label: "Consistent sourcing and procurement standards.",
+            },
+            {
+                value: "Inspection",
+                label: "Product and supplier verification.",
+            },
+            {
+                value: "Commitment",
+                label: "Reliable service and lasting partnerships.",
+            },
+        ],
     },
+
     {
         theme: "light",
         tag: "Trusted Partner",
         eyebrow: "Who We Are",
-        title: "Samrat Global India Private Limited",
-        image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop",
-        body: <>Samrat Global India Private Limited is a trusted import–export and logistics company delivering complete end-to-end trade solutions across India.</>,
+        title: "Samrat Global India",
+        image:
+            "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop",
+
+        body: (
+            <>
+                <span>Samrat Global India is a </span>
+                <span
+                    className="font-semibold"
+                    style={{ color: BRAND.cyan }}
+                >
+                    Sourcing and Export Company
+                </span>
+                <span>
+                    {" "}
+                    providing sourcing, procurement and international trade support. We
+                    connect businesses with suitable suppliers and products while
+                    coordinating the movement of goods from source to destination.
+                </span>
+
+                <br />
+                <br />
+
+                <span>
+                    Our customer-first approach makes international sourcing simpler,
+                    transparent and dependable.
+                </span>
+            </>
+        ),
+
         stats: [
-            { value: "500+", label: "Clients Served" },
-            { value: "50+", label: "Countries" },
-            { value: "15+", label: "Years" },
-            { value: "100%", label: "Satisfaction" }
-        ]
+            {
+                value: "500+",
+                label: "Clients Served",
+            },
+            {
+                value: "50+",
+                label: "Countries",
+            },
+            {
+                value: "15+",
+                label: "Years of Experience",
+            },
+            {
+                value: "100%",
+                label: "Customer Satisfaction",
+            },
+        ],
     },
+
     {
         theme: "dark",
         eyebrow: "Smart Forecasting",
-        title: "Optimized routes,lower cost",
-        body: "In-house route intelligence calculates the most efficient path for every shipment, factoring seasonality, fuel cost and customs turnaround.",
-        image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1600&auto=format&fit=crop",
+        title: "Smarter Logistics. Better Global Movement.",
+        image:
+            "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1600&auto=format&fit=crop",
+
+        body: (
+            <>
+                <span>Our </span>
+                <span
+                    className="font-semibold"
+                    style={{ color: BRAND.cyan }}
+                >
+                    Global Export Services
+                </span>
+                <span>
+                    {" "}
+                    focus on efficient coordination, route planning and shipment
+                    management. We help reduce delays and improve supply-chain visibility
+                    from supplier coordination to final delivery.
+                </span>
+            </>
+        ),
+
         stats: [
-            { value: "18%", label: "Cost saved" },
-            { value: "3.5x", label: "Faster ETA" },
+            {
+                value: "18%",
+                label: "Potential Cost Saved",
+            },
+            {
+                value: "3.5x",
+                label: "Faster ETA Planning",
+            },
         ],
     },
 ];
+
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -344,7 +542,7 @@ const CargoKiteTechSection = () => {
                     <h1 className="h2 text-black mb-5">
                         About{" "}
                         <span className="bg-clip-text text-transparent"
-                            style={{backgroundImage:GRAD_LOGO}}
+                            style={{ backgroundImage: GRAD_LOGO }}
                         >
                             Us
                         </span>
@@ -354,108 +552,123 @@ const CargoKiteTechSection = () => {
                     </p>
 
                 </motion.div>
-                {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch"> */}
                 <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-20 items-start">
-                    {/* <div className="space-y-[55vh]"> */}
                     <div className="space-y-10 sm:space-y-14 md:space-y-[55vh]">
-                        {TECH_SECTIONS.map(
-                            (sec, idx) => {
-                                const IconComponent =sec.icon;
-                                const isActive = activeIndex === idx;
-                                return (
-                                    <div key={sec.id}
-                                        ref={(el) => {sectionRefs.current[idx] = el}}
-                                        data-index={idx}
-                                        className="max-w-xl transition-all duration-700"
+                        {TECH_SECTIONS.map((sec, idx) => {
+                            const IconComponent = sec.icon;
+                            const isActive = activeIndex === idx;
+
+                            return (
+                                <div
+                                    key={sec.id}
+                                    ref={(el) => {
+                                        sectionRefs.current[idx] = el;
+                                    }}
+                                    data-index={idx}
+                                    className="max-w-xl transition-all duration-700"
+                                >
+                                    <motion.div
+                                        initial={{
+                                            opacity: 0.45,
+                                            y: 30,
+                                        }}
+                                        whileInView={{
+                                            opacity: 1,
+                                            y: 0,
+                                        }}
+                                        viewport={{
+                                            once: false,
+                                            margin: "-20%",
+                                        }}
+                                        transition={{
+                                            duration: 0.6,
+                                        }}
+                                        className="relative p-7 lg:p-10 md:h-[600px] rounded-3xl border shadow-xl transition-all duration-700 overflow-hidden"
+                                        style={
+                                            isActive
+                                                ? {
+                                                    backgroundColor: "#F3F4F6",
+                                                    borderColor: `${BRAND.cyan}cc`,
+                                                    boxShadow: `0 25px 70px -20px ${BRAND.cyan}33`,
+                                                    transform: "scale(1.03)",
+                                                }
+                                                : {
+                                                    backgroundColor: "#FFFFFF",
+                                                    borderColor: "#E2E8F0",
+                                                    opacity: 0.72,
+                                                }
+                                        }
                                     >
-                                        <motion.div
-                                            initial={{
-                                                opacity: 0.45,
-                                                y: 30,
-                                            }}
-                                            whileInView={{
-                                                opacity: 1,
-                                                y: 0,
-                                            }}
-                                            viewport={{
-                                                once: false,
-                                                margin: "-20%",
-                                            }}
-                                            transition={{
-                                                duration: 0.6,
-                                            }}
-                                            className="relative p-7 lg:p-10 md:h-[500px] rounded-3xl border shadow-xl transition-all duration-700 overflow-hidden"
-                                            style={isActive ? {backgroundColor: "#F3F4F6",borderColor:`${BRAND.cyan}cc`,boxShadow:`0 25px 70px -20px ${BRAND.cyan}33`,
-                                                        transform:"scale(1.03)",
-                                                    }: {
-                                                        backgroundColor:"#FFFFFF",
-                                                        borderColor:"#E2E8F0",
-                                                        opacity: 0.72,
-                                                    }
-                                            }
-                                        >
-                                            
-                                            <div className="h-full flex flex-col">
-                                                <div className="flex items-center gap-3 mb-3">
-                                                    {IconComponent && (
-                                                        <IconComponent className="w-6 h-6"
-                                                            style={{color:BRAND.cyan}}
-                                                        />
-                                                    )}
-
-                                                    <span className="text-sm font-mono font-bold uppercase tracking-widest" style={{color:BRAND.cyan}}
-                                                    >{sec.badge}</span>
-                                                </div>
-                                                <h2 className="h3 text-black mb-1"
-                                                >{sec.title}</h2>
-                                                <p className="text-sm  uppercase tracking-wider mb-6"
-                                                    style={{color:`${BRAND.cyan}cc`}}
-                                                >{sec.subtitle}
-                                                </p>
-                                                <div className="space-y-4 mb-8">
-                                                    {sec.paragraphs?.map((p,pIdx) => (
-                                                            <p key={pIdx} className="text-md text-slate-700 leading-relaxed">{p}</p>
-                                                        )
-                                                    )}
-                                                </div>
-                                                {sec.telemetry && (
-                                                    <div className="grid grid-cols-3 gap-3 pt-4 border-t mb-6"
-                                                        style={{ borderColor: "#CBD5E1" }}
-                                                    >
-                                                        {Object.values(sec.telemetry).map((t, tIdx) => (
-                                                            <div key={tIdx}
-                                                                className="p-3 rounded-2xl border-slate-200 bg-white"
-                                                            >
-                                                                <div className="text-md font-mono text-slate-500  truncate">
-                                                                    {t.label}
-                                                                </div>
-                                                                <div className="text-sm font-bold font-mono mt-0.5"
-                                                                    style={{color:BRAND.cyan,}}
-                                                                >
-                                                                    {t.value}
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                        )}
-                                                    </div>
+                                        <div className="h-full flex flex-col">
+                                            <div className="flex items-center gap-3 mb-3">
+                                                {IconComponent && (
+                                                    <IconComponent
+                                                        className="w-6 h-6"
+                                                        style={{ color: BRAND.cyan }}
+                                                    />
                                                 )}
-                                            </div>
-                                        </motion.div>
-                                    </div>
-                                );
-                            }
-                        )}
 
+                                                <span
+                                                    className="text-sm font-mono font-bold uppercase tracking-widest"
+                                                    style={{ color: BRAND.cyan }}
+                                                >
+                                                    {sec.badge}
+                                                </span>
+                                            </div>
+                                            <h2 className="text-3xl font-bold text-black mb-1">
+                                                {sec.title}
+                                            </h2>
+                                            <p className="text-sm uppercase tracking-wider mb-6" style={{ color: `${BRAND.cyan}cc` }}>
+                                                {sec.subtitle}
+                                            </p>
+                                            <div className="space-y-4 mb-8">
+                                                {sec.paragraphs?.map((p, pIdx) => (
+                                                    <div
+                                                        key={pIdx}
+                                                        className="text-md text-slate-700 leading-relaxed"
+                                                        dangerouslySetInnerHTML={{ __html: p }}
+                                                    />
+                                                ))}
+                                            </div>
+                                            {sec.telemetry && (
+                                                <div
+                                                    className="grid grid-cols-3 gap-3 pt-4 border-t mb-6"
+                                                    style={{ borderColor: "#CBD5E1" }}
+                                                >
+                                                    {Object.values(sec.telemetry).map((t, tIdx) => (
+                                                        <div
+                                                            key={tIdx}
+                                                            className="p-3 rounded-2xl border border-slate-200 bg-white"
+                                                        >
+                                                            <div className="text-md font-mono text-slate-500 truncate">
+                                                                {t.label}
+                                                            </div>
+
+                                                            <div
+                                                                className="text-sm font-bold font-mono mt-0.5"
+                                                                style={{ color: BRAND.cyan }}
+                                                            >
+                                                                {t.value}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            );
+                        })}
                     </div>
                     <div className="lg:sticky lg:top-22 lg:self-start flex items-start w-full">
-                    <div className="w-full">
+                        <div className="w-full">
                             <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px] rounded-[2rem] overflow-hidden border border-slate-200 shadow-2xl bg-slate-100">
                                 <AnimatePresence mode="wait">
                                     {currentImage ? (
                                         <motion.img
                                             key={currentImage}
                                             src={currentImage}
-                                            alt={currentSection?.title ||"The Samrat Global India Private Limited"}
+                                            alt={currentSection?.title || "The Samrat Global India Private Limited"}
                                             initial={{
                                                 opacity: 0,
                                                 scale: 1.05,
@@ -470,7 +683,7 @@ const CargoKiteTechSection = () => {
                                             }}
                                             transition={{
                                                 duration: 0.6,
-                                                ease:"easeInOut",
+                                                ease: "easeInOut",
                                             }}
                                             className="absolute inset-0 w-full h-full object-cover object-center"
                                         />
@@ -483,14 +696,14 @@ const CargoKiteTechSection = () => {
                                     )}
 
                                 </AnimatePresence>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none"/>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
                                 <div className="absolute-bottom-24-right-24 w-72 h-72 rounded-full blur-3xl opacity-30 pointer-events-none"
-                                    style={{backgroundColor:BRAND.cyan}}
+                                    style={{ backgroundColor: BRAND.cyan }}
                                 />
 
                                 <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
                                     <div className="text-[10px] font-mono uppercase tracking-[0.25em] mb-2"
-                                        style={{color:BRAND.cyan}}
+                                        style={{ color: BRAND.cyan }}
                                     >
                                         {currentSection?.badge}
                                     </div>
@@ -503,32 +716,32 @@ const CargoKiteTechSection = () => {
                                 </div>
                                 <div className="absolute top-6 right-6">
                                     <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black font-mono backdrop-blur-md border"
-                                        style={{backgroundColor:`${BRAND.cyan}22`,borderColor:`${BRAND.cyan}66`,color: "#fff"}}
+                                        style={{ backgroundColor: `${BRAND.cyan}22`, borderColor: `${BRAND.cyan}66`, color: "#fff" }}
                                     >
-                                        {String(activeIndex +1).padStart(2,"0")}
+                                        {String(activeIndex + 1).padStart(2, "0")}
                                     </div>
                                 </div>
                             </div>
 
                             <div className="flex items-center justify-center gap-2 mt-6">
-                                {TECH_SECTIONS.map((sec,idx) => {
-                                        const isActive =activeIndex === idx;
-                                        return (
-                                            <button key={sec.id}
-                                                type="button"
-                                                onClick={() =>
-                                                    scrollToCard(idx)
-                                                }
-                                                aria-label={`Go to ${sec.title}`}
-                                                className="group relative h-2 transition-all duration-500"
-                                                style={{width:isActive? "36px": "10px"}}
-                                            >
-                                                <span className="absolute inset-0 rounded-full transition-all duration-500"
-                                                    style={{backgroundColor:isActive? BRAND.cyan: "#CBD5E1"}}
-                                                />
-                                            </button>
-                                        );
-                                    }
+                                {TECH_SECTIONS.map((sec, idx) => {
+                                    const isActive = activeIndex === idx;
+                                    return (
+                                        <button key={sec.id}
+                                            type="button"
+                                            onClick={() =>
+                                                scrollToCard(idx)
+                                            }
+                                            aria-label={`Go to ${sec.title}`}
+                                            className="group relative h-2 transition-all duration-500"
+                                            style={{ width: isActive ? "36px" : "10px" }}
+                                        >
+                                            <span className="absolute inset-0 rounded-full transition-all duration-500"
+                                                style={{ backgroundColor: isActive ? BRAND.cyan : "#CBD5E1" }}
+                                            />
+                                        </button>
+                                    );
+                                }
                                 )}
                             </div>
 
@@ -537,11 +750,11 @@ const CargoKiteTechSection = () => {
                                     Scroll to explore
                                 </span>
                                 <span className="text-[10px] font-mono uppercase tracking-widest"
-                                    style={{color:BRAND.cyan}}
+                                    style={{ color: BRAND.cyan }}
                                 >
-                                    {String(activeIndex +1).padStart(2,"0")}
+                                    {String(activeIndex + 1).padStart(2, "0")}
                                     {" / "}
-                                    {String(TECH_SECTIONS.length).padStart(2,"0")}
+                                    {String(TECH_SECTIONS.length).padStart(2, "0")}
                                 </span>
                             </div>
                         </div>
@@ -559,6 +772,7 @@ export default function Home() {
     const wrapRef = useRef(null);
     const panelRefs = useRef([]);
     const progressRefs = useRef([]);
+    const [openIndex, setOpenIndex] = useState(0);
 
     useEffect(() => {
         const video = videoRef.current;
@@ -658,9 +872,9 @@ export default function Home() {
 
     return (
         <>
-            <section id="hero" 
-            className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen overflow-hidden" 
-            style={{ backgroundColor: BRAND.ink }}
+            <section id="hero"
+                className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen overflow-hidden"
+                style={{ backgroundColor: BRAND.ink }}
             >
                 <video
                     ref={videoRef}
@@ -674,9 +888,12 @@ export default function Home() {
                 />
                 <div className='absolute inset-0 bg-black/15' />
                 <div className="relative z-10 h-full flex items-center  px-4 sm:px-6 md:px-10">
-                 {/* <div className="relative z-10 h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen flex items-center px-4 sm:px-6 md:px-10"> */}
+                    {/* <div className="relative z-10 h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen flex items-center px-4 sm:px-6 md:px-10"> */}
                     <div className="max-w-4xl lg:max-w-5xl  text-white">
                         <AnimatePresence mode="wait">
+                            <motion.p>
+                                {content[currentIndex].heading}
+                            </motion.p>
                             <motion.h1
                                 key={`title-${currentIndex}`}
                                 initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
@@ -853,14 +1070,14 @@ export default function Home() {
                 <div
                     className="absolute inset-0 bg-cover object-cover bg-center opacity-100"
                     style={{ backgroundImage: "url('https://images.pexels.com/photos/14810111/pexels-photo-14810111.jpeg?_gl=1*1j98rqm*_ga*MTIxODIyODUuMTc4NjUxNzE2NQ..*_ga_8JE65Q40S6*czE3ODY1MTcxNjQkbzEkZzEkdDE3ODY1MTczODUkajU5JGwwJGgw')" }}
-                    
+
                 />
 
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-12 sm:mb-16 lg:mb-20 grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
                         <motion.div initial={{ opacity: 0, x: -80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
                             <p className="mb-2 sm:mb-4 font-semibold uppercase tracking-[3px] sm:tracking-[4px] text-xs sm:text-sm" style={{ color: BRAND.cyan }}>
-                                THE Samrat Global India Private Limited
+                                COMPANY POSITIONING THE SAMRAT GLOBAL
                             </p>
                             <h2 className="h2 text-white">
                                 Connect The World<br />
@@ -869,7 +1086,9 @@ export default function Home() {
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} viewport={{ once: true }}>
                             <p className="text-base sm:text-lg md:text-xl leading-7 text-slate-50 sm:leading-9" >
-                                We, <span className="font-bold" style={{ color: BRAND.cyan }}>Samrat Global India Private Limited</span> are a sourcing & export company based in India, offering sourcing, procurement solutions and worldwide export services.
+                                We,bring together sourcing, procurement and export expertise to help businesses build dependable international supply networks. <br />
+                                As a {" "}
+                                <span className="font-bold" style={{ color: BRAND.cyan }}>global sourcing company,</span> Samrat Global India connects businesses with sourcing opportunities, reliable suppliers and efficient export solutions across global markets.
                             </p>
                         </motion.div>
                     </div>
@@ -906,7 +1125,7 @@ export default function Home() {
                                 <div className="relative grid items-center gap-8 lg:grid-cols-12">
                                     <div className="lg:col-span-1 flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-black shadow-lg transition-all duration-500 group-hover:scale-110 bg-cyan-300"
                                     //  style={{ background: GRAD_LOGO }}
-                                     >
+                                    >
                                         {String(index + 1).padStart(2, '0')}
                                     </div>
                                     <h2 className="text-3xl font-bold lg:col-span-7 text-slate-900 transition-colors duration-500" style={{ "--hover-color": BRAND.azureDeep }}>
@@ -940,7 +1159,9 @@ export default function Home() {
                             Smart Sourcing & <span className="block bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>Procurement Solutions</span>
                         </h2>
                         <p className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 text-slate-50 sm:leading-8">
-                            Secure storage and efficient cargo management are essential parts of the supply chain. We provide reliable sourcing, procurement and export solutions worldwide.
+                            Our <span className='text-cyan-300'>Sourcing and Procurement</span> services help businesses identify products, coordinate with suppliers, manage purchasing requirements and support the movement of goods across markets.
+                            <br />
+                            From product development and supplier management to order monitoring and delivery coordination, we provide an integrated approach to international trade.
                         </p>
                     </motion.div>
 
@@ -977,7 +1198,7 @@ export default function Home() {
                         >
                             <h3 className="h3 mb-6 sm:mb-8 text-white">Sourcing & Procurement</h3>
                             <div className="space-y-3 sm:space-y-4 lg:space-y-5">
-                                {services.map((service, index) => (
+                                {/* {services.map((service, index) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, x: 100 }}
@@ -992,6 +1213,33 @@ export default function Home() {
                                             {index + 1}
                                         </span>
                                         <p className="text-sm sm:text-base lg:text-lg">{service}</p>
+                                    </motion.div>
+                                ))} */}
+                                {services.map((service, index) => (
+                                    <motion.div 
+                                    key={index}
+                                    initial={{ opacity: 0, x: 100}}
+                                    whileInView={{ opacity: 1, x: 0}}
+                                    transition={{
+                                        delay: index * 0.12,
+                                        duration: 0.6,
+                                    }}
+                                    viewport={{ once: true}}
+                                    whileHover={{ x: 6 }}
+                                    className='group flex items-start gap-3 sm:gap-4 lg:gap-5 rounded-xl border p-3 sm:p-4 lg:p-5 text-white transition duration-500'
+                                    style={{
+                                        borderColor: `${BRAND.mist}1a`,
+                                        backgroundColor: `${BRAND.mist}od`,
+                                    }}
+                                    >
+                                        <span className='flex h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center rounded-full text-sm sm:text-base text-white' 
+                                        style={{ background: GRAD_LOGO}}
+                                        >{index + 1}</span>
+                                        <div className='min-w-0'>
+                                            <h3 className='text-base font-semibold sm:text-lg lg:text-xl'>{service.title}</h3>
+  <p className='mt-1 text-sm leading-relaxed text-white/70 sm:text-base'>{service.description}</p>
+                                        </div>
+
                                     </motion.div>
                                 ))}
                             </div>
@@ -1009,6 +1257,142 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+           <section className='relative overflow-hidden py-20 sm:py-24 lg:py-32'>
+            <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full opacity-20 blur-3xl" style={{ background: GRAD_LOGO}} />
+            <div className='pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full opacity-10 blur-3xl' style={{ backgroundColor: BRAND.mist}} />
+            <div className='relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+                <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+                    <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7 }}
+                        viewport={{ once: true }}
+                        className="lg:sticky lg:top-24 lg:self-start"
+                    >
+                        <div className='mb-5 flex items-center gap-3'>
+                            <span className='h-px w-10' style={{ background: BRAND.mist}} />
+                            <p>FREQUENTLY ASKED QUESTIONS</p>
+                        </div>
+                        <h2 className='max-w-xl text-3xl font-semibold leading-[1.08] tracking-tight text-slate-800 sm:text-4xl lg:text-5xl xl:text-6xl'>GLOBAL SOURCING <span className='block text-slate-800'>& EXPORT FAQs</span></h2>
+                        <p className='mt-6 max-w-lg text-sm leading-7 text-slate-800 sm:text-base sm:leading-8'>
+                            Find answers to common questions bout our souring, procurement, supplier coordination and export services from India.
+                        </p>
+
+                        <div className='mt-8 flex items-center gap-3'>
+                            <span className='h-1 w-12 rounded-full' style={{ background: GRAD_LOGO}} />
+                            <span className='text-xs tracking-widest text-slate-800'>SAMRAT GLOBAL INDIA</span>
+                        </div>
+                    </motion.div>
+                    <div className='space-y-3'>
+                        {faqs.map((faq, index) => {
+                            const isOpen = openIndex === index;
+
+                            return (
+                                <motion.div 
+                                key={index}
+                                initial={{
+                                        opacity: 0,
+                                        y: 25,
+                                    }}
+                                    whileInView={{
+                                        opacity: 1,
+                                        y: 0,
+                                    }}
+                                    transition={{
+                                        duration: 0.5,
+                                        delay: index * 0.08,
+                                    }}
+                                    viewport={{ once: true }}
+                                >
+                                    {/* <div className={`overflow-hidden rounded-2xl border transition-all duration-500 ${
+                                            isOpen
+                                                ? "shadow-2xl"
+                                                : "hover:bg-white/[0.04]"
+                                        }`}  */}
+                                        {/* // style={{ */}
+                                        {/* //     borderColor: isOpen
+                                        //         ? `${BRAND.mist}35`
+                                        //         : `${BRAND.mist}14`,
+                                        //     backgroundColor: isOpen
+                                        //         ? `${BRAND.mist}0d`
+                                        //         : `${BRAND.mist}08`,
+                                        // }} */}
+                                        <div className="overflow-hidden rounded-2xl border transition-all duration-500 bg-gray-300"
+                                        >
+                                            <button type='button'
+                                            onClick={() => setOpenIndex(isOpen ? -1 : index)} 
+                                            className='flex w-full items-center gap-4 p-4 text-left sm:p-5 lg:p-6'
+                                            aria-expanded={isOpen}
+                                            >
+                                                <span className='flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-slate-800 sm:h-10 sm:w-10'
+                                                style={{
+                                                    background: isOpen ? `${BRAND.mist}` : `${BRAND.mist}18`,
+                                                }} 
+                                                >+
+                                          {String(index + 1).padStart(2, "0")}
+                                                </span>
+
+                                                <span className={`flex-1 pr-2 text-sm font-medium transition-colors duration-300 sm:text-base lg:text-lg ${isOpen ? "text-slate-800" : "text-slate-800"}`}>
+                                                    {faq.q}
+                                                </span>
+                                                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-lg transition-all duration-500 ${isOpen ? "rotate-45" : "rotate-0"}`}
+                                                    style={{
+                                                        borderColor: `${BRAND.mist}25`,
+                                                        color: BRAND.mist,
+                                                    }} >
++
+                                                    </span>
+
+                                            </button>
+                                            <AnimatePresence initial={false}>
+                                                {isOpen && (
+                                                    <motion.div 
+                                                    initial={{
+                                                        height: 0,
+                                                        opacity: 0,
+                                                    }}
+                                                    animate={{
+                                                        height: "auto",
+                                                        opacity: 1,
+                                                    }}
+                                                    
+                                                    exit={{
+                                                        height: 0,
+                                                        opacity: 0,
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.35,
+                                                        ease: "easeInOut",
+                                                    }}
+                                                    >
+                                                        <div className="px-4 pb-5 pl-[4.25rem] pr-5 sm:px-5 sm:pb-6 sm:pl-[4.75rem] lg:px-6 lg:pb-7 lg:pl-[5.5rem]">
+<div
+                                                            className="mb-4 h-px w-full"
+                                                            style={{
+                                                                backgroundColor: `${BRAND.mist}12`,
+                                                            }}
+                                                        />
+                                                        <p className="text-sm leading-7 text-slate-800 sm:text-base sm:leading-8">{faq.a}</p>
+                                                        </div>
+
+                                                    </motion.div>
+                                                )}
+
+                                            </AnimatePresence>
+
+                                    </div>
+
+                                </motion.div>
+                            )
+                        })}
+
+                    </div>
+                </div>
+
+            </div>
+
+           </section>
         </>
     );
 }
