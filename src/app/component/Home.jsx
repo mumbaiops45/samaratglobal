@@ -569,7 +569,6 @@ export default function Home() {
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
         src="/banner.mp4"
-        poster="/banner-poster.jpg"
         autoPlay
         muted
         loop
