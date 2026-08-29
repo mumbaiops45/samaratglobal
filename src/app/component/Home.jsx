@@ -7,13 +7,12 @@ import Lenis from 'lenis';
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/navigation';
-import {  Sparkles,ArrowUpRight } from "lucide-react";
-import {faqs , TECH_SECTIONS , commitments , services , content , cards} from "../../data/data"
+import { Sparkles, ArrowUpRight } from "lucide-react";
+import { faqs, TECH_SECTIONS, commitments, services, content, cards } from "../../data/data"
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
-
 const BRAND = {
     ink: "#050B14",
     surface: "#0A1A2C",
@@ -26,48 +25,72 @@ const BRAND = {
     mist: "#F5F9FF",
     slate: "#8FA6BE",
 };
-
 const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
-
-
-
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
-
 const staggerParent = {
     hidden: {},
     show: { transition: { staggerChildren: 0.12 } },
 };
 
+const renderWithHighlight = (text, highlight, color) => {
+    if (!highlight) return text;
 
+    const idx = text.toLowerCase().indexOf(highlight.toLowerCase());
+    if (idx === -1) return text;
+
+    return (
+        <>
+            {text.slice(0, idx)}
+            <span className="font-semibold" style={{ color }}>
+                {text.slice(idx, idx + highlight.length)}
+            </span>
+            {text.slice(idx + highlight.length)}
+        </>
+    );
+};
+
+const SectionParagraph = ({ para, accent }) => {
+    if (para.heading) {
+        return (
+            <h3
+                className="text-xs font-bold uppercase tracking-[0.18em]"
+                style={{ color: accent }}
+            >
+                {para.heading}
+            </h3>
+        );
+    }
+
+    if (!para.text) return null;
+
+    return (
+        <p className="text-[15px] leading-relaxed text-slate-700">
+            {renderWithHighlight(para.text, para.highlight, accent)}
+        </p>
+    );
+};
 
 const CargoKiteTechSection = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-
     const sectionContainerRef = useRef(null);
     const sectionRefs = useRef([]);
-
     useEffect(() => {
         const observerOptions = {
             root: null,
             rootMargin: "-35% 0px -35% 0px",
             threshold: 0.25,
         };
-
         const handleIntersect = (entries) => {
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) {
                     return;
                 }
-
                 const index = Number(
-                    entry.target.getAttribute(
-                        "data-index"
-                    )
+                    entry.target.getAttribute("data-index")
                 );
-
                 if (
                     !Number.isNaN(index) &&
                     index >= 0 &&
@@ -77,37 +100,23 @@ const CargoKiteTechSection = () => {
                 }
             });
         };
-
-        const observer =
-            new IntersectionObserver(
-                handleIntersect,
-                observerOptions
-            );
-
+        const observer = new IntersectionObserver(handleIntersect, observerOptions);
         sectionRefs.current.forEach((el) => {
             if (el) {
                 observer.observe(el);
             }
         });
-
         return () => {
             observer.disconnect();
         };
     }, []);
 
     const scrollToCard = (index) => {
-        if (
-            index < 0 ||
-            index >= TECH_SECTIONS.length
-        ) {
+        if (index < 0 || index >= TECH_SECTIONS.length) {
             return;
         }
-
         setActiveIndex(index);
-
-        const targetEl =
-            sectionRefs.current[index];
-
+        const targetEl = sectionRefs.current[index];
         if (targetEl) {
             targetEl.scrollIntoView({
                 behavior: "smooth",
@@ -115,20 +124,10 @@ const CargoKiteTechSection = () => {
             });
         }
     };
-
-
-    const currentSection =
-        TECH_SECTIONS[activeIndex] ||
-        TECH_SECTIONS[0];
-
-    const currentImage =
-        currentSection?.images || "";
-
-
-
+    const currentSection = TECH_SECTIONS[activeIndex] || TECH_SECTIONS[0];
+    const currentImage = currentSection?.image || "";
     return (
         <section ref={sectionContainerRef} className="relative w-full text-slate-100  bg-white">
-
             <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 lg:pt-32 pb-32">
                 <motion.div
                     initial="hidden"
@@ -142,29 +141,23 @@ const CargoKiteTechSection = () => {
                 >
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono uppercase mb-4 border"
                         style={{
-                            backgroundColor:
-                                `${BRAND.cyan}14`,
-                            borderColor:
-                                `${BRAND.cyan}4d`,
+                            backgroundColor: `${BRAND.cyan}14`,
+                            borderColor: `${BRAND.cyan}4d`,
                             color: BRAND.cyan,
                         }}
                     >
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>The Samrat Global India Private Limited</span>
                     </div>
-
                     <h1 className="h2 text-black mb-5">
                         About{" "}
-                        <span className="bg-clip-text text-transparent"
-                            style={{ backgroundImage: GRAD_LOGO }}
-                        >
+                        <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRAD_LOGO }}>
                             Us
                         </span>
                     </h1>
                     <p className="text-slate-700 text-xl leading-relaxed max-w-xl">
                         Building global partnerships through reliable sourcing, procurement and export solutions.
                     </p>
-
                 </motion.div>
                 <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-20 items-start">
                     <div className="space-y-10 sm:space-y-14 md:space-y-[55vh]">
@@ -175,29 +168,16 @@ const CargoKiteTechSection = () => {
                             return (
                                 <div
                                     key={sec.id}
-                                    ref={(el) => {
-                                        sectionRefs.current[idx] = el;
-                                    }}
+                                    ref={(el) => { sectionRefs.current[idx] = el; }}
                                     data-index={idx}
-                                    className="max-w-xl transition-all duration-700"
+                                    className="max-w-xl"
                                 >
                                     <motion.div
-                                        initial={{
-                                            opacity: 0.45,
-                                            y: 30,
-                                        }}
-                                        whileInView={{
-                                            opacity: 1,
-                                            y: 0,
-                                        }}
-                                        viewport={{
-                                            once: false,
-                                            margin: "-20%",
-                                        }}
-                                        transition={{
-                                            duration: 0.6,
-                                        }}
-                                        className="relative p-7 lg:p-10 md:h-[600px] rounded-3xl border shadow-xl transition-all duration-700 overflow-hidden"
+                                        initial={{ opacity: 0.45, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: false, margin: "-20%" }}
+                                        transition={{ duration: 0.6 }}
+                                        className="relative overflow-hidden rounded-3xl border p-7 shadow-xl transition-[background-color,border-color,box-shadow,transform] duration-700 lg:p-10 md:min-h-[600px]"
                                         style={
                                             isActive
                                                 ? {
@@ -213,53 +193,49 @@ const CargoKiteTechSection = () => {
                                                 }
                                         }
                                     >
-                                        <div className="h-full flex flex-col">
-                                            <div className="flex items-center gap-3 mb-3">
+                                        <div className="flex h-full flex-col">
+                                            <div className="mb-3 flex items-center gap-3">
                                                 {IconComponent && (
-                                                    <IconComponent
-                                                        className="w-6 h-6"
-                                                        style={{ color: BRAND.cyan }}
-                                                    />
+                                                    <IconComponent className="h-6 w-6" style={{ color: BRAND.cyan }} />
                                                 )}
-
                                                 <span
-                                                    className="text-sm font-mono font-bold uppercase tracking-widest"
+                                                    className="font-mono text-sm font-bold uppercase tracking-widest"
                                                     style={{ color: BRAND.cyan }}
                                                 >
                                                     {sec.badge}
                                                 </span>
                                             </div>
-                                            <h2 className="text-3xl font-bold text-black mb-1">
-                                                {sec.title}
-                                            </h2>
-                                            <p className="text-sm uppercase tracking-wider mb-6" style={{ color: `${BRAND.cyan}cc` }}>
+
+                                            <h2 className="mb-1 text-3xl font-bold text-black">{sec.title}</h2>
+
+                                            <p
+                                                className="mb-6 text-sm uppercase tracking-wider"
+                                                style={{ color: `${BRAND.cyan}cc` }}
+                                            >
                                                 {sec.subtitle}
                                             </p>
-                                            <div className="space-y-4 mb-8">
+
+                                            <div className="mb-8 space-y-4">
                                                 {sec.paragraphs?.map((p, pIdx) => (
-                                                    <div
-                                                        key={pIdx}
-                                                        className="text-md text-slate-700 leading-relaxed"
-                                                        dangerouslySetInnerHTML={{ __html: p }}
-                                                    />
+                                                    <SectionParagraph key={pIdx} para={p} accent={BRAND.cyan} />
                                                 ))}
                                             </div>
+
                                             {sec.telemetry && (
                                                 <div
-                                                    className="grid grid-cols-3 gap-3 pt-4 border-t mb-6"
+                                                    className="mb-6 mt-auto grid grid-cols-3 gap-3 border-t pt-4"
                                                     style={{ borderColor: "#CBD5E1" }}
                                                 >
                                                     {Object.values(sec.telemetry).map((t, tIdx) => (
                                                         <div
                                                             key={tIdx}
-                                                            className="p-3 rounded-2xl border border-slate-200 bg-white"
+                                                            className="rounded-2xl border border-slate-200 bg-white p-3"
                                                         >
-                                                            <div className="text-md font-mono text-slate-500 truncate">
+                                                            <div className="truncate font-mono text-[11px] uppercase tracking-wide text-slate-500">
                                                                 {t.label}
                                                             </div>
-
                                                             <div
-                                                                className="text-sm font-bold font-mono mt-0.5"
+                                                                className="mt-1 font-mono text-sm font-bold leading-snug"
                                                                 style={{ color: BRAND.cyan }}
                                                             >
                                                                 {t.value}
@@ -273,6 +249,7 @@ const CargoKiteTechSection = () => {
                                 </div>
                             );
                         })}
+
                     </div>
                     <div className="lg:sticky lg:top-22 lg:self-start flex items-start w-full">
                         <div className="w-full">
@@ -308,17 +285,13 @@ const CargoKiteTechSection = () => {
                                             </span>
                                         </div>
                                     )}
-
                                 </AnimatePresence>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
                                 <div className="absolute-bottom-24-right-24 w-72 h-72 rounded-full blur-3xl opacity-30 pointer-events-none"
                                     style={{ backgroundColor: BRAND.cyan }}
                                 />
-
                                 <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-white">
-                                    <div className="text-[10px] font-mono uppercase tracking-[0.25em] mb-2"
-                                        style={{ color: BRAND.cyan }}
-                                    >
+                                    <div className="text-[10px] font-mono uppercase tracking-[0.25em] mb-2" style={{ color: BRAND.cyan }}>
                                         {currentSection?.badge}
                                     </div>
                                     <h3 className="h3">
@@ -486,7 +459,7 @@ export default function Home() {
 
     return (
         <>
-            <section id="hero"
+            {/* <section id="hero"
                 className="relative h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen overflow-hidden"
                 style={{ backgroundColor: BRAND.ink }}
             >
@@ -502,7 +475,6 @@ export default function Home() {
                 />
                 <div className='absolute inset-0 bg-black/15' />
                 <div className="relative z-10 h-full flex items-center  px-4 sm:px-6 md:px-10">
-                    {/* <div className="relative z-10 h-[400px] sm:h-[500px] md:h-[600px] lg:h-screen flex items-center px-4 sm:px-6 md:px-10"> */}
                     <div className="max-w-4xl lg:max-w-5xl  text-white">
                         <AnimatePresence mode="wait">
                             <motion.p>
@@ -587,7 +559,153 @@ export default function Home() {
                         />
                     </svg>
                 </motion.div>
-            </section>
+            </section> */}
+            <section
+    id="hero"
+    className="relative min-h-[560px] h-[100svh] max-h-[900px] overflow-hidden"
+    style={{ backgroundColor: BRAND.ink }}
+>
+    <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/banner.mp4"
+        poster="/banner-poster.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        disablePictureInPicture
+        aria-hidden="true"
+        tabIndex={-1}
+    />
+
+    {/* left-to-right scrim keeps text legible on wide screens without dimming the whole video */}
+    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
+    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/50 to-transparent" />
+
+    <div className="relative z-10 flex h-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
+            <div className="max-w-2xl text-white lg:max-w-3xl">
+
+                <AnimatePresence mode="wait">
+                    <motion.p
+                        key={`eyebrow-${currentIndex}`}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70 sm:mb-4 sm:text-xs"
+                    >
+                        {content[currentIndex].heading}
+                    </motion.p>
+                </AnimatePresence>
+
+                <AnimatePresence mode="wait">
+                    <motion.h1
+                        key={`title-${currentIndex}`}
+                        initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        // fluid type: scales smoothly between breakpoints instead of jumping
+                        className="mb-4 text-[clamp(1.9rem,6vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6"
+                    >
+                        <span
+                            className="bg-clip-text text-transparent"
+                            style={{ backgroundImage: GRAD_LOGO }}
+                        >
+                            {content[currentIndex].blueTitle}
+                        </span>{" "}
+                        <span className="text-white">
+                            {content[currentIndex].whiteTitle}
+                        </span>
+                    </motion.h1>
+                </AnimatePresence>
+
+                <AnimatePresence mode="wait">
+                    <motion.p
+                        key={`desc-${currentIndex}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className="max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed text-slate-100 sm:max-w-2xl"
+                    >
+                        {content[currentIndex].description}
+                    </motion.p>
+                </AnimatePresence>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                    className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
+                >
+                    <Link
+                        href="/service"
+                        className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5"
+                        style={{
+                            background: GRAD_LOGO,
+                            boxShadow: `0 10px 40px -10px ${BRAND.cyan}80`,
+                        }}
+                    >
+                        Explore Services
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+
+                    <Link
+                        href="/contact"
+                        className="inline-flex items-center justify-center rounded-full border bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/25 sm:px-7 sm:py-3.5"
+                        style={{ borderColor: `${BRAND.mist}33` }}
+                    >
+                        Contact Us
+                    </Link>
+                </motion.div>
+
+                <div className="mt-8 flex gap-2 sm:mt-10 sm:gap-3">
+                    {content.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setCurrentIndex(index)}
+                            aria-label={`Show slide ${index + 1}`}
+                            aria-current={index === currentIndex}
+                            // py-2 gives a 40px tap target without changing the visual bar height
+                            className="group -my-2 py-2"
+                        >
+                            <span
+                                className="block h-1 rounded-full transition-all duration-500"
+                                style={{
+                                    width: index === currentIndex ? "3rem" : "1.5rem",
+                                    background:
+                                        index === currentIndex
+                                            ? GRAD_LOGO
+                                            : "rgba(255,255,255,0.35)",
+                                }}
+                            />
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <motion.div
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 sm:bottom-8 sm:flex"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+    >
+        <span className="text-[10px] uppercase tracking-[3px]">Scroll</span>
+        <svg width="18" height="28" viewBox="0 0 18 28" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="16" height="26" rx="8" stroke="currentColor" strokeWidth="1.5" />
+            <motion.circle
+                cx="9" cy="8" r="2.5" fill={BRAND.cyan}
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
+        </svg>
+    </motion.div>
+</section>
 
             <section ref={wrapRef} className="relative w-full overflow-hidden h-auto lg:h-screen">
                 <div className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 flex-col gap-3">
@@ -606,7 +724,6 @@ export default function Home() {
                         ref={(el) => (panelRefs.current[i] = el)}
                         className="relative lg:absolute lg:inset-0 flex items-center py-16 lg:py-0"
                         style={{
-                            // backgroundColor: panel.theme === "dark" ? BRAND.ink : BRAND.mist,
                             backgroundColor: panel.theme === BRAND.mist ? BRAND.ink : BRAND.mist,
                             willChange: "transform, opacity",
                         }}
@@ -686,7 +803,6 @@ export default function Home() {
                     style={{ backgroundImage: "url('https://images.pexels.com/photos/14810111/pexels-photo-14810111.jpeg?_gl=1*1j98rqm*_ga*MTIxODIyODUuMTc4NjUxNzE2NQ..*_ga_8JE65Q40S6*czE3ODY1MTcxNjQkbzEkZzEkdDE3ODY1MTczODUkajU5JGwwJGgw')" }}
 
                 />
-
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-12 sm:mb-16 lg:mb-20 grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
                         <motion.div initial={{ opacity: 0, x: -80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
@@ -708,7 +824,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: "#F5F9FF" }}>
                 <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.azure}1a` }} />
                 <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full blur-[150px]" style={{ backgroundColor: `${BRAND.cyan}1a` }} />
@@ -735,10 +850,8 @@ export default function Home() {
                                 whileHover={{ y: -6 }}
                                 className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200 px-6 py-8 sm:px-10 sm:py-10 shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-shadow duration-700 hover:shadow-[0_35px_80px_rgba(30,64,175,0.14)]"
                             >
-                                {/* <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100" style={{ background: GRAD_LOGO_SOFT }} /> */}
                                 <div className="relative grid items-center gap-8 lg:grid-cols-12">
                                     <div className="lg:col-span-1 flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-black shadow-lg transition-all duration-500 group-hover:scale-110 bg-cyan-300"
-                                    //  style={{ background: GRAD_LOGO }}
                                     >
                                         {String(index + 1).padStart(2, '0')}
                                     </div>
@@ -755,17 +868,11 @@ export default function Home() {
                     </motion.div>
                 </div>
             </section>
-
             <CargoKiteTechSection />
-
-
             <section className="relative overflow-hidden py-16 sm:py-20 lg:py-28" style={{ backgroundColor: BRAND.ink }}>
                 <div className="absolute inset-0 bg-cover bg-center opacity-70"
                     style={{ backgroundImage: "url('ship.jpg')" }}
                 />
-
-
-
                 <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="mb-12 sm:mb-16 lg:mb-20 max-w-3xl">
                         <p className="mb-3 sm:mb-5 text-xs sm:text-sm font-semibold uppercase tracking-[3px] sm:tracking-[5px]" style={{ color: BRAND.cyan }}>WHAT WE DO</p>
@@ -789,11 +896,6 @@ export default function Home() {
                             className="relative"
                         >
                             <div className="overflow-hidden rounded-[30px] sm:rounded-[40px] shadow-2xl" style={{ boxShadow: `0 30px 80px -25px ${BRAND.cyan}40` }}>
-                                {/* <img
-                                    src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=1400&auto=format&fit=crop"
-                                    alt="Cargo management"
-                                    className="h-[300px] sm:h-[400px] lg:h-[550px] w-full object-cover transition duration-700 hover:scale-110"
-                                /> */}
                                 <div className="absolute inset-0 ring-1 ring-inset rounded-[30px] sm:rounded-[40px]" style={{ boxShadow: `inset 0 0 0 1px ${BRAND.cyan}33` }} />
                             </div>
                             <div className="absolute -bottom-4 sm:-bottom-6 lg:-bottom-8 left-4 sm:left-6 lg:left-8 rounded-xl sm:rounded-2xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 text-white shadow-xl" style={{ background: GRAD_LOGO, boxShadow: `0 15px 40px -10px ${BRAND.cyan}80` }}>
@@ -801,7 +903,6 @@ export default function Home() {
                                 <p className="text-xs sm:text-sm">Global Support</p>
                             </div>
                         </motion.div>
-
                         <motion.div
                             initial={{ opacity: 0, x: 200 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -836,11 +937,9 @@ export default function Home() {
                                             <h3 className='text-base font-semibold sm:text-lg lg:text-xl'>{service.title}</h3>
                                             <p className='mt-1 text-sm leading-relaxed text-white/70 sm:text-base'>{service.description}</p>
                                         </div>
-
                                     </motion.div>
                                 ))}
                             </div>
-
                             <motion.button
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
@@ -854,7 +953,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
             <section className='relative overflow-hidden py-20 sm:py-24 lg:py-32'>
                 <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full opacity-20 blur-3xl" style={{ background: GRAD_LOGO }} />
                 <div className='pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full opacity-10 blur-3xl' style={{ backgroundColor: BRAND.mist }} />
