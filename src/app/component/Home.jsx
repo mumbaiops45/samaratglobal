@@ -563,7 +563,7 @@ export default function Home() {
             <section
     id="hero"
     className="relative min-h-[560px] h-[100svh] max-h-[900px] overflow-hidden"
-    style={{ backgroundColor: BRAND.ink }}
+    // style={{ backgroundColor: BRAND.ink }}
 >
     <video
         ref={videoRef}
