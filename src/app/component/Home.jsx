@@ -160,7 +160,7 @@ const CargoKiteTechSection = () => {
                     </p>
                 </motion.div>
                 <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-20 items-start">
-                    <div className="space-y-10 sm:space-y-14 md:space-y-[55vh]">
+                    {/* <div className="space-y-10 sm:space-y-14 md:space-y-[55vh]">
                         {TECH_SECTIONS.map((sec, idx) => {
                             const IconComponent = sec.icon;
                             const isActive = activeIndex === idx;
@@ -249,8 +249,323 @@ const CargoKiteTechSection = () => {
                                 </div>
                             );
                         })}
+                    </div> */}
+                    <div
+                        className="
+        space-y-8
+        sm:space-y-10
+        md:space-y-16
+        lg:space-y-[45vh]
+        xl:space-y-[50vh]
+    "
+                    >
+                        {TECH_SECTIONS.map((sec, idx) => {
+                            const IconComponent = sec.icon;
+                            const isActive = activeIndex === idx;
 
+                            return (
+                                <div
+                                    key={sec.id}
+                                    ref={(el) => {
+                                        sectionRefs.current[idx] = el;
+                                    }}
+                                    data-index={idx}
+                                    className="
+                    mx-auto
+                    w-full
+                    max-w-xl
+                    px-1
+                    sm:px-0
+                "
+                                >
+                                    <motion.div
+                                        initial={{
+                                            opacity: 0.45,
+                                            y: 24,
+                                        }}
+                                        whileInView={{
+                                            opacity: 1,
+                                            y: 0,
+                                        }}
+                                        viewport={{
+                                            once: false,
+                                            margin: "-15%",
+                                        }}
+                                        transition={{
+                                            duration: 0.6,
+                                            ease: [0.22, 1, 0.36, 1],
+                                        }}
+                                        className={`
+                        relative
+                        overflow-hidden
+                        rounded-2xl
+                        sm:rounded-3xl
+                        border
+                        p-5
+                        sm:p-7
+                        md:p-8
+                        lg:p-10
+                        shadow-lg
+                        sm:shadow-xl
+                        transition-[background-color,border-color,box-shadow,transform,opacity]
+                        duration-700
+                        ease-out
+
+                        min-h-0
+                        sm:min-h-[420px]
+                        md:min-h-[500px]
+                        lg:min-h-[560px]
+
+                        ${isActive
+                                                ? "translate-y-0"
+                                                : "translate-y-0"
+                                            }
+                    `}
+                                        style={{
+                                            backgroundColor: isActive
+                                                ? "#F3F4F6"
+                                                : "#FFFFFF",
+
+                                            borderColor: isActive
+                                                ? `${BRAND.cyan}cc`
+                                                : "#E2E8F0",
+
+                                            boxShadow: isActive
+                                                ? `0 25px 70px -20px ${BRAND.cyan}33`
+                                                : "0 10px 35px -20px rgba(15, 23, 42, 0.12)",
+
+                                            opacity: isActive ? 1 : 0.72,
+
+                                            // Avoid large scaling on mobile.
+                                            transform: isActive
+                                                ? "scale(1)"
+                                                : "scale(1)",
+
+                                            // Prevent accidental horizontal overflow.
+                                            maxWidth: "100%",
+                                        }}
+                                    >
+                                        {/* Subtle active glow */}
+                                        <div
+                                            aria-hidden="true"
+                                            className={`
+                            pointer-events-none
+                            absolute
+                            -right-20
+                            -top-20
+                            h-40
+                            w-40
+                            rounded-full
+                            blur-3xl
+                            transition-opacity
+                            duration-700
+                            ${isActive
+                                                    ? "opacity-30"
+                                                    : "opacity-0"
+                                                }
+                        `}
+                                            style={{
+                                                backgroundColor: BRAND.cyan,
+                                            }}
+                                        />
+
+                                        <div className="relative flex h-full min-h-0 flex-col">
+                                            {/* Badge */}
+                                            <div className="mb-4 flex min-w-0 items-center gap-2.5 sm:mb-5 sm:gap-3">
+                                                {IconComponent && (
+                                                    <div
+                                                        className="
+                                        flex
+                                        h-9
+                                        w-9
+                                        shrink-0
+                                        items-center
+                                        justify-center
+                                        rounded-xl
+                                        border
+                                        bg-white
+                                        shadow-sm
+                                        sm:h-10
+                                        sm:w-10
+                                    "
+                                                        style={{
+                                                            borderColor: `${BRAND.cyan}33`,
+                                                        }}
+                                                    >
+                                                        <IconComponent
+                                                            className="h-5 w-5 sm:h-6 sm:w-6"
+                                                            style={{
+                                                                color: BRAND.cyan,
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+
+                                                <span
+                                                    className="
+                                    min-w-0
+                                    truncate
+                                    font-mono
+                                    text-[10px]
+                                    font-bold
+                                    uppercase
+                                    tracking-[0.18em]
+                                    sm:text-xs
+                                    md:text-sm
+                                    md:tracking-widest
+                                "
+                                                    style={{
+                                                        color: BRAND.cyan,
+                                                    }}
+                                                >
+                                                    {sec.badge}
+                                                </span>
+                                            </div>
+
+                                            {/* Title */}
+                                            <h2
+                                                className="
+                                mb-2
+                                break-words
+                                text-2xl
+                                font-bold
+                                leading-tight
+                                tracking-tight
+                                text-black
+                                sm:text-3xl
+                                md:text-4xl
+                            "
+                                            >
+                                                {sec.title}
+                                            </h2>
+
+                                            {/* Subtitle */}
+                                            <p
+                                                className="
+                                mb-5
+                                max-w-lg
+                                text-[10px]
+                                font-semibold
+                                uppercase
+                                leading-relaxed
+                                tracking-[0.12em]
+                                sm:mb-6
+                                sm:text-xs
+                                sm:tracking-[0.16em]
+                                md:text-sm
+                                md:tracking-wider
+                            "
+                                                style={{
+                                                    color: `${BRAND.cyan}cc`,
+                                                }}
+                                            >
+                                                {sec.subtitle}
+                                            </p>
+
+                                            {/* Main Content */}
+                                            <div
+                                                className="
+                                mb-6
+                                space-y-3.5
+                                sm:mb-8
+                                sm:space-y-4
+                            "
+                                            >
+                                                {sec.paragraphs?.map((p, pIdx) => (
+                                                    <SectionParagraph
+                                                        key={pIdx}
+                                                        para={p}
+                                                        accent={BRAND.cyan}
+                                                    />
+                                                ))}
+                                            </div>
+
+                                            {/* Telemetry */}
+                                            {sec.telemetry && (
+                                                <div
+                                                    className="
+                                    mt-auto
+                                    border-t
+                                    pt-4
+                                    sm:pt-5
+                                "
+                                                    style={{
+                                                        borderColor: "#CBD5E1",
+                                                    }}
+                                                >
+                                                    <div
+                                                        className="
+                                        grid
+                                        grid-cols-1
+                                        gap-2.5
+                                        min-[400px]:grid-cols-3
+                                        sm:gap-3
+                                    "
+                                                    >
+                                                        {Object.values(sec.telemetry).map(
+                                                            (t, tIdx) => (
+                                                                <div
+                                                                    key={tIdx}
+                                                                    className="
+                                                    min-w-0
+                                                    rounded-xl
+                                                    border
+                                                    border-slate-200
+                                                    bg-white
+                                                    p-3
+                                                    shadow-sm
+                                                    transition-shadow
+                                                    duration-300
+                                                    hover:shadow-md
+                                                    sm:rounded-2xl
+                                                    sm:p-3.5
+                                                "
+                                                                >
+                                                                    <div
+                                                                        className="
+                                                        truncate
+                                                        font-mono
+                                                        text-[9px]
+                                                        font-medium
+                                                        uppercase
+                                                        tracking-wide
+                                                        text-slate-500
+                                                        sm:text-[10px]
+                                                        md:text-[11px]
+                                                    "
+                                                                    >
+                                                                        {t.label}
+                                                                    </div>
+
+                                                                    <div
+                                                                        className="
+                                                        mt-1
+                                                        break-words
+                                                        font-mono
+                                                        text-xs
+                                                        font-bold
+                                                        leading-snug
+                                                        sm:text-sm
+                                                    "
+                                                                        style={{
+                                                                            color: BRAND.cyan,
+                                                                        }}
+                                                                    >
+                                                                        {t.value}
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            );
+                        })}
                     </div>
+
                     <div className="lg:sticky lg:top-22 lg:self-start flex items-start w-full">
                         <div className="w-full">
                             <div className="relative w-full h-[400px] md:h-[500px] lg:h-[500px] rounded-[2rem] overflow-hidden border border-slate-200 shadow-2xl bg-slate-100">
@@ -561,150 +876,150 @@ export default function Home() {
                 </motion.div>
             </section> */}
             <section
-    id="hero"
-    className="relative min-h-[560px] h-[100svh] max-h-[900px] overflow-hidden"
-    // style={{ backgroundColor: BRAND.ink }}
->
-    <video
-        ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover"
-        src="/banner.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        disablePictureInPicture
-        aria-hidden="true"
-        tabIndex={-1}
-    />
+                id="hero"
+                className="relative min-h-[560px] h-[100svh] max-h-[900px] overflow-hidden"
+            // style={{ backgroundColor: BRAND.ink }}
+            >
+                <video
+                    ref={videoRef}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    src="/banner.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    disablePictureInPicture
+                    aria-hidden="true"
+                    tabIndex={-1}
+                />
 
-    {/* left-to-right scrim keeps text legible on wide screens without dimming the whole video */}
-    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
-    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/50 to-transparent" />
+                {/* left-to-right scrim keeps text legible on wide screens without dimming the whole video */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
+                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/50 to-transparent" />
 
-    <div className="relative z-10 flex h-full items-center">
-        <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
-            <div className="max-w-2xl text-white lg:max-w-3xl">
+                <div className="relative z-10 flex h-full items-center">
+                    <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
+                        <div className="max-w-2xl text-white lg:max-w-3xl">
 
-                <AnimatePresence mode="wait">
-                    <motion.p
-                        key={`eyebrow-${currentIndex}`}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70 sm:mb-4 sm:text-xs"
-                    >
-                        {content[currentIndex].heading}
-                    </motion.p>
-                </AnimatePresence>
+                            <AnimatePresence mode="wait">
+                                <motion.p
+                                    key={`eyebrow-${currentIndex}`}
+                                    initial={{ opacity: 0, y: 12 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -8 }}
+                                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                    className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70 sm:mb-4 sm:text-xs"
+                                >
+                                    {content[currentIndex].heading}
+                                </motion.p>
+                            </AnimatePresence>
 
-                <AnimatePresence mode="wait">
-                    <motion.h1
-                        key={`title-${currentIndex}`}
-                        initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                        // fluid type: scales smoothly between breakpoints instead of jumping
-                        className="mb-4 text-[clamp(1.9rem,6vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6"
-                    >
-                        <span
-                            className="bg-clip-text text-transparent"
-                            style={{ backgroundImage: GRAD_LOGO }}
-                        >
-                            {content[currentIndex].blueTitle}
-                        </span>{" "}
-                        <span className="text-white">
-                            {content[currentIndex].whiteTitle}
-                        </span>
-                    </motion.h1>
-                </AnimatePresence>
+                            <AnimatePresence mode="wait">
+                                <motion.h1
+                                    key={`title-${currentIndex}`}
+                                    initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                    exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+                                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                                    // fluid type: scales smoothly between breakpoints instead of jumping
+                                    className="mb-4 text-[clamp(1.9rem,6vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6"
+                                >
+                                    <span
+                                        className="bg-clip-text text-transparent"
+                                        style={{ backgroundImage: GRAD_LOGO }}
+                                    >
+                                        {content[currentIndex].blueTitle}
+                                    </span>{" "}
+                                    <span className="text-white">
+                                        {content[currentIndex].whiteTitle}
+                                    </span>
+                                </motion.h1>
+                            </AnimatePresence>
 
-                <AnimatePresence mode="wait">
-                    <motion.p
-                        key={`desc-${currentIndex}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                        className="max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed text-slate-100 sm:max-w-2xl"
-                    >
-                        {content[currentIndex].description}
-                    </motion.p>
-                </AnimatePresence>
+                            <AnimatePresence mode="wait">
+                                <motion.p
+                                    key={`desc-${currentIndex}`}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                                    className="max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed text-slate-100 sm:max-w-2xl"
+                                >
+                                    {content[currentIndex].description}
+                                </motion.p>
+                            </AnimatePresence>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5, duration: 0.6 }}
+                                className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
+                            >
+                                <Link
+                                    href="/service"
+                                    className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5"
+                                    style={{
+                                        background: GRAD_LOGO,
+                                        boxShadow: `0 10px 40px -10px ${BRAND.cyan}80`,
+                                    }}
+                                >
+                                    Explore Services
+                                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                </Link>
+
+                                <Link
+                                    href="/contact"
+                                    className="inline-flex items-center justify-center rounded-full border bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/25 sm:px-7 sm:py-3.5"
+                                    style={{ borderColor: `${BRAND.mist}33` }}
+                                >
+                                    Contact Us
+                                </Link>
+                            </motion.div>
+
+                            <div className="mt-8 flex gap-2 sm:mt-10 sm:gap-3">
+                                {content.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentIndex(index)}
+                                        aria-label={`Show slide ${index + 1}`}
+                                        aria-current={index === currentIndex}
+                                        // py-2 gives a 40px tap target without changing the visual bar height
+                                        className="group -my-2 py-2"
+                                    >
+                                        <span
+                                            className="block h-1 rounded-full transition-all duration-500"
+                                            style={{
+                                                width: index === currentIndex ? "3rem" : "1.5rem",
+                                                background:
+                                                    index === currentIndex
+                                                        ? GRAD_LOGO
+                                                        : "rgba(255,255,255,0.35)",
+                                            }}
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                    className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
+                    className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 sm:bottom-8 sm:flex"
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 >
-                    <Link
-                        href="/service"
-                        className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5"
-                        style={{
-                            background: GRAD_LOGO,
-                            boxShadow: `0 10px 40px -10px ${BRAND.cyan}80`,
-                        }}
-                    >
-                        Explore Services
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-
-                    <Link
-                        href="/contact"
-                        className="inline-flex items-center justify-center rounded-full border bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/25 sm:px-7 sm:py-3.5"
-                        style={{ borderColor: `${BRAND.mist}33` }}
-                    >
-                        Contact Us
-                    </Link>
+                    <span className="text-[10px] uppercase tracking-[3px]">Scroll</span>
+                    <svg width="18" height="28" viewBox="0 0 18 28" fill="none" aria-hidden="true">
+                        <rect x="1" y="1" width="16" height="26" rx="8" stroke="currentColor" strokeWidth="1.5" />
+                        <motion.circle
+                            cx="9" cy="8" r="2.5" fill={BRAND.cyan}
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                    </svg>
                 </motion.div>
-
-                <div className="mt-8 flex gap-2 sm:mt-10 sm:gap-3">
-                    {content.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrentIndex(index)}
-                            aria-label={`Show slide ${index + 1}`}
-                            aria-current={index === currentIndex}
-                            // py-2 gives a 40px tap target without changing the visual bar height
-                            className="group -my-2 py-2"
-                        >
-                            <span
-                                className="block h-1 rounded-full transition-all duration-500"
-                                style={{
-                                    width: index === currentIndex ? "3rem" : "1.5rem",
-                                    background:
-                                        index === currentIndex
-                                            ? GRAD_LOGO
-                                            : "rgba(255,255,255,0.35)",
-                                }}
-                            />
-                        </button>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <motion.div
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 sm:bottom-8 sm:flex"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-    >
-        <span className="text-[10px] uppercase tracking-[3px]">Scroll</span>
-        <svg width="18" height="28" viewBox="0 0 18 28" fill="none" aria-hidden="true">
-            <rect x="1" y="1" width="16" height="26" rx="8" stroke="currentColor" strokeWidth="1.5" />
-            <motion.circle
-                cx="9" cy="8" r="2.5" fill={BRAND.cyan}
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            />
-        </svg>
-    </motion.div>
-</section>
+            </section>
 
             <section ref={wrapRef} className="relative w-full overflow-hidden h-auto lg:h-screen">
                 <div className="hidden lg:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 flex-col gap-3">
