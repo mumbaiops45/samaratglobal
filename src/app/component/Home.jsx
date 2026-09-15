@@ -498,7 +498,7 @@ const CargoKiteTechSection = () => {
                                         grid
                                         grid-cols-1
                                         gap-2.5
-                                        min-[400px]:grid-cols-3
+                                        sm:grid-cols-3
                                         sm:gap-3
                                     "
                                                     >
@@ -523,7 +523,7 @@ const CargoKiteTechSection = () => {
                                                                 >
                                                                     <div
                                                                         className="
-                                                        truncate
+                                                        break-words
                                                         font-mono
                                                         text-[9px]
                                                         font-medium

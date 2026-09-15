@@ -113,12 +113,6 @@ export const TECH_SECTIONS = [
 
     paragraphs: [
       {
-        heading: "MISSION",
-      },
-      {
-        heading: "Building Value Through Trust & Quality",
-      },
-      {
         text: "Our mission is to deliver dependable sourcing and procurement solutions that help businesses access quality products, reliable suppliers, and efficient international trade support.",
         highlight: "Sourcing & Procurement Solutions",
       },
@@ -161,21 +155,6 @@ export const TECH_SECTIONS = [
       "We envision a connected business ecosystem where companies can access reliable suppliers, quality products, and international markets with greater confidence and efficiency.",
 
     paragraphs: [
-      {
-        heading: "FUTURE",
-      },
-      {
-        heading: "CONNECTING GLOBAL MARKETS",
-      },
-      {
-        text: "We envision a connected business ecosystem where companies can access reliable suppliers, quality products, and international markets with greater confidence and efficiency.",
-      },
-      {
-        heading: "VISION",
-      },
-      {
-        heading: "A GLOBAL PARTNER FOR SOURCING & TRADE",
-      },
       {
         text: "Our vision is to become a trusted global sourcing company connecting businesses across markets through reliable sourcing, procurement, and export solutions.",
         highlight: "global sourcing company",

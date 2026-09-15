@@ -602,7 +602,7 @@ const ServicePage = () => {
                   <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#0052D4] to-[#00D2FF] flex items-center justify-center mb-3 shadow-md">
                     {item.icon}
                   </div>
-                  <h3 className="h3 text-white">{item.title}</h3>
+                  <h3 className="h4 text-white">{item.title}</h3>
                   <p className="text-slate-200 text-xs mt-1 leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
                     {item.description}
                   </p>
