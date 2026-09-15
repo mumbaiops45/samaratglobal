@@ -1,273 +1,171 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaGlobe, FaShippingFast, FaHandshake, FaAward, FaUsers, FaRocket, FaCheckCircle, FaStar, FaBuilding, FaBullseye, FaEye, FaShieldAlt, FaHeart, FaCogs, FaQuoteLeft, FaArrowRight } from "react-icons/fa";
-import { MdVerified, MdOutlineVerifiedUser } from "react-icons/md";
+import {
+  FaGlobe,
+  FaAward,
+  FaUsers,
+  FaStar,
+  FaCheckCircle,
+  FaArrowRight,
+  FaBuilding,
+  FaBullseye,
+  FaEye,
+  FaShieldAlt,
+  FaHandshake,
+} from "react-icons/fa";
+import { TECH_SECTIONS, commitments, cards } from "../../data/data";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const stats = [
+  { value: 500, suffix: "+", label: "Clients Served", icon: <FaUsers /> },
+  { value: 50, suffix: "+", label: "Countries", icon: <FaGlobe /> },
+  { value: 15, suffix: "+", label: "Years of Experience", icon: <FaAward /> },
+  { value: 100, suffix: "%", label: "Customer Satisfaction", icon: <FaStar /> },
+];
+
+// Founder gets a full feature block; the rest of the leadership sits in a
+// lighter grid below it — no full-bleed "poster" photos anywhere.
+const founder = {
+  name: "Arun Pandey",
+  role: "Founder & Director",
+  image: "/arun.jpeg",
+  bio: "Arun Pandey founded Samrat Global India with a simple goal — make international sourcing dependable, transparent and easy to work with. He sets the company's direction across sourcing, procurement and export operations, with a strong personal focus on supplier relationships and quality-first processes.",
+};
+
+const leadership = [
+  {
+    name: "JayKumar Sinha",
+    role: "Co-Founder & Director",
+    image: "/JayKumar.jpeg",
+    bio: "Drives brand strategy and market development, helping the company build long-term trade partnerships across international markets.",
+  },
+  {
+    name: "Rajeev Paul",
+    role: "Chief Executive Officer",
+    image: "/rajiv.jpeg",
+    bio: "Leads day-to-day business operations, turning strategic goals into consistent, dependable outcomes for clients worldwide.",
+  },
+  {
+    name: "Lalita Pandey",
+    role: "Co-Founder & Director",
+    image: "/lalita.jpeg",
+    bio: "Focuses on supplier coordination and operational excellence, ensuring the smooth movement of goods from source to destination.",
+  },
+];
+
+// Mission / Vision / Quality / Supply Chain / Customer-First — same data
+// the homepage scroll-spy uses, presented here as tabs for a different feel.
+const pillarTabs = TECH_SECTIONS.slice(1);
 
 const AboutPage = () => {
-  const heroRef = useRef(null);
-  const badgeRef = useRef(null);
-  const headingRef = useRef(null);
-  const paragraphRef = useRef(null);
-  const badgeRowRef = useRef(null);
   const counterRefs = useRef([]);
-
+  const lineRef = useRef(null);
+  const processRef = useRef(null);
+  const [activeTab, setActiveTab] = useState(0);
   counterRefs.current = [];
 
   const addCounterRef = (el) => {
-    if (el && !counterRefs.current.includes(el)) {
-      counterRefs.current.push(el);
-    }
+    if (el && !counterRefs.current.includes(el)) counterRefs.current.push(el);
   };
-
-  const teamMembers = [
-    {
-      name: "Arun Pandey",
-      role: "Founder and Director",
-      image: "/arun.jpeg",
-      description: "Visionary leader with 20+ years of experience in global trade",
-      expertise: "Strategic Planning",
-    },
-    {
-      name: "JayKumar Sinha",
-      role: "Co-founder and Director",
-      image: "/JayKumar.jpeg",
-      description: "Marketing expert driving brand excellence worldwide",
-      expertise: "Brand Strategy",
-    },
-    {
-      name: "Rajeev Paul ",
-      role: "Chief Executive Officer (CEO)",
-      image: "/rajiv.jpeg",
-      description: "A results-driven executive responsible for leading business operations, driving organizational growth, and turning strategic goals into sustainable business outcomes.",
-      expertise: "Strategic Planning",
-    },
-    {
-      name: "Lalita Pandey",
-      role: "Co-founder and Director",
-      image: "/lalita.jpeg",
-      description: "Supply chain expert ensuring seamless operations",
-      expertise: "Logistics Management",
-    },
-  ];
-
-  const stats = [
-    { value: 500, suffix: "+", label: "Clients Served", icon: <FaUsers /> },
-    { value: 50, suffix: "+", label: "Countries", icon: <FaGlobe /> },
-    { value: 15, suffix: "+", label: "Years Excellence", icon: <FaAward /> },
-    { value: 100, suffix: "%", label: "Client Satisfaction", icon: <FaStar /> },
-  ];
-
-  const coreValues = [
-    {
-      icon: <MdOutlineVerifiedUser className="text-4xl text-[#00D2FF]" />,
-      title: "Quality You Can Trust",
-      description:
-        "Consistent, strict quality control across sourcing, inspection, and export.",
-      gradient: "from-[#00D2FF]/20 to-[#0052D4]/10",
-      borderColor: "hover:border-[#00D2FF]",
-    },
-    {
-      icon: <FaShieldAlt className="text-4xl text-[#0072FF]" />,
-      title: "Reliable Supply Chain",
-      description:
-        "Processes designed for continuity, cost-effectiveness and customer satisfaction.",
-      gradient: "from-[#0072FF]/20 to-[#0A2540]/10",
-      borderColor: "hover:border-[#0072FF]",
-    },
-    {
-      icon: <FaHeart className="text-4xl text-[#00D2FF]" />,
-      title: "Customer First Policy",
-      description:
-        "Service that aims to exceed expectations and build long-term global partnerships.",
-      gradient: "from-[#60EFFF]/20 to-[#0072FF]/10",
-      borderColor: "hover:border-[#60EFFF]",
-    },
-  ];
-
-  const services = [
-    { icon: <FaGlobe />, title: "Global Sourcing", desc: "Premium products from trusted suppliers worldwide" },
-    { icon: <FaShippingFast />, title: "Import/Export", desc: "Seamless cross-border trade solutions" },
-    { icon: <FaHandshake />, title: "Procurement", desc: "Strategic procurement for your business" },
-    { icon: <FaRocket />, title: "Trade Consulting", desc: "Expert guidance for international trade" },
-    { icon: <FaCogs />, title: "Logistics", desc: "Efficient supply chain management" },
-    { icon: <FaShieldAlt />, title: "Quality Assurance", desc: "Rigorous quality control processes" },
-  ];
-
-  const testimonials = [
-    {
-      quote:
-        "Samrat Global India Private Limited has been an exceptional partner. Their commitment to quality and reliability is unmatched.",
-      author: "John Smith",
-      role: "CEO, Global Trading Co.",
-    },
-    {
-      quote:
-        "The professionalism and expertise of the Samrat Global India Private Limited team made our international expansion seamless.",
-      author: "Sarah Johnson",
-      role: "Director, International Foods",
-    },
-    {
-      quote:
-        "We trust Samrat Global India Private Limited for all our sourcing needs. They consistently deliver beyond expectations.",
-      author: "Michael Chen",
-      role: "VP Operations, Asia Imports",
-    },
-  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(badgeRef.current, { opacity: 0, y: -20, duration: 0.6 })
-        .from(headingRef.current, { opacity: 0, y: 30, duration: 0.8 }, "-=0.3")
-        .from(paragraphRef.current, { opacity: 0, y: 20, duration: 0.6 }, "-=0.4")
-        .from(badgeRowRef.current?.children || [], { opacity: 0, y: 15, stagger: 0.1, duration: 0.5 }, "-=0.3");
-
       counterRefs.current.forEach((el, i) => {
         if (!el) return;
         const target = stats[i].value;
         const suffix = stats[i].suffix;
         const counter = { val: 0 };
-
         gsap.to(counter, {
           val: target,
-          duration: 2,
+          duration: 1.8,
           ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none none",
-            once: true,
-          },
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
           onUpdate: () => {
             el.textContent = Math.floor(counter.val) + suffix;
           },
         });
       });
-    });
 
+      if (lineRef.current) {
+        gsap.fromTo(
+          lineRef.current,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: "none",
+            transformOrigin: "left center",
+            scrollTrigger: {
+              trigger: processRef.current,
+              start: "top 70%",
+              end: "bottom 80%",
+              scrub: true,
+            },
+          }
+        );
+      }
+    });
     return () => ctx.revert();
   }, []);
 
+  const activePillar = pillarTabs[activeTab];
+  const ActiveIcon = activePillar?.icon;
+
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden  selection:bg-[#00D2FF]/30">
-      <section ref={heroRef} className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-20 md:py-22">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-[450px] h-[450px] bg-[#0052D4]/10 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute inset-0 opacity-[0.4] pointer-events-none">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `linear-gradient(#0052D4 0.8px, transparent 0.8px), linear-gradient(90deg, #0052D4 0.8px, transparent 0.8px)`,
-              backgroundSize: "60px 60px",
-              opacity: 0.05,
-            }}
-          />
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-secondary/30">
+      {/* HERO */}
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
+        <div className="absolute inset-0 opacity-65">
+          <img src="/about.jpg" alt="" className="h-full w-full object-cover" />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16">
-          <div className="grid grid-cols-1 items-center gap-10 sm:gap-12 lg:gap-16">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h1 className="h1 max-w-3xl text-white">
+              A Global Sourcing &amp; <span className="grad-text">Export Partner</span>
+            </h1>
 
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="w-full"
-            >
-              <div ref={badgeRef} className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 backdrop-blur-md sm:gap-2.5 sm:px-5 sm:py-2"
-              >
-                <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#00D2FF] sm:h-2.5 sm:w-2.5" />
-                <span className="truncate text-[10px] font-bold uppercase tracking-[1.5px] text-[#00D2FF] sm:text-xs sm:tracking-[2px] md:text-sm">
-                  Welcome to Samrat Global India Private Limited
-                </span>
-              </div>
-
-              <h1 ref={headingRef} className="h2 mt-6 max-w-5xl text-white sm:mt-7 lg:mt-8">
-                Vision{" "}
-                <span className="mt-1  bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF] bg-clip-text text-transparent sm:mt-2">
-                  Mission &  Values
-                </span>
-              </h1>
-              <p ref={paragraphRef} className="mt-5 max-w-2xl text-sm leading-7 text-slate-200 sm:mt-6 sm:text-base sm:leading-7 md:mt-7 md:text-lg md:leading-8 lg:text-xl">
-                Learn about Samrat Global India Private Limited, an India-based sourcing and export company
-                focused on premium quality, reliability, and customer-first trade
-                partnerships worldwide.
-              </p>
-
-              <div ref={badgeRowRef} className="mt-7 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3">
-                {[
-                  {
-                    icon: <MdVerified className="text-base text-[#00D2FF] sm:text-lg" />,
-                    text: "ISO Certified",
-                  },
-                  {
-                    icon: <FaGlobe className="text-base text-[#0072FF] sm:text-lg" />,
-                    text: "Global Reach",
-                  },
-                  {
-                    icon: <FaAward className="text-base text-[#0052D4] sm:text-lg" />,
-                    text: "15+ Years",
-                  },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{
-                      y: -4,
-                      scale: 1.03,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20,
-                    }}
-                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white px-3.5 py-2.5 text-xs font-semibold text-slate-700 shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-[#00D2FF]/60 hover:shadow-[0_8px_30px_rgba(0,210,255,0.15)] sm:gap-2.5 sm:rounded-2xl sm:px-4 sm:py-2.5 sm:text-sm"
-                  >
-                    <span className="flex shrink-0 items-center justify-center">
-                      {item.icon}
-                    </span>
-
-                    <span className="whitespace-nowrap">
-                      {item.text}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 md:text-lg">
+              Samrat Global India provides global sourcing and export solutions designed to
+              help businesses source products, manage procurement, and access international
+              markets with confidence — built around reliability, quality and long-term
+              partnerships.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-16 bg-white border-y border-slate-100 relative">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* STATS STRIP */}
+      <section className="border-b border-slate-100 bg-white py-14">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -6 }}
-                className="text-center group p-4 rounded-2xl transition-all duration-300 hover:bg-[#F4F9FF]"
+                className="text-center"
               >
-                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-[#EBF4FF] to-white rounded-2xl flex items-center justify-center text-2xl text-[#0052D4] group-hover:text-[#00D2FF] group-hover:scale-110 transition-all duration-300 shadow-sm border border-slate-100">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-sm bg-primary/5 text-lg text-primary">
                   {stat.icon}
                 </div>
-                <div
-                  ref={addCounterRef}
-                  className="text-3xl md:text-4xl font-extrabold text-[#0A2540] mt-4 tracking-tight"
-                >
+                <div ref={addCounterRef} className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
                   0{stat.suffix}
                 </div>
-                <div className="text-sm text-slate-500 font-semibold mt-1">
+                <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   {stat.label}
                 </div>
               </motion.div>
@@ -276,409 +174,274 @@ const AboutPage = () => {
         </div>
       </section>
 
-      <section className="py-20 md:py-28 bg-[#F4F9FF] relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="absolute -inset-3 rounded-[36px] blur-xl opacity-30 bg-gradient-to-r from-[#00D2FF] to-[#0052D4]" />
-              <div className="relative rounded-[32px] overflow-hidden border-4 border-white shadow-2xl">
-                <img
-                  src="/globalwhare.jpg"
-                  alt="Warehouse & Logistics Operations"
-                  className="w-full h-[420px] object-cover"
-                />
-                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold text-[#0052D4] shadow-md border border-white">
-                  ⚡ Operations & Quality Desk
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
-                Our Story
-              </span>
-              <h2 className="h2 text-[#0A2540] mb-6">
-                Built on Trade Routes,{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                  Built on Trust
-                </span>
-              </h2>
-              <p className="text-slate-600 text-base md:text-lg leading-relaxed mb-4">
-                What began as a focused sourcing desk has grown into a full-stack import–export operation spanning warehousing, quality control, and last-mile distribution.
-              </p>
-              <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-                Every shipment that leaves our facility carries the same standard  checked, documented, and delivered on time, every time.
-              </p>
+      {/* WHO WE ARE — split image/text, real PDF content */}
+      <section className="bg-[#EAF1FF] py-20 md:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative overflow-hidden rounded-sm border border-slate-200 shadow-xl">
+              <img
+                src="/SamratGlobal.jpg"
+                alt="Samrat Global India operations"
+                className="h-[380px] w-full object-cover md:h-[440px]"
+              />
+            </div>
+            <div className="absolute -bottom-6 -right-4 rounded-sm bg-gradient-to-r from-primary to-secondary px-6 py-4 text-white shadow-lg sm:-right-6">
+              <p className="text-2xl font-bold">15+</p>
+              <p className="text-xs">Years of Experience</p>
+            </div>
+          </motion.div>
 
-              <div className="flex flex-wrap gap-3 mt-8">
-                {["End-to-End Fulfilment", "In-House QC", "Global Network"].map((b) => (
-                  <span
-                    key={b}
-                    className="px-4 py-2 rounded-full text-sm font-semibold border border-slate-200 bg-white text-slate-700 shadow-sm flex items-center gap-2 hover:border-[#00D2FF] transition-colors"
-                  >
-                    <FaCheckCircle className="text-[#00D2FF] text-sm" /> {b}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">Who We Are</p>
+            <h2 className="h2 mb-6 text-slate-900">
+              Samrat Global <span className="grad-text">India</span>
+            </h2>
+            <p className="text-base leading-relaxed text-slate-600 md:text-lg">
+              Samrat Global India is a <strong className="text-slate-900">Sourcing and Export Company</strong> providing
+              sourcing, procurement and international trade support. We connect businesses
+              with suitable suppliers and products while coordinating the movement of goods
+              from source to destination.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">
+              Our customer-first approach makes international sourcing simpler, transparent
+              and dependable — built around three principles: reliability, quality, and
+              long-term partnerships.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              {["Global Trade", "Export & Sourcing", "Customer First"].map((b) => (
+                <span
+                  key={b}
+                  className="flex items-center gap-2 rounded-sm border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm"
+                >
+                  <FaCheckCircle className="text-primary" /> {b}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* MISSION / VISION / QUALITY / SUPPLY CHAIN / CUSTOMER-FIRST — tabbed */}
+      <section className="bg-white py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12 max-w-2xl"
+          >
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">What Drives Us</p>
+            <h2 className="h2 text-slate-900">
+              Our <span className="grad-text">Purpose &amp; Principles</span>
+            </h2>
+          </motion.div>
+
+          <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-2">
+            {pillarTabs.map((tab, index) => {
+              const isActive = index === activeTab;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(index)}
+                  className={`rounded-sm px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                    isActive ? "bg-primary text-white" : "text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  {tab.title}
+                </button>
+              );
+            })}
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35 }}
+              className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-center"
+            >
+              <div>
+                <div className="mb-4 flex items-center gap-3">
+                  {ActiveIcon && (
+                    <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-primary/5 text-primary">
+                      <ActiveIcon className="h-5 w-5" />
+                    </div>
+                  )}
+                  <span className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
+                    {activePillar?.subtitle}
                   </span>
-                ))}
+                </div>
+                <h3 className="h3 mb-4 text-slate-900">{activePillar?.title}</h3>
+                <p className="text-base leading-relaxed text-slate-600 md:text-lg">
+                  {activePillar?.description}
+                </p>
+
+                {activePillar?.telemetry && (
+                  <div className="mt-8 grid grid-cols-3 gap-3 border-t border-slate-200 pt-6">
+                    {Object.values(activePillar.telemetry).map((t, i) => (
+                      <div key={i}>
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                          {t.label}
+                        </p>
+                        <p className="mt-1 text-sm font-bold text-primary">{t.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="relative h-[300px] overflow-hidden rounded-sm border border-slate-200 shadow-lg md:h-[360px]">
+                <img
+                  src={activePillar?.image}
+                  alt={activePillar?.title}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
             </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* CORE COMMITMENTS — horizontal timeline, distinct from home's stacked list */}
+      <section ref={processRef} className="relative overflow-hidden bg-[#0A1A3F] py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-16 max-w-2xl"
+          >
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-secondary">Why Choose Us</p>
+            <h2 className="h2 text-white">
+              Core <span className="grad-text">Commitments</span>
+            </h2>
+          </motion.div>
+
+          <div className="relative">
+            <div className="absolute top-[26px] left-[8%] right-[8%] hidden h-[2px] bg-white/10 md:block">
+              <div ref={lineRef} className="h-full w-full origin-left bg-gradient-to-r from-primary to-secondary" style={{ transform: "scaleX(0)" }} />
+            </div>
+            <div className="grid gap-10 md:grid-cols-3">
+              {commitments.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-lg font-bold text-white shadow-lg">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="h4 mt-5 text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-28 bg-white relative">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+      {/* FOUNDER — proper editorial layout, no poster-style full-bleed image */}
+      <section className="bg-white py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-14 max-w-2xl"
+          >
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">Leadership</p>
+            <h2 className="h2 text-slate-900">
+              Meet Our <span className="grad-text">Founder &amp; Director</span>
+            </h2>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="grid items-center gap-10 rounded-sm border border-slate-100 bg-[#EAF1FF] p-6 shadow-sm md:grid-cols-[380px_1fr] md:gap-12 md:p-10"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
-              Your One Stop Solution
-            </span>
-            <h2 className="h2 text-[#0A2540]">
-              One Umbrella for{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                Global Trade Solutions
-              </span>
-            </h2>
-            <p className="text-slate-500 max-w-2xl mx-auto mt-4 text-base md:text-lg">
-              From sourcing to delivery, we handle everything under one roof with precision and reliability.
-            </p>
+            <div className="mx-auto aspect-[1402/1122] w-full overflow-hidden rounded-sm border-4 border-white shadow-lg">
+              <img src={founder.image} alt={founder.name} className="h-full w-full object-cover" />
+            </div>
+            <div>
+              <h3 className="h3 text-slate-900">{founder.name}</h3>
+              <p className="mt-1 text-sm font-bold uppercase tracking-wider text-primary">{founder.role}</p>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
+                {founder.bio}
+              </p>
+            </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {leadership.map((member, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
+                key={member.name}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="group relative bg-[#F4F9FF] rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:bg-white hover:border-[#00D2FF]/50 transition-all duration-300"
+                className="flex items-start gap-4 rounded-sm border border-slate-100 bg-white p-5 shadow-sm"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0052D4] to-[#00D2FF] text-white flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-md">
-                  {service.icon}
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="h-16 w-16 shrink-0 rounded-sm object-cover object-top"
+                />
+                <div className="min-w-0">
+                  <h4 className="h5 text-slate-900">{member.name}</h4>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-primary">{member.role}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-500">{member.bio}</p>
                 </div>
-                <h3 className="h4 text-[#0A2540] mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  {service.desc}
-                </p>
               </motion.div>
             ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <a href="/team" className="btn btn-outline">
+              View Full Team <FaArrowRight className="text-xs" />
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-28 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00D2FF]/10 rounded-full blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#0052D4]/20 rounded-full blur-[150px] pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#00D2FF] mb-4">
-              Company Snapshot
-            </span>
-            <h2 className="h2">
-              About{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
-                Samrat Global India Private Limited
-              </span>
-            </h2>
-          </motion.div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <FaBuilding className="text-4xl text-[#00D2FF]" />,
-                title: "Who We Are",
-                description:
-                  "Samrat Global India Private Limited is a sourcing and export company based in India offering strategic procurement solutions and worldwide export services.",
-              },
-              {
-                icon: <FaEye className="text-4xl text-[#60EFFF]" />,
-                title: "Our Vision",
-                description:
-                  "To enrich lives globally through authentic ingredients and empowering style, uniting quality, trust, and exceptional value.",
-              },
-              {
-                icon: <FaBullseye className="text-4xl text-[#00D2FF]" />,
-                title: "Our Mission",
-                description:
-                  "Connect the world with excellence by sourcing and delivering premium products that inspire trust and elevate everyday experiences.",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="group bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:bg-white/10 hover:border-[#00D2FF]/50 transition-all duration-300 shadow-2xl"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  {item.icon}
-                </div>
-                <h3 className="h3 text-white mb-3">{item.title}</h3>
-                <p className="text-slate-300 text-sm leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
+      {/* CTA */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary to-[#062A8F] py-20">
+        <div className="absolute inset-0 opacity-15">
+          <img src="/ship.jpg" alt="" className="h-full w-full object-cover" />
         </div>
-      </section>
-      <section className="py-20 md:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
-              Why Choose Us
-            </span>
-            <h2 className="h2 text-[#0A2540]">
-              Core{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                Commitments
-              </span>
-            </h2>
-          </motion.div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {coreValues.map((value, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="group relative"
-              >
-                <div className={`bg-gradient-to-b ${value.gradient} rounded-3xl p-8 border border-slate-200 transition-all duration-300 shadow-sm hover:shadow-xl ${value.borderColor}`}>
-                  <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform duration-300">
-                    {value.icon}
-                  </div>
-                  <h3 className="h4 text-[#0A2540] mb-3">{value.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{value.description}</p>
-                  <div className="mt-6 h-1 w-12 bg-[#00D2FF] rounded-full group-hover:w-24 transition-all duration-500" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-14 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] overflow-hidden relative shadow-inner">
-        <div className="text-center mb-8">
-          <span className="text-xs uppercase font-bold tracking-[4px] text-white/80 bg-white/10 px-4 py-1.5 rounded-full border border-white/20">
-            End-To-End Capabilities
-          </span>
-        </div>
-        <div className="flex overflow-hidden py-2 select-none">
-          <div className="flex w-max animate-marquee space-x-4 hover:[animation-play-state:paused]">
-            {[
-              "Import & Export Solutions",
-              "Global Sourcing",
-              "Procurement Management",
-              "Logistics & Supply Chain",
-              "Quality Assurance",
-              "Customs Clearance",
-              "Warehousing & Distribution",
-              "Trade Consulting",
-              "Import & Export Solutions",
-              "Global Sourcing",
-              "Procurement Management",
-              "Logistics & Supply Chain",
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white font-semibold text-sm whitespace-nowrap shadow-sm hover:bg-white hover:text-[#0052D4] transition-all"
-              >
-                <FaCheckCircle className="text-[#60EFFF]" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex overflow-hidden py-2 select-none mt-2">
-          <div className="flex w-max animate-marqueeReverse space-x-4 hover:[animation-play-state:paused]">
-            {[
-              "Supplier Verification",
-              "Worldwide Shipping",
-              "Packaging Solutions",
-              "OEM Manufacturing",
-              "Vendor Network",
-              "Product Inspection",
-              "Door-to-Door Delivery",
-              "International Trade",
-              "Supplier Verification",
-              "Worldwide Shipping",
-              "Packaging Solutions",
-              "OEM Manufacturing",
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white font-semibold text-sm whitespace-nowrap shadow-sm hover:bg-white hover:text-[#0052D4] transition-all"
-              >
-                <FaCheckCircle className="text-[#60EFFF]" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="py-20 md:py-28 bg-[#F4F9FF]">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
-              Leadership Team
-            </span>
-            <h2 className="h2 text-[#0A2540]">
-              Meet Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                Leadership
-              </span>
-            </h2>
-            <p className="text-slate-500 max-w-2xl mx-auto mt-4 text-base md:text-lg">
-              Dedicated professionals committed to driving your business growth worldwide.
-            </p>
-          </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="group relative"
-              >
-                <div className="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100">
-                  <div className="relative w-full  bg-slate-100">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-[465px] object-cover object-center group-hover:scale-100 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540] via-[#0A2540]/80 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <p className="text-white text-xs leading-relaxed mb-3">
-                        {member.description}
-                      </p>
-                      <span className="inline-block px-3 py-1 rounded-full bg-[#00D2FF] text-[#0A2540] text-xs font-bold w-fit">
-                        {member.expertise}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-5 text-center">
-                    <h3 className="h4 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
-                      {member.name}
-                    </h3>
-                    <p className="text-xs font-bold text-[#0072FF] uppercase tracking-wider mt-1">
-                      {member.role}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="py-20 md:py-28 bg-white border-t border-slate-100 relative">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-[#F4F9FF] shadow-sm mb-4">
-              Testimonials
-            </span>
-            <h2 className="h2 text-[#0A2540]">
-              What Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                Clients Say
-              </span>
-            </h2>
-          </motion.div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -6 }}
-                className="bg-[#F4F9FF] rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300"
-              >
-                <FaQuoteLeft className="text-3xl text-[#00D2FF] mb-4 opacity-70" />
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed italic mb-6">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#0052D4] to-[#00D2FF] text-white font-bold flex items-center justify-center shadow-md">
-                    {testimonial.author.charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="h4 text-[#0A2540]">{testimonial.author}</h4>
-                    <p className="text-xs text-slate-500 font-semibold">{testimonial.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center relative z-10">
-           <h2 className="h2 text-white mb-3">
-              Ready to Scale Your{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                Global Trade Operations?
-              </span>
-            </h2>
-          <p className="text-blue-100 text-base md:text-lg max-w-2xl mx-auto mb-8">
-            Partner with Samrat Global India Private Limited today for seamless sourcing, quality assurance, and global export solutions.
+        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center sm:px-8">
+          <h2 className="h2 mb-4 text-white">
+            Ready to Build a <span className="text-secondary">Reliable Trade Partnership?</span>
+          </h2>
+          <p className="mx-auto mb-8 max-w-2xl text-base text-white/80 md:text-lg">
+            Partner with Samrat Global India for dependable sourcing, procurement and export
+            solutions built around your business goals.
           </p>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="/contact"
-            className="inline-flex items-center gap-3 bg-white text-[#0052D4] font-bold px-8 py-4 rounded-full shadow-2xl hover:bg-[#60EFFF] hover:text-[#0A2540] transition-all"
-          >
-            <span>Get Started With Us</span>
-            <FaArrowRight />
-          </motion.a>
+          <a href="/contact" className="btn bg-white text-primary hover:-translate-y-0.5 transition-transform">
+            Get In Touch <FaArrowRight className="text-xs" />
+          </a>
         </div>
       </section>
     </div>

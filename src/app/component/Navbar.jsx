@@ -2,77 +2,74 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {Disclosure,DisclosureButton,DisclosurePanel} from "@headlessui/react";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowUpRight } from "lucide-react";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about-us" },
   { name: "Services", href: "/service" },
   { name: "Products", href: "/product" },
+  { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   return (
-    <Disclosure
-      as="nav"
-      // className="sticky top-0 z-50 bg-[#0F172A]/95 backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
-      className="sticky top-0 z-50 bg-[#ffffff] backdrop-blur-lg shadow-xl border-b border-cyan-500/20"
-
-    >
+    <Disclosure as="nav" className="sticky top-0 z-50 border-b border-slate-100 bg-white shadow-sm">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="flex h-20 items-center justify-between">
-              <Link href="/" className="flex items-center">
+          <div className="mx-auto max-w-7xl px-5 lg:px-10">
+            <div className="flex h-[72px] items-center justify-between lg:h-20">
+              <Link href="/" className="flex h-full shrink-0 items-center py-0">
                 <img
-                  src="/logo-.png"
-                  alt="Import Export Business World"
-                  priority
-                  className="h-20 md:h-32 w-auto object-contain"
+                  src="/logofinal.jpeg"
+                  alt="Samrat Global India"
+                  className="h-full w-auto object-contain py-0"
                 />
               </Link>
-              <div className="hidden md:flex items-center gap-3">
+
+              <div className="hidden lg:flex lg:items-center lg:gap-1">
                 {navigation.map((item) => {
                   const active = pathname === item.href;
                   return (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className={`relative px-4 py-2 text-[15px] font-semibold transition-all duration-300
-                        ${
-                          active
-                            ? "text-cyan-400"
-                            : "text-black hover:text-cyan-400"
-                        } 
-                        after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-cyan-400 after:transition-all after:duration-300
-                        ${
-                          active
-                            ? "after:w-full"
-                            : "after:w-0 hover:after:w-full"
-                        }
+                      className={`relative px-4 py-2 text-[14px] font-semibold tracking-wide transition-colors duration-300
+                        ${active ? "text-primary" : "text-slate-700 hover:text-primary"}
                       `}
                     >
                       {item.name}
+                      <span
+                        className={`absolute inset-x-4 -bottom-[2px] h-[2px] rounded-full bg-gradient-to-r from-primary to-secondary transition-all duration-300
+                          ${active ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"}
+                        `}
+                      />
                     </Link>
                   );
                 })}
               </div>
-              <div className="md:hidden">
-                <DisclosureButton className="rounded-lg p-2 text-black hover:bg-white/10">
-                  {open ? (
-                    <XMarkIcon className="h-8 w-8" />
-                  ) : (
-                    <Bars3Icon className="h-8 w-8" />
-                  )}
+
+              <div className="hidden lg:block">
+                <Link href="/contact" className="btn btn-primary">
+                  Get a Quote
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="lg:hidden">
+                <DisclosureButton className="rounded-md p-2 text-slate-700 transition-colors hover:bg-slate-100">
+                  {open ? <XMarkIcon className="h-7 w-7" /> : <Bars3Icon className="h-7 w-7" />}
                 </DisclosureButton>
               </div>
             </div>
           </div>
-          <DisclosurePanel className="md:hidden bg-[#0F172A] border-t border-cyan-500/20">
-            <div className="space-y-2 px-5 py-5">
+
+          <DisclosurePanel className="border-t border-slate-100 bg-white lg:hidden">
+            <div className="space-y-1 px-5 py-5">
               {navigation.map((item) => {
                 const active = pathname === item.href;
                 return (
@@ -80,17 +77,21 @@ export default function Navbar() {
                     key={item.name}
                     as={Link}
                     href={item.href}
-                    className={`block rounded-lg px-4 py-3 font-medium transition
-                    ${
-                      active
-                        ? "bg-blue-600 text-white"
-                        : "text-white hover:bg-blue-600"
-                    }`}
+                    className={`block rounded-md px-4 py-3 text-[15px] font-semibold transition-colors
+                    ${active ? "bg-primary/5 text-primary" : "text-slate-700 hover:bg-slate-50 hover:text-primary"}`}
                   >
                     {item.name}
                   </DisclosureButton>
                 );
               })}
+              <DisclosureButton
+                as={Link}
+                href="/contact"
+                className="btn btn-primary mt-3 w-full"
+              >
+                Get a Quote
+                <ArrowUpRight className="h-4 w-4" />
+              </DisclosureButton>
             </div>
           </DisclosurePanel>
         </>

@@ -3,7 +3,7 @@ import { Eye, Award, Truck, Handshake, Target, Building2, Sparkles, Globe2, Arro
 
 
 const BRAND = {
-    ink: "#050B14",
+    ink: "#0A1A3F",
     surface: "#0A1A2C",
     surfaceAlt: "#0E2338",
     steel: "#15304A",

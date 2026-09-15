@@ -270,7 +270,7 @@ const ProductPage = () => {
                   className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
                     product.type === "Export"
                       ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
-                      : "bg-cyan-100 text-[#0052D4] border border-[#00D2FF]/40"
+                      : "bg-cyan-100 text-[#0948CF] border border-[#05FCFB]/40"
                   }`}
                 >
                   {product.type} Solution
@@ -281,7 +281,7 @@ const ProductPage = () => {
               </div>
               <button
                 onClick={onClose}
-                className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-[#00D2FF] hover:text-[#0A2540] transition-colors"
+                className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-500 hover:bg-[#05FCFB] hover:text-[#0A2540] transition-colors"
               >
                 <FaTimes />
               </button>
@@ -294,7 +294,7 @@ const ProductPage = () => {
                     alt={product.name}
                     className="w-full h-72 object-cover"
                   />
-                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm text-xs font-bold text-[#0052D4]">
+                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm text-xs font-bold text-[#0948CF]">
                     ⭐ {product.rating} / 5.0
                   </div>
                 </div>
@@ -333,7 +333,7 @@ const ProductPage = () => {
                         key={i}
                         className="flex items-center gap-2.5 text-slate-700 text-xs font-medium"
                       >
-                        <FaCheckCircle className="text-[#00D2FF] text-sm shrink-0" />
+                        <FaCheckCircle className="text-[#05FCFB] text-sm shrink-0" />
                         <span>{detail}</span>
                       </li>
                     ))}
@@ -348,7 +348,7 @@ const ProductPage = () => {
                     {product.certifications.map((cert, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-[#F4F9FF] text-[#0052D4] rounded-full text-xs font-semibold border border-slate-200"
+                        className="px-3 py-1 bg-[#F4F9FF] text-[#0948CF] rounded-full text-xs font-semibold border border-slate-200"
                       >
                         {cert}
                       </span>
@@ -372,7 +372,7 @@ const ProductPage = () => {
                     </div>
                     {/* <div>
                       <p className="text-[11px] font-semibold text-slate-400">Price Est.</p>
-                      <p className="font-extrabold text-[#0052D4] text-xs mt-0.5">
+                      <p className="font-extrabold text-[#0948CF] text-xs mt-0.5">
                         {product.priceRange}
                       </p>
                     </div> */}
@@ -381,7 +381,7 @@ const ProductPage = () => {
 
                 <Link
                   href="/contact"
-                  className="w-full py-3.5 px-6 bg-gradient-to-r from-[#0052D4] to-[#00D2FF] rounded-full font-bold text-white shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2"
+                  className="btn btn-primary w-full"
                 >
                   <FaGlobe />
                   <span>Request Instant Quotation</span>
@@ -395,68 +395,41 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-[#00D2FF]/30">
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {[...Array(12)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-gradient-to-r from-[#00D2FF] to-[#0052D4] opacity-10"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 8 + 3}px`,
-              height: `${Math.random() * 8 + 3}px`,
-            }}
-            animate={{ y: [0, -40, 0], opacity: [0.1, 0.3, 0.1] }}
-            transition={{
-              duration: Math.random() * 6 + 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-secondary/30">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F] text-white border-b border-slate-800">
+        <div className="absolute inset-0 opacity-65">
+          <img src="/products.jpg" alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] text-white py-20 md:py-28 border-b border-slate-800">
-        <div className="absolute top-10 right-10 w-96 h-96 bg-[#00D2FF]/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 left-10 w-96 h-96 bg-[#0052D4]/20 rounded-full blur-[130px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+        <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-5 py-1 rounded-full border border-white/20 mb-6">
-              <FaGlobe className="text-[#00D2FF]" />
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-[2px] text-[#60EFFF]">
-                Global Trade Catalog
-              </span>
-            </div>
-
             <h1 className="h2 text-white">
               Your Trusted Partner{" "}
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
+              <span className="grad-text block">
                 In International Trade
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed mt-6 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-white/75 leading-relaxed mt-4 max-w-2xl">
               Connecting India to world markets through premium exports and strategic, high-demand industrial imports.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-8">
               {[
-                { icon: <FaShip className="text-[#00D2FF]" />, text: "Export from India" },
-                { icon: <FaPlane className="text-[#60EFFF]" />, text: "Import to India" },
-                { icon: <FaWarehouse className="text-[#00D2FF]" />, text: "Global Logistics" },
+                { icon: <FaShip className="text-[#05FCFB]" />, text: "Export from India" },
+                { icon: <FaPlane className="text-[#05FCFB]" />, text: "Import to India" },
+                { icon: <FaWarehouse className="text-[#05FCFB]" />, text: "Global Logistics" },
               ].map((badge, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.03, y: -2 }}
-                  className="flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/15 text-sm font-semibold text-white hover:border-[#00D2FF] transition-all"
+                  className="flex items-center gap-2.5 bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/15 text-sm font-semibold text-white hover:border-[#05FCFB] transition-all"
                 >
                   {badge.icon}
                   <span>{badge.text}</span>
@@ -477,43 +450,38 @@ const ProductPage = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#00D2FF]/40 text-xs font-bold uppercase tracking-wider text-[#0052D4] bg-white shadow-sm mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-sm border border-primary/25 text-xs font-bold uppercase tracking-wider text-primary bg-white shadow-sm mb-4">
               Our Products
             </span>
             <h2 className="h2 text-[#0A2540]">
-              Premium Export & Import{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
-                Products
-              </span>
+              Premium Export &amp; Import <span className="grad-text">Products</span>
             </h2>
             <p className="text-slate-500 max-w-2xl mx-auto mt-4 text-base">
-              From India to the world - certified quality products that define global excellence.
+              From India to the world — certified quality products that define global excellence.
             </p>
           </motion.div>
-          <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-10 bg-white p-4 rounded-3xl shadow-sm border border-slate-100">
-            <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-10 bg-white p-3 rounded-sm shadow-sm border border-slate-100">
+            <div className="flex flex-wrap gap-1.5">
               {categories.map((cat) => (
-                <motion.button
+                <button
                   key={cat.id}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
                   onClick={() => handleCategoryChange(cat.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-2xl text-xs md:text-sm font-bold transition-all cursor-pointer ${
+                  className={`px-4 py-2 rounded-sm text-xs md:text-sm font-semibold transition-colors cursor-pointer ${
                     filter === cat.id
-                      ? "bg-gradient-to-r from-[#0052D4] to-[#00D2FF] text-white shadow-md"
-                      : "bg-[#F4F9FF] text-slate-700 hover:bg-slate-100 border border-slate-200"
+                      ? "bg-primary text-white shadow-sm"
+                      : "text-slate-600 hover:bg-[#EAF1FF]"
                   }`}
                 >
-                  <span>{cat.label}</span>
-                </motion.button>
+                  {cat.label}
+                </button>
               ))}
             </div>
-            <div className="flex gap-1.5 bg-[#F4F9FF] p-1.5 rounded-2xl border border-slate-200 shrink-0">
+            <div className="flex gap-1.5 bg-[#EAF1FF] p-1.5 rounded-sm shrink-0">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-2 rounded-xl transition-colors ${
+                className={`p-2 rounded-sm transition-colors ${
                   viewMode === "grid"
-                    ? "bg-[#0052D4] text-white shadow-sm"
+                    ? "bg-primary text-white shadow-sm"
                     : "text-slate-500 hover:text-[#0A2540]"
                 }`}
                 title="Grid View"
@@ -522,9 +490,9 @@ const ProductPage = () => {
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-2 rounded-xl transition-colors ${
+                className={`p-2 rounded-sm transition-colors ${
                   viewMode === "list"
-                    ? "bg-[#0052D4] text-white shadow-sm"
+                    ? "bg-primary text-white shadow-sm"
                     : "text-slate-500 hover:text-[#0A2540]"
                 }`}
                 title="List View"
@@ -548,7 +516,7 @@ const ProductPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
-                className={`group bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-100 hover:border-[#00D2FF] ${
+                className={`group bg-white rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-slate-100 hover:border-primary/40 ${
                   viewMode === "list" ? "flex flex-col md:flex-row" : ""
                 }`}
               >
@@ -562,18 +530,13 @@ const ProductPage = () => {
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold text-white shadow-md ${
-                        product.type === "Export"
-                          ? "bg-emerald-600"
-                          : "bg-[#0052D4]"
-                      }`}
-                    >
+                    <span className="px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider text-white bg-[#0A2540]/80 backdrop-blur-sm">
                       {product.type}
                     </span>
                     {product.rating >= 4.8 && (
-                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-400 text-[#0A2540] shadow-md">
+                      <span className="px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider text-[#0A2540] bg-secondary">
                         Premium
                       </span>
                     )}
@@ -581,9 +544,9 @@ const ProductPage = () => {
 
                   <button
                     onClick={() => setSelectedProduct(product)}
-                    className="absolute inset-0 bg-[#0A2540]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                    className="absolute inset-0 bg-[#0A2540]/55 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
                   >
-                    <span className="bg-white text-[#0A2540] px-5 py-2.5 rounded-full font-bold text-xs flex items-center gap-2 hover:bg-[#00D2FF] transition-colors shadow-lg">
+                    <span className="bg-white text-[#0A2540] px-5 py-2.5 rounded-sm font-bold text-xs flex items-center gap-2 shadow-lg">
                       <FaEye /> Quick View
                     </span>
                   </button>
@@ -595,19 +558,19 @@ const ProductPage = () => {
                 >
                   <div>
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="h4 text-[#0A2540] group-hover:text-[#0052D4] transition-colors">
+                      <h3 className="h4 text-[#0A2540] group-hover:text-[#0948CF] transition-colors">
                         {product.name}
                       </h3>
-                      <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-[#F4F9FF] px-2.5 py-1 rounded-full border border-slate-200">
+                      <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-[#EAF1FF] px-2.5 py-1 rounded-sm shrink-0">
                         <FaStar className="text-amber-400 text-xs" />
                         <span>{product.rating}</span>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-3">
-                      <span>📍 {product.origin}</span>
-                      <span className="text-[#00D2FF]">→</span>
-                      <span>📍 {product.destination}</span>
+                      <span>{product.origin}</span>
+                      <span className="text-primary">→</span>
+                      <span>{product.destination}</span>
                     </div>
 
                     <p className="text-slate-600 text-xs line-clamp-2 leading-relaxed mb-4">
@@ -618,7 +581,7 @@ const ProductPage = () => {
                       {product.certifications.slice(0, 2).map((cert, i) => (
                         <span
                           key={i}
-                          className="px-2.5 py-0.5 bg-[#F4F9FF] rounded-full text-[11px] font-semibold text-[#0052D4] border border-slate-200"
+                          className="px-2.5 py-0.5 bg-[#EAF1FF] rounded-sm text-[11px] font-semibold text-primary"
                         >
                           {cert}
                         </span>
@@ -627,12 +590,12 @@ const ProductPage = () => {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                    {/* <span className="text-xs font-extrabold text-[#0052D4]">
+                    {/* <span className="text-xs font-extrabold text-[#0948CF]">
                       {product.priceRange}
                     </span> */}
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="text-xs text-[#0072FF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#00D2FF]"
+                      className="text-xs text-[#0948CF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#05FCFB]"
                     >
                       <span>View Details</span>
                       <FaArrowRight className="text-[10px]" />
@@ -647,7 +610,7 @@ const ProductPage = () => {
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                className="w-10 h-10 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:border-[#00D2FF] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="w-10 h-10 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:border-primary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <FaChevronLeft />
               </button>
@@ -656,10 +619,10 @@ const ProductPage = () => {
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`w-10 h-10 rounded-2xl text-xs font-bold transition-all ${
+                  className={`w-10 h-10 rounded-sm text-xs font-bold transition-all ${
                     currentPage === i + 1
-                      ? "bg-gradient-to-r from-[#0052D4] to-[#00D2FF] text-white shadow-md"
-                      : "bg-white text-slate-700 border border-slate-200 hover:border-[#00D2FF]"
+                      ? "bg-primary text-white shadow-md"
+                      : "bg-white text-slate-700 border border-slate-200 hover:border-primary"
                   }`}
                 >
                   {i + 1}
@@ -671,7 +634,7 @@ const ProductPage = () => {
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
-                className="w-10 h-10 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:border-[#00D2FF] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="w-10 h-10 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:border-primary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <FaChevronRight />
               </button>
@@ -690,30 +653,30 @@ const ProductPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#00D2FF] mb-4">
+            <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#05FCFB] mb-4">
               Global Trade Flow
             </span>
             <h2 className="h2">
-              Connecting <span className="text-[#60EFFF]">India</span> to the World
+              Connecting <span className="text-[#05FCFB]">India</span> to the World
             </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <FaTruck className="text-4xl text-[#00D2FF]" />,
+                icon: <FaTruck className="text-4xl text-[#05FCFB]" />,
                 title: "Export from India",
                 description:
                   "Premium Indian commodities like wheat, rice, spices, steel, and textiles exported seamlessly to global trade partners.",
               },
               {
-                icon: <FaExchangeAlt className="text-4xl text-[#60EFFF]" />,
+                icon: <FaExchangeAlt className="text-4xl text-[#05FCFB]" />,
                 title: "Bilateral Trade",
                 description:
                   "Strategic import-export corridors connecting India with over 50 countries across Asia, Europe, and America.",
               },
               {
-                icon: <FaShip className="text-4xl text-[#00D2FF]" />,
+                icon: <FaShip className="text-4xl text-[#05FCFB]" />,
                 title: "Import to India",
                 description:
                   "Advanced machinery, technology, and specialized industrial equipment imported to empower Indian enterprises.",
@@ -726,7 +689,7 @@ const ProductPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
-                className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:bg-white/10 hover:border-[#00D2FF]/50 transition-all duration-300 text-center"
+                className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:bg-white/10 hover:border-[#05FCFB]/50 transition-all duration-300 text-center"
               >
                 <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-6">
                   {item.icon}
@@ -753,7 +716,7 @@ const ProductPage = () => {
           >
             <h2 className="h2 text-[#0A2540]">
               Browse By{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0948CF] to-[#05FCFB]">
                 Product Category
               </span>
             </h2>
@@ -769,9 +732,9 @@ const ProductPage = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -6, scale: 1.03 }}
                 onClick={() => handleCategoryChange(cat.id)}
-                className="group cursor-pointer bg-[#F4F9FF] rounded-3xl p-6 text-center border border-slate-100 hover:border-[#00D2FF] hover:bg-white transition-all shadow-2xs hover:shadow-xl"
+                className="group cursor-pointer bg-[#F4F9FF] rounded-3xl p-6 text-center border border-slate-100 hover:border-[#05FCFB] hover:bg-white transition-all shadow-2xs hover:shadow-xl"
               >
-                <div className="text-3xl text-[#0052D4] group-hover:text-[#00D2FF] group-hover:scale-110 transition-all flex justify-center">
+                <div className="text-3xl text-[#0948CF] group-hover:text-[#05FCFB] group-hover:scale-110 transition-all flex justify-center">
                   {cat.icon}
                 </div>
                 <h3 className="text-xl font-bold text-[#0A2540] mt-3">

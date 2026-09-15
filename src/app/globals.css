@@ -1,8 +1,51 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap");
 @import "tailwindcss";
 
+/* Global brand tokens — generates bg-primary/text-primary/from-primary/
+   bg-secondary/.../bg-navbar utilities automatically (Tailwind v4). */
+@theme {
+  --color-primary: #0948cf;
+  --color-secondary: #05fcfb;
+  --color-navbar: #4b5463;
+  --color-navbar-dark: #182029;
+  /* Deep navy used for dark sections — kept blue-toned on purpose,
+     never a flat black background. */
+  --color-dark: #0a1a3f;
+}
+
+/* Navbar surface: angled blend from the darker tone into the navbar
+   grey so the logo's own dark diagonal backdrop merges into the bar
+   instead of sitting on it as a hard-edged box. */
+.bg-navbar-gradient {
+  background: linear-gradient(
+    45deg,
+    var(--color-navbar-dark) 0%,
+    var(--color-navbar) 10%,
+    var(--color-navbar) 100%
+  );
+}
+
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) #eef2fb;
+}
+
+/* Themed page scrollbar (webkit) — primary → secondary thumb. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #eef2fb;
+}
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+  border-radius: 999px;
+  border: 2px solid #eef2fb;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(180deg, var(--color-primary), var(--color-primary));
 }
 
 body {
@@ -13,6 +56,60 @@ body {
 
 body {
     font-family: "Plus Jakarta Sans", sans-serif;
+    color: #0f172a;
+}
+
+/* Gradient heading treatment — primary → secondary, used on every
+   section heading site-wide (hero excluded, per client sign-off). */
+.grad-text {
+  background-image: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons: squarish-rounded (not pill) per brand direction. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.85rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary {
+  background-image: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  color: #ffffff;
+  box-shadow: 0 12px 30px -12px rgba(9, 72, 207, 0.55);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -10px rgba(9, 72, 207, 0.6);
+}
+.btn-outline {
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  background-color: #ffffff;
+}
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+.btn-ghost-dark {
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost-dark:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
 /* Fluid heading scale.
@@ -57,6 +154,13 @@ body {
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: -0.01em;
+  }
+
+  .h5 {
+    font-size: clamp(0.9375rem, 0.9rem + 0.19vw, 1.0625rem); /* 15 → 17px */
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
   }
 
   /* Uppercase micro-label ("ROLE", "EXPERTISE", footer column titles).
@@ -116,4 +220,12 @@ body {
 .animate-marquee:hover,
 .animate-marqueeReverse:hover {
   animation-play-state: paused;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

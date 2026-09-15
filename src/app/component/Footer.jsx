@@ -7,18 +7,18 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, ArrowUpRight, Building2, ReceiptText } from "lucide-react";
 
 const BRAND = {
-  ink: "#050B14",
+  ink: "#0A1A3F",
   surface: "#0A1A2C",
   steel: "#15304A",
-  cyan: "#22D3EE",
-  cyanDeep: "#06B6D4",
-  azure: "#2E6BFF",
-  azureDeep: "#1E40AF",
-  mist: "#F5F9FF",
+  cyan: "#0948CF",
+  cyanDeep: "#0948CF",
+  azure: "#0948CF",
+  azureDeep: "#0948CF",
+  mist: "#EAF1FF",
   slate: "#8FA6BE",
 };
 
-const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
+const GRAD_LOGO = "linear-gradient(90deg, #0948CF, #05FCFB)";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -35,6 +35,7 @@ const QUICK_LINKS = [
   { name: "About Us", href: "/about-us" },
   { name: "Services", href: "/service" },
   { name: "Product", href: "/product" },
+  { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -159,11 +160,6 @@ const RegistrationCard = ({ item }) => {
       className="group relative h-full min-h-[72px] overflow-hidden rounded-xl border p-3.5 transition-transform duration-300 hover:-translate-y-0.5"
       style={{ borderColor: `${BRAND.cyan}16`, backgroundColor: `${BRAND.cyan}06` }}
     >
-      <div
-        className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30"
-        style={{ backgroundColor: BRAND.cyan }}
-      />
-
       <div className="relative flex h-full items-center gap-3">
         <div
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105"
@@ -210,15 +206,6 @@ const Footer = () => {
     <footer className="relative overflow-hidden" style={{ backgroundColor: BRAND.ink }}>
       <div className="h-[2px] w-full" style={{ background: GRAD_LOGO }} />
 
-      <div
-        className="pointer-events-none absolute -left-32 -top-32 h-[320px] w-[320px] rounded-full blur-[120px]"
-        style={{ backgroundColor: `${BRAND.azure}18` }}
-      />
-      <div
-        className="pointer-events-none absolute -bottom-32 -right-32 h-[320px] w-[320px] rounded-full blur-[120px]"
-        style={{ backgroundColor: `${BRAND.cyan}18` }}
-      />
-
       <div className="relative mx-auto max-w-7xl px-6 py-10 sm:px-8 sm:py-11 lg:px-10 lg:py-12">
         <motion.div
           variants={staggerParent}
@@ -228,17 +215,17 @@ const Footer = () => {
           className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.8fr_1.05fr_1.35fr] lg:gap-8 xl:gap-12"
         >
           <motion.div variants={fadeUp} className="self-start">
-            <Link href="/" onClick={scrollToTop} className="group inline-flex items-center">
+            <Link href="/" onClick={scrollToTop} className="group inline-flex items-center rounded-sm bg-white p-2.5 shadow-sm transition-transform duration-500 group-hover:scale-[1.02]">
               <img
-                src="/logo-.png"
+                src="/logofinal.jpeg"
                 alt="Samrat Global India Private Limited"
                 width={280}
                 height={115}
-                className="h-[105px] w-auto max-w-full object-contain object-left transition-transform duration-500 group-hover:scale-[1.02] sm:h-[115px]"
+                className="h-[70px] w-auto max-w-full object-contain object-left sm:h-[80px]"
               />
             </Link>
 
-            <p className="max-w-sm text-xl font-bold leading-6 text-slate-300">
+            <p className="mt-5 max-w-sm text-xl font-bold leading-6 text-slate-300">
               Samrat Global India
             </p>
             <p className="mt-0.5 max-w-sm text-sm leading-6 text-slate-300">

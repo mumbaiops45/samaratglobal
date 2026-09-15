@@ -11,7 +11,7 @@ import axios from "axios";
 
 
 const baseField =
-  "w-full px-4 py-3 bg-[#F4F9FF] rounded-2xl border focus:outline-none focus:border-[#00D2FF] focus:bg-white transition-all text-slate-700 text-base sm:text-sm";
+  "w-full px-4 py-3 bg-[#F4F9FF] rounded-2xl border focus:outline-none focus:border-[#05FCFB] focus:bg-white transition-all text-slate-700 text-base sm:text-sm";
 const fieldBorder = (hasError) =>
   hasError ? "border-red-500" : "border-slate-200";
 
@@ -28,19 +28,9 @@ const ContactPage = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [particles, setParticles] = useState([]);
   const [canHover, setCanHover] = useState(false);
 
   useEffect(() => {
-    setParticles(
-      Array.from({ length: 10 }, () => ({
-        left: Math.random() * 90,
-        top: Math.random() * 90,
-        size: Math.random() * 6 + 2,
-        duration: Math.random() * 4 + 3,
-        delay: Math.random() * 2,
-      }))
-    );
     setCanHover(window.matchMedia("(hover: hover)").matches);
   }, []);
 
@@ -161,19 +151,19 @@ const ContactPage = () => {
 
   const contactInfo = [
     {
-      icon: <HiOutlineMail className="text-xl sm:text-2xl text-[#0052D4]" />,
+      icon: <HiOutlineMail className="text-xl sm:text-2xl text-[#0948CF]" />,
       title: "Email Us",
       value: "info@samratglobalindia.com",
       link: "mailto:info@samratglobalindia.com",
     },
     {
-      icon: <IoMdCall className="text-xl sm:text-2xl text-[#00D2FF]" />,
+      icon: <IoMdCall className="text-xl sm:text-2xl text-[#05FCFB]" />,
       title: "Call Us Direct",
       value: "+91 9920220309",
       link: "tel:+919920220309",
     },
     {
-      icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0072FF]" />,
+      icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0948CF]" />,
       title: "Corporate Office",
       value: (
         <> Samrat Global India Private Limited
@@ -188,7 +178,7 @@ const ContactPage = () => {
     },
 
     {
-      icon: <FaClock className="text-xl sm:text-2xl text-[#60EFFF]" />,
+      icon: <FaClock className="text-xl sm:text-2xl text-[#05FCFB]" />,
       title: "Working Hours",
       value: "Mon - Sat: 9:00 AM - 6:00 PM (IST)",
       link: null,
@@ -199,55 +189,25 @@ const ContactPage = () => {
     "https://www.google.com/maps?q=OFF+NO+11+THE+SIGNATURE+GANESH+MANDIR+Dombivli+Kalyan+Thane+421201+Maharashtra&output=embed";
 
   return (
-    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-[#00D2FF]/30">
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden sm:block">
-        {particles.map((p, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-gradient-to-r from-[#00D2FF] to-[#0052D4] opacity-10"
-            style={{
-              left: `${p.left}%`,
-              top: `${p.top}%`,
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.1, 0.3, 0.1],
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: p.delay,
-            }}
-          />
-        ))}
-      </div>
+    <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-secondary/30">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F] text-white">
+        <div className="absolute inset-0 opacity-65">
+          <img src="/contact.jpg" alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] py-14 sm:py-16 md:py-28 text-white">
-        <div className="absolute top-10 right-0 sm:right-10 w-48 h-48 sm:w-80 sm:h-80 bg-[#00D2FF]/15 rounded-full blur-[70px] sm:blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-10 left-0 sm:left-10 w-56 h-56 sm:w-96 sm:h-96 bg-[#0052D4]/20 rounded-full blur-[70px] sm:blur-[140px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+        <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 sm:px-5 py-1 rounded-full border border-white/20 mb-5 sm:mb-6">
-              <FaPaperPlane className="text-[#00D2FF] text-xs sm:text-sm" />
-              <span className="text-[10px] sm:text-sm font-bold uppercase tracking-[1.5px] sm:tracking-[2px] text-[#60EFFF]">
-                Let&apos;s Connect
-              </span>
-            </div>
-
             {/* clamp() overrides the global .h2 size so the headline can't
                 overflow on 320-360px screens */}
             <h1 className="h2 text-white [font-size:clamp(1.875rem,7vw,3.75rem)] leading-[1.15] break-words">
               Let&apos;s{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#60EFFF] to-[#00D2FF]">
+              <span className="grad-text">
                 Connect
               </span>
               <span className="block text-white mt-1">
@@ -263,15 +223,15 @@ const ContactPage = () => {
             <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mt-6 sm:mt-8">
               {[
                 {
-                  icon: <MdOutlineSecurity className="text-[#00D2FF]" />,
+                  icon: <MdOutlineSecurity className="text-[#05FCFB]" />,
                   text: "Trusted Partner",
                 },
                 {
-                  icon: <FaHandshake className="text-[#60EFFF]" />,
+                  icon: <FaHandshake className="text-[#05FCFB]" />,
                   text: "100% Satisfaction",
                 },
                 {
-                  icon: <FaRocket className="text-[#00D2FF]" />,
+                  icon: <FaRocket className="text-[#05FCFB]" />,
                   text: "Quick Response",
                 },
               ].map((badge, i) => (
@@ -300,7 +260,7 @@ const ContactPage = () => {
           >
             <div className="bg-white rounded-3xl shadow-sm p-5 sm:p-8 border border-slate-100">
               <h3 className="h3 text-[#0A2540] mb-5 sm:mb-6 flex items-center gap-3 [font-size:clamp(1.25rem,4.5vw,1.75rem)]">
-                <span className="w-1.5 h-6 sm:h-7 bg-gradient-to-b from-[#0052D4] to-[#00D2FF] rounded-full shrink-0"></span>
+                <span className="w-1.5 h-6 sm:h-7 bg-gradient-to-b from-[#0948CF] to-[#05FCFB] rounded-full shrink-0"></span>
                 Contact Information
               </h3>
 
@@ -325,7 +285,7 @@ const ContactPage = () => {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       viewport={{ once: true }}
                       {...hoverProps({ x: 4 })}
-                      className="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 bg-[#F4F9FF] rounded-2xl border border-slate-100 hover:border-[#00D2FF] hover:bg-white transition-all group"
+                      className="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 bg-[#F4F9FF] rounded-2xl border border-slate-100 hover:border-[#05FCFB] hover:bg-white transition-all group"
                     >
                       <div className="w-11 h-11 sm:w-12 sm:h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
                         {info.icon}
@@ -373,7 +333,7 @@ const ContactPage = () => {
             <div className="mb-6 sm:mb-8">
               <h2 className="h3 text-[#0A2540] [font-size:clamp(1.375rem,5vw,2rem)] leading-tight">
                 Send Us a{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052D4] to-[#00D2FF]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0948CF] to-[#05FCFB]">
                   Message
                 </span>
               </h2>
@@ -520,7 +480,7 @@ const ContactPage = () => {
                 disabled={isSubmitting}
                 {...hoverProps({ scale: 1.02 })}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 px-5 sm:px-6 bg-gradient-to-r from-[#0052D4] to-[#00D2FF] rounded-2xl font-bold text-white text-sm sm:text-base shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+                className="btn btn-primary w-full py-4 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
