@@ -114,7 +114,7 @@ const ContactPage = () => {
 
     try {
       const response = await axios.post(
-        "https://formsubmit.co/ajax/info@samratglobal.com",
+        "https://formsubmit.co/ajax/info@samratglobalindia.com",
         formDataToSend,
         {
           headers: {

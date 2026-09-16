@@ -33,7 +33,7 @@ const coreServices = [
     id: 1,
     step: "01",
     title: "Product Development",
-    image: "/agriculture.webp",
+    image: "/service_product.jpg",
     description:
       "Support for developing and identifying products according to business requirements. We work closely with clients to translate a sourcing brief into a clear, workable product specification.",
     details: [
@@ -47,7 +47,7 @@ const coreServices = [
     id: 2,
     step: "02",
     title: "Product Purchasing",
-    image: "/commercial.jpg",
+    image: "/service_wholesale.jpg",
     description:
       "Professional coordination for purchasing products from suitable suppliers, with pricing negotiation and terms management handled end-to-end on the client's behalf.",
     details: [
@@ -75,7 +75,7 @@ const coreServices = [
     id: 4,
     step: "04",
     title: "Order Monitoring",
-    image: "/packing.jpg",
+    image: "/service_ordermonitoring.jpg",
     description:
       "Ongoing coordination and monitoring of orders throughout the procurement process, with quality checkpoints before goods ever leave the supplier.",
     details: [
@@ -89,7 +89,7 @@ const coreServices = [
     id: 5,
     step: "05",
     title: "Delivery at Destination",
-    image: "/International.jpg",
+    image: "/service_delivery.jpg",
     description:
       "Support for coordinating shipment movement and delivery to the required destination, closing the loop from sourcing through to the client's door.",
     details: [
@@ -105,16 +105,16 @@ const whyChooseUs = [
   {
     title: "Global Reach",
     description: "Active sourcing and trade connections across 50+ countries.",
-    image: "/International.jpg",
+    image: "/about_vision.jpg",
     icon: <FaGlobe className="text-2xl text-white" />,
     span: "md:col-span-2 md:row-span-2",
   },
   {
     title: "Quality First",
     description: "Every order passes through structured quality checkpoints.",
-    image: "/packing.jpg",
+    image: "/service_quality.jpg",
     icon: <FaShieldAlt className="text-xl text-white" />,
-    span: "md:col-span-2",
+    span: "md:col-span-1",
   },
   {
     title: "Fast Turnaround",
@@ -126,9 +126,9 @@ const whyChooseUs = [
   {
     title: "Dedicated Support",
     description: "A responsive point of contact for every engagement.",
-    image: "/globalwhare.jpg",
+    image: "https://t3.ftcdn.net/jpg/10/43/42/06/360_F_1043420602_HhmKNYUQrQKmIsriU2W0u8ZWSLn7e9zs.jpg",
     icon: <FaHeadset className="text-xl text-white" />,
-    span: "md:col-span-1",
+    span: "md:col-span-2",
   },
 ];
 

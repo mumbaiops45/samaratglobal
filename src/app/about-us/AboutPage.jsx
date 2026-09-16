@@ -186,7 +186,7 @@ const AboutPage = () => {
           >
             <div className="relative overflow-hidden rounded-sm border border-slate-200 shadow-xl">
               <img
-                src="/SamratGlobal.jpg"
+                src="/aboutwho.jpg"
                 alt="Samrat Global India operations"
                 className="h-[380px] w-full object-cover md:h-[440px]"
               />

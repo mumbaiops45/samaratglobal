@@ -164,7 +164,7 @@ export const TECH_SECTIONS = [
     icon: Eye,
 
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiMVqiPm1Ov9L9-IMcuPD_uFgMBVkwVCtUbJDRZgsZMsNBr-kGkdGaeACR&s=10",
+      "/about_vision.jpg",
 
     cameraPos: [34, 26, 40],
     cameraTarget: [0, 4, 0],
