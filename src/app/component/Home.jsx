@@ -26,6 +26,10 @@ const BRAND = {
     slate: "#8FA6BE",
 };
 const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
+// Buttons carry white text over this fill, so it stays two stops of blue
+// (never fading into the bright cyan GRAD_LOGO uses) to keep the label
+// readable across the whole button.
+const GRAD_BUTTON = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.azureDeep})`;
 // Maps 1:1 to the `services` array order (Product Development → Delivery at
 // Destination) — same imagery used on the Services page for consistency.
 const SERVICE_MOSAIC_IMAGES = [
@@ -77,7 +81,7 @@ const CargoKiteTechSection = () => {
     };
 
     return (
-        <section ref={sectionRef} className="relative w-full bg-white py-20 lg:py-28">
+        <section ref={sectionRef} className="relative w-full bg-[#F5F9FF] py-20 lg:py-28">
             <div className="mx-auto w-full max-w-7xl px-6 lg:px-12">
                 <motion.div
                     initial="hidden"
@@ -154,7 +158,7 @@ const CargoKiteTechSection = () => {
                                         {sec.badge}
                                     </p>
                                     <h3 className="mb-2 text-2xl font-bold text-white lg:text-3xl">{sec.title}</h3>
-                                    <p className="text-sm leading-relaxed text-white/80">{sec.description}</p>
+                                    <p className="text-sm leading-relaxed text-slate-300">{sec.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +166,7 @@ const CargoKiteTechSection = () => {
                 })}
             </div>
 
-            <div className="mx-auto mt-4 flex max-w-7xl items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-slate-400 lg:px-12">
+            <div className="mx-auto mt-4 flex max-w-7xl items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-slate-500 lg:px-12">
                 <ArrowUpRight className="h-3 w-3 rotate-45" /> Scroll to explore
             </div>
         </section>
@@ -301,7 +305,7 @@ export default function Home() {
                             <Link
                                 href="/service"
                                 className="group inline-flex cursor-pointer items-center gap-2 rounded-full px-7 py-3.5 font-semibold text-sm text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-2xl"
-                                style={{ background: GRAD_LOGO, boxShadow: `0 10px 40px -10px ${BRAND.cyan}80` }}
+                                style={{ background: GRAD_BUTTON, boxShadow: `0 10px 40px -10px ${BRAND.cyan}80` }}
                             >
                                 Explore Services
                                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -331,7 +335,7 @@ export default function Home() {
                     </div>
                 </div>
                 <motion.div
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/70"
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-slate-200"
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 >
@@ -376,11 +380,11 @@ export default function Home() {
                             <AnimatePresence mode="wait">
                                 <motion.p
                                     key={`eyebrow-${currentIndex}`}
-                                    initial={{ opacity: 0, y: 12 }}
+                                    initial={{ opacity: 1, y: 12 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -8 }}
                                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70 sm:mb-4 sm:text-xs"
+                                    className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-200 sm:mb-4 sm:text-xs"
                                 >
                                     {content[currentIndex].heading}
                                 </motion.p>
@@ -389,7 +393,7 @@ export default function Home() {
                             <AnimatePresence mode="wait">
                                 <motion.h1
                                     key={`title-${currentIndex}`}
-                                    initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                                    initial={{ opacity: 1, y: 30, filter: "blur(8px)" }}
                                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                                     exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
                                     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -411,18 +415,18 @@ export default function Home() {
                             <AnimatePresence mode="wait">
                                 <motion.p
                                     key={`desc-${currentIndex}`}
-                                    initial={{ opacity: 0, y: 20 }}
+                                    initial={{ opacity: 1, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                    className="max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed text-white/75 sm:max-w-2xl"
+                                    className="max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed text-slate-300 sm:max-w-2xl"
                                 >
                                     {content[currentIndex].description}
                                 </motion.p>
                             </AnimatePresence>
 
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 1, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5, duration: 0.6 }}
                                 className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
@@ -431,7 +435,7 @@ export default function Home() {
                                     href="/service"
                                     className="group inline-flex items-center justify-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5"
                                     style={{
-                                        background: GRAD_LOGO,
+                                        background: GRAD_BUTTON,
                                         boxShadow: `0 10px 40px -10px ${BRAND.cyan}80`,
                                     }}
                                 >
@@ -477,7 +481,7 @@ export default function Home() {
 
             </section>
 
-            <section ref={overviewRef} className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28">
+            <section ref={overviewRef} className="relative overflow-hidden bg-[#F5F9FF] py-20 sm:py-24 lg:py-28">
                 <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
                     {/* Our Commitment — intro */}
                     <div className="overview-reveal mx-auto mb-14 max-w-3xl text-center lg:mb-20">
@@ -496,7 +500,7 @@ export default function Home() {
                             const Icon = [ShieldCheck, SearchCheck, Handshake][i] || ShieldCheck;
                             return (
                                 <div key={s.value} className="rounded-sm border border-slate-200 bg-[#EAF1FF] p-6">
-                                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-white">
+                                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-white">
                                         <Icon className="h-5 w-5" />
                                     </div>
                                     <h3 className="h4 mb-1 text-slate-900">{s.value}</h3>
@@ -629,7 +633,7 @@ export default function Home() {
                                 transition={{ duration: 0.35 }}
                                 className="flex min-h-[220px] flex-col justify-center rounded-sm border border-slate-200 bg-white p-8 sm:p-10 lg:p-14"
                             >
-                                <div className="mb-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-xl font-bold text-white">
+                                <div className="mb-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-xl font-bold text-white">
                                     {String(activeCommitment + 1).padStart(2, "0")}
                                 </div>
                                 <h3 className="h3 mb-3 text-slate-900">{commitments[activeCommitment].title}</h3>
@@ -653,7 +657,7 @@ export default function Home() {
                         <h2 className="h2 text-white">
                             Smart Sourcing & <span className="grad-text block">Procurement Solutions</span>
                         </h2>
-                        <p className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 text-slate-50 sm:leading-8">
+                        <p className="mt-4 sm:mt-6 lg:mt-8 text-base sm:text-lg leading-7 text-slate-300 sm:leading-8">
                             Our <span className='text-secondary'>Sourcing and Procurement</span> services help businesses identify products, coordinate with suppliers, manage purchasing requirements and support the movement of goods across markets.
                             <br />
                             From product development and supplier management to order monitoring and delivery coordination, we provide an integrated approach to international trade.
@@ -682,13 +686,13 @@ export default function Home() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/65 to-transparent" />
                                     <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6">
-                                        <span className="mb-2 flex h-8 w-8 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-xs font-bold text-white">
+                                        <span className="mb-2 flex h-8 w-8 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-xs font-bold text-white">
                                             {String(index + 1).padStart(2, "0")}
                                         </span>
                                         <h3 className={`font-bold text-white ${featured ? "text-xl sm:text-2xl" : "text-base sm:text-lg"}`}>
                                             {service.title}
                                         </h3>
-                                        <p className={`mt-1 leading-relaxed text-white/75 ${featured ? "block text-sm sm:text-base" : "hidden text-xs sm:block"}`}>
+                                        <p className={`mt-1 leading-relaxed text-slate-300 ${featured ? "block text-sm sm:text-base" : "hidden text-xs sm:block"}`}>
                                             {service.description}
                                         </p>
                                     </div>
@@ -700,7 +704,7 @@ export default function Home() {
                     <div className="mt-8 flex flex-wrap items-center justify-between gap-5 sm:mt-10">
                         <div className="flex items-center gap-3 rounded-sm border border-white/15 bg-white/5 px-5 py-3">
                             <span className="text-xl font-bold text-white">24/7</span>
-                            <span className="text-xs uppercase tracking-wide text-white/70">Global Support</span>
+                            <span className="text-xs uppercase tracking-wide text-slate-300">Global Support</span>
                         </div>
                         <button onClick={() => router.push("/service")} className="btn btn-primary">
                             Explore Services <ArrowUpRight className="w-4 h-4" />
@@ -750,7 +754,7 @@ export default function Home() {
                                                 className='flex w-full items-start gap-4 p-5 text-left sm:p-6'
                                                 aria-expanded={isOpen}
                                             >
-                                                <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-sm text-sm font-bold transition-colors duration-300 ${isOpen ? "bg-gradient-to-br from-primary to-secondary text-white" : "bg-primary/5 text-primary"}`}>
+                                                <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-sm text-sm font-bold transition-colors duration-300 ${isOpen ? "bg-gradient-to-br from-primary to-[#0E7490] text-white" : "bg-primary/5 text-primary"}`}>
                                                     {String(index + 1).padStart(2, "0")}
                                                 </span>
                                                 <span className="flex-1 pt-1.5 text-sm font-semibold text-slate-800 sm:text-base lg:text-lg">

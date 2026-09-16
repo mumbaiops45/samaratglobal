@@ -324,7 +324,7 @@ const ProductPage = () => {
                 </p>
 
                 <div>
-                  <h4 className="eyebrow text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-500 mb-2">
                     Key Features
                   </h4>
                   <ul className="space-y-2">
@@ -341,7 +341,7 @@ const ProductPage = () => {
                 </div>
 
                 <div>
-                  <h4 className="eyebrow text-slate-400 mb-2">
+                  <h4 className="eyebrow text-slate-500 mb-2">
                     Compliance & Certifications
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -359,19 +359,19 @@ const ProductPage = () => {
                 <div className="bg-[#F4F9FF] rounded-2xl p-4 border border-slate-200/80">
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
-                      <p className="text-[11px] font-semibold text-slate-400">Origin</p>
+                      <p className="text-[11px] font-semibold text-slate-500">Origin</p>
                       <p className="font-extrabold text-[#0A2540] text-xs mt-0.5">
                         {product.origin}
                       </p>
                     </div>
                     <div>
-                      <p className="text-[11px] font-semibold text-slate-400">Destination</p>
+                      <p className="text-[11px] font-semibold text-slate-500">Destination</p>
                       <p className="font-extrabold text-[#0A2540] text-xs mt-0.5">
                         {product.destination}
                       </p>
                     </div>
                     {/* <div>
-                      <p className="text-[11px] font-semibold text-slate-400">Price Est.</p>
+                      <p className="text-[11px] font-semibold text-slate-500">Price Est.</p>
                       <p className="font-extrabold text-[#0948CF] text-xs mt-0.5">
                         {product.priceRange}
                       </p>
@@ -404,7 +404,7 @@ const ProductPage = () => {
 
         <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 1, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
@@ -416,7 +416,7 @@ const ProductPage = () => {
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-white/75 leading-relaxed mt-4 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed mt-4 max-w-2xl">
               Connecting India to world markets through premium exports and strategic, high-demand industrial imports.
             </p>
 
@@ -595,7 +595,7 @@ const ProductPage = () => {
                     </span> */}
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="text-xs text-[#0948CF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#05FCFB]"
+                      className="text-xs text-[#0948CF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#0E7490]"
                     >
                       <span>View Details</span>
                       <FaArrowRight className="text-[10px]" />
@@ -705,7 +705,7 @@ const ProductPage = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-[#F5F9FF]">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -716,7 +716,7 @@ const ProductPage = () => {
           >
             <h2 className="h2 text-[#0A2540]">
               Browse By{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0948CF] to-[#05FCFB]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0948CF] to-[#0E7490]">
                 Product Category
               </span>
             </h2>
@@ -734,7 +734,7 @@ const ProductPage = () => {
                 onClick={() => handleCategoryChange(cat.id)}
                 className="group cursor-pointer bg-[#F4F9FF] rounded-3xl p-6 text-center border border-slate-100 hover:border-[#05FCFB] hover:bg-white transition-all shadow-2xs hover:shadow-xl"
               >
-                <div className="text-3xl text-[#0948CF] group-hover:text-[#05FCFB] group-hover:scale-110 transition-all flex justify-center">
+                <div className="text-3xl text-[#0948CF] group-hover:text-[#0E7490] group-hover:scale-110 transition-all flex justify-center">
                   {cat.icon}
                 </div>
                 <h3 className="text-xl font-bold text-[#0A2540] mt-3">

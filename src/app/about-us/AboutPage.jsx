@@ -118,7 +118,7 @@ const AboutPage = () => {
   const ActiveIcon = activePillar?.icon;
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-secondary/30">
+    <div className="min-h-screen bg-[#F5F9FF] text-slate-900 selection:bg-secondary/30">
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
         <div className="absolute inset-0 opacity-65">
@@ -128,7 +128,7 @@ const AboutPage = () => {
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 1, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
@@ -147,7 +147,7 @@ const AboutPage = () => {
       </section>
 
       {/* STATS STRIP */}
-      <section className="border-b border-slate-100 bg-white py-14">
+      <section className="border-b border-slate-100 bg-[#F5F9FF] py-14">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {stats.map((stat, index) => (
@@ -191,7 +191,7 @@ const AboutPage = () => {
                 className="h-[380px] w-full object-cover md:h-[440px]"
               />
             </div>
-            <div className="absolute -bottom-6 -right-4 rounded-sm bg-gradient-to-r from-primary to-secondary px-6 py-4 text-white shadow-lg sm:-right-6">
+            <div className="absolute -bottom-6 -right-4 rounded-sm bg-gradient-to-r from-primary to-[#0E7490] px-6 py-4 text-white shadow-lg sm:-right-6">
               <p className="text-2xl font-bold">15+</p>
               <p className="text-xs">Years of Experience</p>
             </div>
@@ -234,7 +234,7 @@ const AboutPage = () => {
       </section>
 
       {/* MISSION / VISION / QUALITY / SUPPLY CHAIN / CUSTOMER-FIRST — tabbed */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -295,7 +295,7 @@ const AboutPage = () => {
                   <div className="mt-8 grid grid-cols-3 gap-3 border-t border-slate-200 pt-6">
                     {Object.values(activePillar.telemetry).map((t, i) => (
                       <div key={i}>
-                        <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                           {t.label}
                         </p>
                         <p className="mt-1 text-sm font-bold text-primary">{t.value}</p>
@@ -347,7 +347,7 @@ const AboutPage = () => {
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                   viewport={{ once: true }}
                 >
-                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-lg font-bold text-white shadow-lg">
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-lg font-bold text-white shadow-lg">
                     {String(index + 1).padStart(2, "0")}
                   </div>
                   <h3 className="h4 mt-5 text-white">{item.title}</h3>
@@ -360,7 +360,7 @@ const AboutPage = () => {
       </section>
 
       {/* FOUNDER — proper editorial layout, no poster-style full-bleed image */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -435,7 +435,7 @@ const AboutPage = () => {
           <h2 className="h2 mb-4 text-white">
             Ready to Build a <span className="text-secondary">Reliable Trade Partnership?</span>
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-white/80 md:text-lg">
+          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-300 md:text-lg">
             Partner with Samrat Global India for dependable sourcing, procurement and export
             solutions built around your business goals.
           </p>

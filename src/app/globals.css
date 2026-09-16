@@ -51,6 +51,9 @@ html {
 body {
   width: 100%;
   overflow-x: hidden;
+  /* Dull primary tint instead of flat white, so overscroll bounce never
+     flashes pure white behind a section. */
+  background-color: #f5f9ff;
 }
 
 
@@ -60,9 +63,13 @@ body {
 }
 
 /* Gradient heading treatment — primary → secondary, used on every
-   section heading site-wide (hero excluded, per client sign-off). */
+   section heading site-wide (hero excluded, per client sign-off).
+   Stops are tuned (not the raw brand vars) so the text stays readable
+   against both white sections and the dark navy hero sections — the
+   raw brand blue nearly disappears on navy, and raw brand cyan is too
+   pale on white. */
 .grad-text {
-  background-image: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  background-image: linear-gradient(90deg, #2e6bff, #079baa);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -83,8 +90,12 @@ body {
   cursor: pointer;
   white-space: nowrap;
 }
+/* Deliberately not var(--color-secondary) as the end stop — the raw
+   brand cyan is too pale for the white label to stay readable across
+   the whole button. This darker teal keeps the same blue→cyan feel
+   while staying legible under white text end to end. */
 .btn-primary {
-  background-image: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  background-image: linear-gradient(90deg, var(--color-primary), #0e7490);
   color: #ffffff;
   box-shadow: 0 12px 30px -12px rgba(9, 72, 207, 0.55);
 }

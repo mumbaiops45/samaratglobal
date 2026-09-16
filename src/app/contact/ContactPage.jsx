@@ -198,7 +198,7 @@ const ContactPage = () => {
 
         <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 1, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl text-center lg:text-left"
@@ -291,7 +291,7 @@ const ContactPage = () => {
                         {info.icon}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                           {info.title}
                         </p>
                         {/* break-words, not truncate — the address is 3 lines on a phone */}
@@ -333,7 +333,7 @@ const ContactPage = () => {
             <div className="mb-6 sm:mb-8">
               <h2 className="h3 text-[#0A2540] [font-size:clamp(1.375rem,5vw,2rem)] leading-tight">
                 Send Us a{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0948CF] to-[#05FCFB]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0948CF] to-[#0E7490]">
                   Message
                 </span>
               </h2>
@@ -406,7 +406,7 @@ const ContactPage = () => {
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                   Phone Number{" "}
-                  <span className="text-slate-400 font-normal text-xs">
+                  <span className="text-slate-500 font-normal text-xs">
                     (10 Digits)
                   </span>
                 </label>
@@ -449,7 +449,7 @@ const ContactPage = () => {
                     <option value="logistics">Logistics &amp; Supply Chain</option>
                     <option value="partnership">Global Partnership</option>
                   </select>
-                  <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none" />
+                  <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none" />
                 </div>
               </div>
 

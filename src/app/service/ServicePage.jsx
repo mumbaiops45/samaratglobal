@@ -205,7 +205,7 @@ const ServicePage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-[#F5F9FF] text-slate-900">
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
         <div className="absolute inset-0 opacity-65">
@@ -214,7 +214,7 @@ const ServicePage = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
+          <motion.div initial={{ opacity: 1, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
             <h1 className="h1 text-white">
               Smart <span className="grad-text">Sourcing &amp; Procurement</span> Solutions
             </h1>
@@ -257,7 +257,7 @@ const ServicePage = () => {
               >
                 <div className="relative h-[260px] overflow-hidden rounded-sm border border-slate-200 shadow-lg md:h-[340px]">
                   <img src={service.image} alt={service.title} className="h-full w-full object-cover" />
-                  <div className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-sm font-bold text-white shadow-md">
+                  <div className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-sm font-bold text-white shadow-md">
                     {service.step}
                   </div>
                 </div>
@@ -280,7 +280,7 @@ const ServicePage = () => {
       </section>
 
       {/* WHY CHOOSE US — bento grid */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -308,11 +308,11 @@ const ServicePage = () => {
                 <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/55 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary shadow-md">
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] shadow-md">
                     {item.icon}
                   </div>
                   <h3 className="h4 text-white">{item.title}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-200">{item.description}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -385,15 +385,15 @@ const ServicePage = () => {
       </section>
 
       {/* GLOBAL REACH MARQUEE */}
-      <section className="overflow-hidden bg-white py-16">
+      <section className="overflow-hidden bg-[#F5F9FF] py-16">
         <div className="mx-auto mb-10 max-w-7xl px-5 text-center sm:px-8 lg:px-12">
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Global Trade Corridors</p>
           <h2 className="h2 text-slate-900">Present Across The World</h2>
         </div>
 
         <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#F5F9FF] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[#F5F9FF] to-transparent" />
           <div className="overflow-hidden">
             <div ref={marqueeRef} className="flex w-max gap-4 px-4">
               {[...additionalServices, ...additionalServices].map((service, index) => (
@@ -416,7 +416,7 @@ const ServicePage = () => {
           <h2 className="h2 mb-4 text-white">
             Let&apos;s Simplify Your <span className="text-secondary">Sourcing &amp; Export</span>
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-white/80 md:text-lg">
+          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-300 md:text-lg">
             Talk to our trade desk about your product requirements, supplier needs or
             export destination.
           </p>

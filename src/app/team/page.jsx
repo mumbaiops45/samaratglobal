@@ -78,7 +78,7 @@ const TeamPage = () => {
   }, []);
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-white text-slate-900">
+    <div ref={pageRef} className="min-h-screen bg-[#F5F9FF] text-slate-900">
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
         <div className="absolute inset-0 opacity-65">
@@ -87,7 +87,7 @@ const TeamPage = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
+          <motion.div initial={{ opacity: 1, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
             <h1 className="h1 text-white">
               Meet Our <span className="grad-text">Core Leadership Team</span>
             </h1>
@@ -101,7 +101,7 @@ const TeamPage = () => {
       </section>
 
       {/* STATS */}
-      <section className="border-b border-slate-100 bg-white py-14">
+      <section className="border-b border-slate-100 bg-[#F5F9FF] py-14">
         <div className="mx-auto max-w-5xl px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {stats.map((stat, index) => (
@@ -148,7 +148,7 @@ const TeamPage = () => {
       </section>
 
       {/* LEADERSHIP GRID */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -211,7 +211,7 @@ const TeamPage = () => {
                 viewport={{ once: true }}
                 className="rounded-sm border border-slate-100 bg-white p-6 text-center shadow-sm"
               >
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-secondary text-white shadow-md">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-white shadow-md">
                   {value.icon}
                 </div>
                 <h3 className="h4 mt-5 mb-2 text-slate-900">{value.title}</h3>
@@ -228,7 +228,7 @@ const TeamPage = () => {
           <h2 className="h2 mb-4 text-white">
             Talk To Our <span className="text-secondary">Trade Team</span>
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-white/80 md:text-lg">
+          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-300 md:text-lg">
             Have a sourcing or export requirement? Our team is ready to help you move
             forward.
           </p>
