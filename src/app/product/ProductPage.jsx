@@ -4,9 +4,65 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {FaArrowRight,FaStar,FaShippingFast,FaGlobe,FaCheckCircle,FaTruck,FaShip,FaPlane,FaWarehouse,FaGem,FaCrown,FaEye,FaExchangeAlt,FaBoxes,FaThLarge,FaList,FaCogs,FaTimes,FaFilter,FaChevronLeft,FaChevronRight,} from "react-icons/fa";
-import {MdOutlineAgriculture,MdOutlineFoodBank,MdOutlinePrecisionManufacturing,} from "react-icons/md";
-import { GiWheat, GiChiliPepper, GiCoffeeBeans } from "react-icons/gi";
+import {MdOutlineFoodBank,} from "react-icons/md";
+import { GiChiliPepper, GiCoffeeBeans } from "react-icons/gi";
+import { FaLeaf } from "react-icons/fa";
 import { UtensilsCrossed } from "lucide-react";
+
+// Medicinal plants & products sourced from North East India for the
+// pharmaceutical sector. Mapped into the common product shape below.
+const medicinalPlants = [
+  { name: "Chirata", image: "/productimages/chirata.jpg", botanical: "Swertia chirayita", states: "Sikkim, Arunachal Pradesh, Darjeeling hills", part: "Whole plant", compounds: "Amarogentin, mangiferin", application: "Hepatoprotective; antipyretic; bitter digestive tonic", notes: "Dried herb; extract. High-altitude crop with strong existing pharma demand." },
+  { name: "Lakadong Turmeric", image: "/productimages/lakadong-turmeric.jpg", botanical: "Curcuma longa – Meghalaya variety", states: "Meghalaya (Jaintia Hills)", part: "Rhizome", compounds: "Curcumin (up to 7–9%, among the world's highest)", application: "Anti-inflammatory; antioxidant", notes: "Dried rhizome; high-curcumin extract. GI-tagged and premium over standard turmeric." },
+  { name: "NE Ginger", image: "/productimages/northeast-ginger.jpg", botanical: "Zingiber officinale", states: "Nagaland, Sikkim, Meghalaya, Manipur", part: "Rhizome", compounds: "Gingerols, shogaols", application: "Anti-inflammatory; anti-emetic; digestive", notes: "Dried/powder; oleoresin; oil. Established crop with GI-tagged varieties (e.g., Naga ginger)." },
+  { name: "Citronella & Lemongrass", image: "/productimages/citronella-lemongrass.jpg", botanical: "Cymbopogon spp.", states: "Assam, Meghalaya", part: "Leaves", compounds: "Citral, geraniol", application: "Antimicrobial; excipient/fragrance carrier in pharma-cosmetic formulations", notes: "Steam-distilled essential oil. Established export; GI-tagged \"Assam Lemongrass Oil\"." },
+  { name: "Buckwheat", image: "/productimages/buckwheat.jpg", botanical: "Fagopyrum esculentum / F. tataricum", states: "Sikkim, Arunachal Pradesh, Manipur", part: "Grain, leaves", compounds: "Rutin, quercetin", application: "Cardiovascular support; antioxidant (rutin source for pharma/nutraceutical)", notes: "Flour; leaf/grain extract. Backed by our existing NE buckwheat sourcing network." },
+  { name: "Toningkhok / Fish Mint", image: "/productimages/toningkhok-fish-mint.jpg", botanical: "Houttuynia cordata", states: "Assam, Meghalaya, Manipur, Mizoram, Arunachal Pradesh, Nagaland, Sikkim", part: "Whole plant", compounds: "Quercetin, flavonoids, volatile oils", application: "Antiviral; anti-inflammatory; immune support", notes: "Dried herb; standardized extract. Widely distributed across most NE states." },
+  { name: "Manimuni / Indian Pennywort", image: "/productimages/manimuni-indian-pennywort.jpg", botanical: "Centella asiatica", states: "Assam, Meghalaya, Manipur, Tripura, Nagaland", part: "Whole plant", compounds: "Asiaticoside, madecassoside", application: "Wound healing; cognitive support; dermaceutical", notes: "Dried herb; standardized extract. High demand from dermaceutical and cosmeceutical-pharma buyers." },
+  { name: "Rajpatha", image: "/productimages/rajpatha.jpg", botanical: "Stephania japonica", states: "Arunachal Pradesh, Assam, Manipur, Meghalaya, Mizoram, Nagaland, Tripura", part: "Root", compounds: "Isoquinoline alkaloids", application: "Antimalarial; antipyretic; hepatoprotective", notes: "Root; alkaloid extract. Moving from wild collection to cultivation." },
+  { name: "Bor Thekera", image: "/productimages/bor-thekera.jpg", botanical: "Garcinia pedunculata / G. cowa", states: "Assam, Meghalaya", part: "Fruit rind", compounds: "Hydroxycitric acid (HCA), xanthones", application: "Anti-obesity; metabolic/lipid support", notes: "Dried rind; HCA extract. Endemic/near-endemic species with limited competing origin." },
+  { name: "Timur", image: "/productimages/timur.jpg", botanical: "Zanthoxylum armatum", states: "Sikkim, Arunachal Pradesh, Meghalaya", part: "Fruit, seed", compounds: "Essential oil (linalool-rich)", application: "Analgesic; digestive; antimicrobial", notes: "Dried fruit; essential oil. Growing demand in pain-relief and oral-care formulations." },
+  { name: "Patchouli", image: "/productimages/patchouli.jpg", botanical: "Pogostemon cablin", states: "Assam (cultivated)", part: "Leaves", compounds: "Patchoulol", application: "Antimicrobial; cosmeceutical-pharma carrier oil", notes: "Steam-distilled essential oil. Cultivation piloted in Assam (TERI-NE); scalable." },
+  { name: "Satuwa", image: "/productimages/satuwa.jpg", botanical: "Paris polyphylla", states: "Manipur, Nagaland, Arunachal Pradesh, Meghalaya", part: "Rhizome/root", compounds: "Diosgenin, steroidal saponins", application: "Anticancer research compound; wound healing; anti-inflammatory", notes: "Dried root; extract. High value — supplied from cultivated sources only.", regulated: true },
+  { name: "Himalayan Yew", image: "/productimages/himalayan-yew.jpg", botanical: "Taxus wallichiana", states: "Arunachal Pradesh, Sikkim", part: "Bark, leaves (needles)", compounds: "Taxanes (paclitaxel precursor compounds)", application: "Anticancer drug precursor (chemotherapy raw material)", notes: "Leaf biomass preferred over bark. Protected species — certified/cultivated, permit-based sourcing only.", regulated: true },
+  { name: "Sarpagandha", image: "/productimages/sarpagandha.jpg", botanical: "Rauvolfia serpentina", states: "Assam foothills, Meghalaya", part: "Root", compounds: "Reserpine and related alkaloids", application: "Antihypertensive alkaloid source", notes: "Root; alkaloid extract. Cultivated/contract-farmed supply only.", regulated: true },
+  { name: "Himalayan Ginseng", image: "/productimages/himalayan-ginseng.jpg", botanical: "Panax pseudoginseng", states: "Sikkim, Arunachal Pradesh", part: "Root", compounds: "Ginsenosides", application: "Adaptogen; general tonic", notes: "Root; extract. High-altitude with limited supply — premium niche." },
+  { name: "Medicinal Orchids", image: "/productimages/medicinal-orchids.jpg", botanical: "Dendrobium spp.", states: "Manipur, Mizoram", part: "Pseudobulbs", compounds: "Alkaloids, polysaccharides", application: "Immunomodulatory (used in Chinese/Asian pharma formulations)", notes: "Dried pseudobulb. Supplied subject to forest/wildlife clearances.", regulated: true },
+  { name: "Bikh / Aconite", image: "/productimages/bikh-aconite.jpg", botanical: "Aconitum spp.", states: "Sikkim, Arunachal Pradesh", part: "Root/tuber", compounds: "Aconitine-type alkaloids", application: "Analgesic; anti-inflammatory (processed/detoxified pharma forms only)", notes: "Processed root extract only. Strictly regulated; pharma-grade processing required.", regulated: true },
+  { name: "Cordyceps", image: "/productimages/cordyceps.jpg", botanical: "Ophiocordyceps sinensis", states: "Sikkim, Arunachal Pradesh (high altitude)", part: "Whole fungus-larva complex", compounds: "Cordycepin, polysaccharides", application: "Immunomodulatory; adaptogen (high-value nutraceutical-pharma ingredient)", notes: "Whole dried specimen; extract. Very limited, seasonal supply — specialist niche." },
+].map((plant, i) => ({
+  id: 101 + i,
+  name: plant.name,
+  botanicalName: plant.botanical,
+  image: plant.image,
+  category: "medicinal",
+  type: "Export",
+  origin: "North East India",
+  destination: "Global Pharma Buyers",
+  icon: <FaLeaf className="text-4xl" />,
+  description: `${plant.application}. ${plant.notes}`,
+  details: [
+    `Part used: ${plant.part}`,
+    `Key compounds: ${plant.compounds}`,
+    `Available in: ${plant.states}`,
+    "Assay, heavy-metal & residue test reports",
+  ],
+  certifications: plant.regulated
+    ? ["Permit-based Sourcing", "Cultivated Supply"]
+    : ["Standardized Assay", "Pharma Grade"],
+}));
+
+// Shown in place of a photo for products that don't have one yet.
+const ProductPlaceholder = ({ product, className = "" }) => (
+  <div
+    className={`w-full ${className} flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#0A2540] via-[#0D3156] to-[#0E7490] text-white px-6 text-center`}
+  >
+    <FaLeaf className="text-5xl text-[#05FCFB]" />
+    <p className="text-sm font-semibold italic text-white/85">
+      {product.botanicalName || product.name}
+    </p>
+  </div>
+);
 
 const ProductPage = () => {
   const [filter, setFilter] = useState("all");
@@ -17,7 +73,7 @@ const ProductPage = () => {
 
   const categories = [
     { id: "all", label: "All Products", icon: <FaThLarge /> },
-    { id: "agriculture", label: "Agriculture", icon: <MdOutlineAgriculture /> },
+    { id: "medicinal", label: "Medicinal Plants", icon: <FaLeaf /> },
     { id: "food", label: "Food & Beverages", icon: <MdOutlineFoodBank /> },
     { id: "metal", label: "Metals & Steel", icon: <FaGem /> },
     { id: "spices", label: "Spices & Herbs", icon: <UtensilsCrossed /> },
@@ -26,28 +82,7 @@ const ProductPage = () => {
   ];
 
   const products = [
-    {
-      id: 1,
-      name: "Premium Wheat",
-      category: "agriculture",
-      type: "Export",
-      origin: "India",
-      destination: "Global Markets",
-      image: "/premiumwheat.jpg",
-      icon: <GiWheat className="text-4xl" />,
-      description:
-        "High-quality Indian wheat exported to Middle East, Africa, and Southeast Asian countries. Known for its excellent gluten content and baking properties.",
-      details: [
-        "High protein content (12-14%)",
-        "Excellent baking quality",
-        "Strict quality control",
-        "Competitive global pricing",
-      ],
-      certifications: ["ISO 22000", "HACCP", "Non-GMO"],
-      priceRange: "₹350-450 per MT",
-      rating: 4.8,
-      reviews: 125,
-    },
+    ...medicinalPlants,
     {
       id: 2,
       name: "Basmati Rice Premium",
@@ -135,28 +170,6 @@ const ProductPage = () => {
       priceRange: "₹1500-3000 per MT",
       rating: 4.9,
       reviews: 312,
-    },
-    {
-      id: 6,
-      name: "Agricultural Machinery",
-      category: "agriculture",
-      type: "Import",
-      origin: "Germany, USA",
-      destination: "India",
-      image: "/agricultureimg.jpg",
-      icon: <MdOutlinePrecisionManufacturing className="text-4xl" />,
-      description:
-        "Advanced precision farming equipment imported from global technology leaders to empower Indian agricultural modernization.",
-      details: [
-        "Next-gen automated features",
-        "High operational fuel efficiency",
-        "Heavy-duty durable builds",
-        "Full local maintenance support",
-      ],
-      certifications: ["CE Certified", "ISO 9001"],
-      priceRange: "₹5000-50000 per unit",
-      rating: 4.5,
-      reviews: 67,
     },
     {
       id: 7,
@@ -278,6 +291,11 @@ const ProductPage = () => {
                 <h2 className="h2 text-[#0A2540] mt-2">
                   {product.name}
                 </h2>
+                {product.botanicalName && (
+                  <p className="text-sm italic text-slate-500 mt-1">
+                    {product.botanicalName}
+                  </p>
+                )}
               </div>
               <button
                 onClick={onClose}
@@ -289,16 +307,23 @@ const ProductPage = () => {
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
                 <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-100 relative group">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-72 object-cover"
-                  />
-                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm text-xs font-bold text-[#0948CF]">
-                    ⭐ {product.rating} / 5.0
-                  </div>
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-72 object-cover"
+                    />
+                  ) : (
+                    <ProductPlaceholder product={product} className="h-72" />
+                  )}
+                  {product.rating && (
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-sm text-xs font-bold text-[#0948CF]">
+                      ⭐ {product.rating} / 5.0
+                    </div>
+                  )}
                 </div>
 
+                {product.rating && (
                 <div className="mt-4 flex items-center justify-between px-1">
                   <div className="flex items-center gap-1 text-amber-400">
                     {[...Array(5)].map((_, i) => (
@@ -316,6 +341,7 @@ const ProductPage = () => {
                     ({product.reviews} Verified Buyers)
                   </span>
                 </div>
+                )}
               </div>
 
               <div className="space-y-5">
@@ -525,11 +551,15 @@ const ProductPage = () => {
                     viewMode === "list" ? "md:w-1/3 h-64 md:h-auto" : "h-64"
                   }`}
                 >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <ProductPlaceholder product={product} className="h-full" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   <div className="absolute top-4 left-4 flex gap-2">
                     <span className="px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider text-white bg-[#0A2540]/80 backdrop-blur-sm">
@@ -558,13 +588,22 @@ const ProductPage = () => {
                 >
                   <div>
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="h4 text-[#0A2540] group-hover:text-[#0948CF] transition-colors">
-                        {product.name}
-                      </h3>
-                      <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-[#EAF1FF] px-2.5 py-1 rounded-sm shrink-0">
-                        <FaStar className="text-amber-400 text-xs" />
-                        <span>{product.rating}</span>
+                      <div>
+                        <h3 className="h4 text-[#0A2540] group-hover:text-[#0948CF] transition-colors">
+                          {product.name}
+                        </h3>
+                        {product.botanicalName && (
+                          <p className="text-xs italic text-slate-500 mt-0.5">
+                            {product.botanicalName}
+                          </p>
+                        )}
                       </div>
+                      {product.rating && (
+                        <div className="flex items-center gap-1 text-xs font-bold text-slate-700 bg-[#EAF1FF] px-2.5 py-1 rounded-sm shrink-0">
+                          <FaStar className="text-amber-400 text-xs" />
+                          <span>{product.rating}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-3">
@@ -595,7 +634,7 @@ const ProductPage = () => {
                     </span> */}
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="text-xs text-[#0948CF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#0E7490]"
+                      className="-my-2 py-2 text-xs text-[#0948CF] font-bold flex items-center gap-1 hover:gap-2 transition-all hover:text-[#0E7490]"
                     >
                       <span>View Details</span>
                       <FaArrowRight className="text-[10px]" />
@@ -667,7 +706,7 @@ const ProductPage = () => {
                 icon: <FaTruck className="text-4xl text-[#05FCFB]" />,
                 title: "Export from India",
                 description:
-                  "Premium Indian commodities like wheat, rice, spices, steel, and textiles exported seamlessly to global trade partners.",
+                  "Premium Indian commodities like North East medicinal plants, rice, spices, steel, and textiles exported seamlessly to global trade partners.",
               },
               {
                 icon: <FaExchangeAlt className="text-4xl text-[#05FCFB]" />,

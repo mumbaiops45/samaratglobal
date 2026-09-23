@@ -85,13 +85,13 @@ const ColumnHeading = ({ children }) => (
 );
 
 const NavList = ({ items, onItemClick }) => (
-  <ul className="space-y-3">
+  <ul className="space-y-1">
     {items.map((item) => (
       <li key={item.name}>
         <Link
           href={item.href}
           onClick={onItemClick?.(item)}
-          className="group inline-flex items-center text-sm text-slate-300 transition-all duration-300 hover:translate-x-1.5 hover:text-white"
+          className="group inline-flex items-center py-1 text-sm text-slate-300 transition-all duration-300 hover:translate-x-1.5 hover:text-white"
         >
           <span
             className="mr-0 h-[2px] w-0 rounded-full transition-all duration-300 group-hover:mr-3 group-hover:w-4"
@@ -129,7 +129,7 @@ const ContactCard = ({ item }) => {
 
       <div className="min-w-0 flex-1 pt-0.5">
         <p
-          className="mb-0.5 text-[9px] font-semibold uppercase tracking-[0.16em]"
+          className="mb-0.5 text-[11px] font-semibold uppercase tracking-[0.16em]"
           style={{ color: `${BRAND.cyan}cc` }}
         >
           {item.title}
@@ -152,34 +152,18 @@ const ContactCard = ({ item }) => {
   );
 };
 
-const RegistrationCard = ({ item }) => {
+const RegistrationItem = ({ item }) => {
   const Icon = item.icon;
 
   return (
-    <div
-      className="group relative h-full min-h-[72px] overflow-hidden rounded-xl border p-3.5 transition-transform duration-300 hover:-translate-y-0.5"
-      style={{ borderColor: `${BRAND.cyan}16`, backgroundColor: `${BRAND.cyan}06` }}
-    >
-      <div className="relative flex h-full items-center gap-3">
-        <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105"
-          style={{ borderColor: `${BRAND.cyan}25`, backgroundColor: `${BRAND.cyan}0b` }}
-        >
-          <Icon size={16} strokeWidth={1.7} style={{ color: BRAND.cyan }} />
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <p
-            className="text-[9px] font-semibold uppercase tracking-[0.16em]"
-            style={{ color: `${BRAND.cyan}cc` }}
-          >
-            {item.label}
-          </p>
-          <p className="mt-1 break-all text-[11px] font-medium leading-5 text-slate-300">
-            {item.value}
-          </p>
-        </div>
-      </div>
+    <div className="flex min-w-0 items-center gap-2.5">
+      <Icon size={15} strokeWidth={1.7} className="shrink-0 text-slate-400" />
+      <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+        {item.label}
+      </span>
+      <span className="break-all text-[13px] font-medium text-slate-200">
+        {item.value}
+      </span>
     </div>
   );
 };
@@ -206,7 +190,7 @@ const Footer = () => {
     <footer className="relative overflow-hidden" style={{ backgroundColor: BRAND.ink }}>
       <div className="h-[2px] w-full" style={{ background: GRAD_LOGO }} />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-10 sm:px-8 sm:py-11 lg:px-10 lg:py-12">
+      <div className="relative mx-auto max-w-7xl px-6 pt-10 pb-24 sm:px-8 sm:pt-11 lg:px-10 lg:py-12">
         <motion.div
           variants={staggerParent}
           initial="hidden"
@@ -235,7 +219,7 @@ const Footer = () => {
 
             <div className="mt-4 flex items-center gap-2">
               <span className="h-[2px] w-10 rounded-full" style={{ background: GRAD_LOGO }} />
-              <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-300">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
                 Global • Reliable • Connected
               </span>
             </div>
@@ -255,22 +239,22 @@ const Footer = () => {
                 <ContactCard key={item.title} item={item} />
               ))}
             </div>
-            <div className="mt-8 border-t pt-7" style={{ borderColor: `${BRAND.cyan}14` }}>
-              <p
-                className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em]"
-                style={{ color: `${BRAND.cyan}cc` }}
-              >
-                Company Registration
-              </p>
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-1">
-                {REGISTRATIONS.map((item) => (
-                  <RegistrationCard key={item.label} item={item} />
-                ))}
-              </div>
-            </div>
           </motion.div>
         </motion.div>
-        <div className="mt-8 border-t pt-5" style={{ borderColor: `${BRAND.mist}12` }}>
+        {/* Full-width row so the Contact column stays the same height as the
+            others instead of leaving a large gap under them. */}
+        <div
+          className="mt-10 flex flex-col gap-3 border-t pt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-3"
+          style={{ borderColor: `${BRAND.mist}12` }}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
+            Company Registration
+          </p>
+          {REGISTRATIONS.map((item) => (
+            <RegistrationItem key={item.label} item={item} />
+          ))}
+        </div>
+        <div className="mt-7 border-t pt-5" style={{ borderColor: `${BRAND.mist}12` }}>
           <div className="flex flex-col items-center justify-between gap-3 text-xs text-slate-400 sm:text-sm md:flex-row">
             <p className="text-center md:text-left">
               © {new Date().getFullYear()} Samrat Global India Private Limited. All Rights Reserved.

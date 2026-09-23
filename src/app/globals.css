@@ -48,9 +48,17 @@ html {
   background-image: linear-gradient(180deg, var(--color-primary), var(--color-primary));
 }
 
+/* Slide-in animations start elements off to the side; mobile browsers ignore
+   overflow-x: hidden on body alone, which let the page swipe sideways.
+   `clip` on both html and body stops that without breaking sticky elements. */
+html {
+  overflow-x: clip;
+}
+
 body {
   width: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
   /* Dull primary tint instead of flat white, so overscroll bounce never
      flashes pure white behind a section. */
   background-color: #f5f9ff;
