@@ -291,7 +291,7 @@ const ContactPage = () => {
                         {info.icon}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                        <p className="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">
                           {info.title}
                         </p>
                         {/* break-words, not truncate — the address is 3 lines on a phone */}

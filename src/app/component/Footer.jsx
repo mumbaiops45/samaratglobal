@@ -265,7 +265,7 @@ const Footer = () => {
                 href="https://www.nakshatranamahacreations.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold transition-colors duration-300 hover:text-white"
+                className="-my-2 inline-block py-2 font-semibold transition-colors duration-300 hover:text-white"
                 style={{ color: BRAND.cyan }}
               >
                 Nakshatra Namaha Creations

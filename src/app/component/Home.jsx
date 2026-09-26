@@ -154,7 +154,7 @@ const CargoKiteTechSection = () => {
                                 </div>
 
                                 <div>
-                                    <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-secondary">
+                                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.25em] text-secondary">
                                         {sec.badge}
                                     </p>
                                     <h3 className="mb-2 text-2xl font-bold text-white lg:text-3xl">{sec.title}</h3>
@@ -166,7 +166,7 @@ const CargoKiteTechSection = () => {
                 })}
             </div>
 
-            <div className="mx-auto mt-4 flex max-w-7xl items-center gap-2 px-6 text-[10px] font-mono uppercase tracking-widest text-slate-500 lg:px-12">
+            <div className="mx-auto mt-4 flex max-w-7xl items-center gap-2 px-6 text-[11px] font-mono uppercase tracking-widest text-slate-500 lg:px-12">
                 <ArrowUpRight className="h-3 w-3 rotate-45" /> Scroll to explore
             </div>
         </section>
@@ -324,12 +324,17 @@ export default function Home() {
                                     key={index}
                                     onClick={() => setCurrentIndex(index)}
                                     aria-label={`Show slide ${index + 1}`}
-                                    className="h-1 rounded-full transition-all duration-500"
-                                    style={{
-                                        width: index === currentIndex ? "3rem" : "1.5rem",
-                                        background: index === currentIndex ? GRAD_LOGO : "rgba(255,255,255,0.3)",
-                                    }}
-                                />
+                                    // py-3 enlarges the tap target without changing the visual bar height
+                                    className="-my-3 py-3"
+                                >
+                                    <span
+                                        className="block h-1 rounded-full transition-all duration-500"
+                                        style={{
+                                            width: index === currentIndex ? "3rem" : "1.5rem",
+                                            background: index === currentIndex ? GRAD_LOGO : "rgba(255,255,255,0.3)",
+                                        }}
+                                    />
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -339,7 +344,7 @@ export default function Home() {
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 >
-                    <span className="text-[10px] uppercase tracking-[3px]">Scroll</span>
+                    <span className="text-[11px] uppercase tracking-[3px]">Scroll</span>
                     <svg width="18" height="28" viewBox="0 0 18 28" fill="none">
                         <rect x="1" y="1" width="16" height="26" rx="8" stroke="currentColor" strokeWidth="1.5" />
                         <motion.circle
@@ -384,7 +389,7 @@ export default function Home() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -8 }}
                                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-200 sm:mb-4 sm:text-xs"
+                                    className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-200 sm:mb-4 sm:text-xs"
                                 >
                                     {content[currentIndex].heading}
                                 </motion.p>
@@ -459,8 +464,8 @@ export default function Home() {
                                         onClick={() => setCurrentIndex(index)}
                                         aria-label={`Show slide ${index + 1}`}
                                         aria-current={index === currentIndex}
-                                        // py-2 gives a 40px tap target without changing the visual bar height
-                                        className="group -my-2 py-2"
+                                        // py-3 gives a larger tap target without changing the visual bar height
+                                        className="group -my-3 py-3"
                                     >
                                         <span
                                             className="block h-1 rounded-full transition-all duration-500"

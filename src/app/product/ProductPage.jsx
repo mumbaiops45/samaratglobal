@@ -100,6 +100,19 @@ const ProductPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
   const gridRef = useRef(null);
+  const filterRowRef = useRef(null);
+
+  // Keep the selected category visible in the swipeable phone filter row
+  // (only scrolls the row sideways, never the page).
+  useEffect(() => {
+    const row = filterRowRef.current;
+    const active = row?.querySelector("[data-active=true]");
+    if (!row || !active || row.scrollWidth <= row.clientWidth) return;
+    row.scrollTo({
+      left: active.offsetLeft - (row.clientWidth - active.offsetWidth) / 2,
+      behavior: "smooth",
+    });
+  }, [filter]);
 
   const categories = [
     { id: "all", label: "All Products", icon: <FaThLarge /> },
@@ -543,12 +556,14 @@ const ProductPage = () => {
             </p>
           </motion.div>
           <div ref={gridRef} className="scroll-mt-24 flex flex-col md:flex-row gap-4 justify-between items-center mb-10 bg-white p-3 rounded-sm shadow-sm border border-slate-100">
-            <div className="flex flex-wrap gap-1.5">
+            {/* One swipeable row on phones; wraps from md up. */}
+            <div ref={filterRowRef} className="relative -mx-3 flex w-[calc(100%+1.5rem)] gap-1.5 overflow-x-auto px-3 pb-1 [scrollbar-width:none] md:mx-0 md:w-auto md:flex-wrap md:overflow-visible md:px-0 md:pb-0">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => handleCategoryChange(cat.id)}
-                  className={`px-4 py-2 rounded-sm text-xs md:text-sm font-semibold transition-colors cursor-pointer ${
+                  data-active={filter === cat.id}
+                  className={`shrink-0 whitespace-nowrap px-4 py-2 rounded-sm text-xs md:text-sm font-semibold transition-colors cursor-pointer ${
                     filter === cat.id
                       ? "bg-primary text-white shadow-sm"
                       : "text-slate-600 hover:bg-[#EAF1FF]"
@@ -623,11 +638,11 @@ const ProductPage = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                   )}
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider text-white bg-[#0A2540]/80 backdrop-blur-sm">
+                    <span className="px-2.5 py-1 rounded-sm text-[11px] font-bold uppercase tracking-wider text-white bg-[#0A2540]/80 backdrop-blur-sm">
                       {product.type}
                     </span>
                     {product.rating >= 4.8 && (
-                      <span className="px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider text-[#0A2540] bg-secondary">
+                      <span className="px-2.5 py-1 rounded-sm text-[11px] font-bold uppercase tracking-wider text-[#0A2540] bg-secondary">
                         Premium
                       </span>
                     )}
