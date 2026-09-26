@@ -1,13 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {FaArrowRight,FaStar,FaShippingFast,FaGlobe,FaCheckCircle,FaTruck,FaShip,FaPlane,FaWarehouse,FaGem,FaCrown,FaEye,FaExchangeAlt,FaBoxes,FaThLarge,FaList,FaCogs,FaTimes,FaFilter,FaChevronLeft,FaChevronRight,} from "react-icons/fa";
 import {MdOutlineFoodBank,} from "react-icons/md";
 import { GiChiliPepper, GiCoffeeBeans } from "react-icons/gi";
 import { FaLeaf } from "react-icons/fa";
-import { UtensilsCrossed } from "lucide-react";
+import { UtensilsCrossed, Factory, Microscope, Warehouse, FlaskConical, Armchair } from "lucide-react";
+import { PRODUCT_CATEGORIES } from "@/data/productCategories";
+import { steelProducts } from "@/data/steelProducts";
+
+const CATEGORY_LABELS = Object.fromEntries(PRODUCT_CATEGORIES.map((c) => [c.id, c.label]));
+
+const CATEGORY_ICONS = {
+  medicinal: <FaLeaf />,
+  food: <MdOutlineFoodBank />,
+  spices: <UtensilsCrossed />,
+  textiles: <FaBoxes />,
+  process: <Factory />,
+  cleanroom: <Microscope />,
+  handling: <Warehouse />,
+  lab: <FlaskConical />,
+  fabrication: <Armchair />,
+  metal: <FaGem />,
+  industrial: <FaCogs />,
+};
+
+// Applies `?category=<id>` from the navbar's Products menu. Kept in its own
+// Suspense boundary so the rest of the page still prerenders.
+const CategoryFromUrl = ({ onCategory }) => {
+  const category = useSearchParams().get("category");
+  useEffect(() => {
+    if (category && CATEGORY_ICONS[category]) onCategory(category);
+  }, [category, onCategory]);
+  return null;
+};
 
 // Medicinal plants & products sourced from North East India for the
 // pharmaceutical sector. Mapped into the common product shape below.
@@ -69,16 +98,12 @@ const ProductPage = () => {
   const [viewMode, setViewMode] = useState("grid");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6;
+  const productsPerPage = 9;
+  const gridRef = useRef(null);
 
   const categories = [
     { id: "all", label: "All Products", icon: <FaThLarge /> },
-    { id: "medicinal", label: "Medicinal Plants", icon: <FaLeaf /> },
-    { id: "food", label: "Food & Beverages", icon: <MdOutlineFoodBank /> },
-    { id: "metal", label: "Metals & Steel", icon: <FaGem /> },
-    { id: "spices", label: "Spices & Herbs", icon: <UtensilsCrossed /> },
-    { id: "textiles", label: "Textiles", icon: <FaBoxes /> },
-    { id: "industrial", label: "Industrial Equipment", icon: <FaCogs /> },
+    ...PRODUCT_CATEGORIES.map((cat) => ({ ...cat, icon: CATEGORY_ICONS[cat.id] })),
   ];
 
   const products = [
@@ -237,6 +262,7 @@ const ProductPage = () => {
       rating: 4.4,
       reviews: 45,
     },
+    ...steelProducts,
   ];
 
   const filteredProducts =
@@ -252,10 +278,36 @@ const ProductPage = () => {
   );
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const handleCategoryChange = (catId) => {
+  const applyUrlCategory = useCallback((catId) => {
     setFilter(catId);
     setCurrentPage(1);
+    gridRef.current?.scrollIntoView({ block: "start" });
+  }, []);
+
+  const scrollToGrid = () =>
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  const handleCategoryChange = (catId, { scroll = false } = {}) => {
+    setFilter(catId);
+    setCurrentPage(1);
+    if (scroll) scrollToGrid();
   };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+    scrollToGrid();
+  };
+
+  // Page numbers with ellipses, so a long catalogue doesn't render dozens of
+  // buttons that overflow on phones: 1 … 4 5 6 … 12
+  const pageItems = [];
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+      pageItems.push(i);
+    } else if (pageItems[pageItems.length - 1] !== "…") {
+      pageItems.push("…");
+    }
+  }
 
 
   const ProductModal = ({ product, onClose }) => {
@@ -311,7 +363,9 @@ const ProductPage = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-72 object-cover"
+                      className={`w-full h-72 ${
+                        product.imageFit === "contain" ? "object-contain bg-white p-4" : "object-cover"
+                      }`}
                     />
                   ) : (
                     <ProductPlaceholder product={product} className="h-72" />
@@ -366,6 +420,7 @@ const ProductPage = () => {
                   </ul>
                 </div>
 
+                {product.certifications.length > 0 && (
                 <div>
                   <h4 className="eyebrow text-slate-500 mb-2">
                     Compliance & Certifications
@@ -381,6 +436,7 @@ const ProductPage = () => {
                     ))}
                   </div>
                 </div>
+                )}
 
                 <div className="bg-[#F4F9FF] rounded-2xl p-4 border border-slate-200/80">
                   <div className="grid grid-cols-3 gap-2 text-center">
@@ -486,7 +542,7 @@ const ProductPage = () => {
               From India to the world — certified quality products that define global excellence.
             </p>
           </motion.div>
-          <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-10 bg-white p-3 rounded-sm shadow-sm border border-slate-100">
+          <div ref={gridRef} className="scroll-mt-24 flex flex-col md:flex-row gap-4 justify-between items-center mb-10 bg-white p-3 rounded-sm shadow-sm border border-slate-100">
             <div className="flex flex-wrap gap-1.5">
               {categories.map((cat) => (
                 <button
@@ -555,12 +611,17 @@ const ProductPage = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                      className={`w-full h-full group-hover:scale-105 transition-transform duration-700 ${
+                        product.imageFit === "contain" ? "object-contain bg-white p-5" : "object-cover"
+                      }`}
                     />
                   ) : (
                     <ProductPlaceholder product={product} className="h-full" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                  {product.imageFit !== "contain" && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                  )}
                   <div className="absolute top-4 left-4 flex gap-2">
                     <span className="px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider text-white bg-[#0A2540]/80 backdrop-blur-sm">
                       {product.type}
@@ -617,7 +678,10 @@ const ProductPage = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-1.5 mb-4">
-                      {product.certifications.slice(0, 2).map((cert, i) => (
+                      {(product.certifications.length
+                        ? product.certifications.slice(0, 2)
+                        : [CATEGORY_LABELS[product.category]]
+                      ).map((cert, i) => (
                         <span
                           key={i}
                           className="px-2.5 py-0.5 bg-[#EAF1FF] rounded-sm text-[11px] font-semibold text-primary"
@@ -645,34 +709,39 @@ const ProductPage = () => {
             ))}
           </div>
           {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-14">
+            <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 mt-14">
               <button
                 disabled={currentPage === 1}
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => goToPage(Math.max(currentPage - 1, 1))}
+                aria-label="Previous page"
                 className="w-10 h-10 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:border-primary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <FaChevronLeft />
               </button>
 
-              {[...Array(totalPages)].map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`w-10 h-10 rounded-sm text-xs font-bold transition-all ${
-                    currentPage === i + 1
-                      ? "bg-primary text-white shadow-md"
-                      : "bg-white text-slate-700 border border-slate-200 hover:border-primary"
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+              {pageItems.map((item, i) =>
+                item === "…" ? (
+                  <span key={`gap-${i}`} className="w-6 text-center text-slate-400">…</span>
+                ) : (
+                  <button
+                    key={item}
+                    onClick={() => goToPage(item)}
+                    aria-current={currentPage === item ? "page" : undefined}
+                    className={`w-10 h-10 rounded-sm text-xs font-bold transition-all ${
+                      currentPage === item
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-white text-slate-700 border border-slate-200 hover:border-primary"
+                    }`}
+                  >
+                    {item}
+                  </button>
+                )
+              )}
 
               <button
                 disabled={currentPage === totalPages}
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
+                onClick={() => goToPage(Math.min(currentPage + 1, totalPages))}
+                aria-label="Next page"
                 className="w-10 h-10 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:border-primary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <FaChevronRight />
@@ -761,7 +830,7 @@ const ProductPage = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 max-w-6xl mx-auto">
             {categories.slice(1).map((cat, index) => (
               <motion.div
                 key={cat.id}
@@ -770,13 +839,13 @@ const ProductPage = () => {
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -6, scale: 1.03 }}
-                onClick={() => handleCategoryChange(cat.id)}
+                onClick={() => handleCategoryChange(cat.id, { scroll: true })}
                 className="group cursor-pointer bg-[#F4F9FF] rounded-3xl p-6 text-center border border-slate-100 hover:border-[#05FCFB] hover:bg-white transition-all shadow-2xs hover:shadow-xl"
               >
                 <div className="text-3xl text-[#0948CF] group-hover:text-[#0E7490] group-hover:scale-110 transition-all flex justify-center">
                   {cat.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#0A2540] mt-3">
+                <h3 className="text-sm sm:text-lg font-bold text-[#0A2540] mt-3">
                   {cat.label}
                 </h3>
               </motion.div>
@@ -784,6 +853,9 @@ const ProductPage = () => {
           </div>
         </div>
       </section>
+      <Suspense fallback={null}>
+        <CategoryFromUrl onCategory={applyUrlCategory} />
+      </Suspense>
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}
