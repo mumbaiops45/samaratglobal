@@ -38,7 +38,7 @@ export default function Navbar() {
                 <img
                   src="/logofinal.jpeg"
                   alt="Samrat Global India"
-                  className="h-full w-auto object-contain py-0"
+                  className="h-12 w-auto object-contain lg:h-14"
                 />
               </Link>
 

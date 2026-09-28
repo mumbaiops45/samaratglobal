@@ -373,6 +373,7 @@ export const content = [
     },
     {
         heading: "Export from India",
+        image: "/bannerimg2.png",
         blueTitle: (
             <>
                 Medicinal Plants, Spices <br />
@@ -390,6 +391,7 @@ export const content = [
     },
     {
         heading: "Sourcing Agent in India",
+        image: "/bannerimg3.png",
         blueTitle: (
             <>
                 Your Buying &amp; Sourcing <br />

@@ -80,7 +80,12 @@ export default function Home() {
             setCurrentIndex((prev) => (prev + 1) % content.length);
         }, 6000);
         return () => clearInterval(interval);
-    }, []);
+        // restart the timer on every change so a manual pick gets a full 6s
+    }, [currentIndex]);
+
+    // The banner images have a bright, empty left side meant for copy, so
+    // those slides switch the hero text to dark colours.
+    const isLight = Boolean(content[currentIndex].image);
 
     return (
         <>
@@ -209,13 +214,30 @@ export default function Home() {
                     tabIndex={-1}
                 />
 
+                {/* slides with an image crossfade over the video; slides without one reveal it */}
+                <AnimatePresence>
+                    {content[currentIndex].image && (
+                        <motion.img
+                            key={`bg-${currentIndex}`}
+                            src={content[currentIndex].image}
+                            alt=""
+                            aria-hidden="true"
+                            initial={{ opacity: 0, scale: 1.06 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ opacity: { duration: 1 }, scale: { duration: 6, ease: "linear" } }}
+                            className="absolute inset-0 h-full w-full object-cover object-left"
+                        />
+                    )}
+                </AnimatePresence>
+
                 {/* left-to-right scrim keeps text legible on wide screens without dimming the whole video */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/35 to-transparent" />
+                <div className={`absolute inset-0 bg-gradient-to-r transition-colors duration-1000 ${isLight ? "from-white/70 via-white/30 to-transparent" : "from-black/50 via-black/25 to-transparent"}`} />
+                {!isLight && <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/35 to-transparent" />}
 
                 <div className="relative z-10 flex h-full items-center">
                     <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
-                        <div className="max-w-2xl text-white lg:max-w-3xl">
+                        <div className={`max-w-2xl lg:max-w-3xl ${isLight ? "text-slate-900" : "text-white"}`}>
 
                             <AnimatePresence mode="wait">
                                 <motion.p
@@ -224,7 +246,7 @@ export default function Home() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -8 }}
                                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-200 sm:mb-4 sm:text-xs"
+                                    className={`mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] sm:mb-4 sm:text-xs ${isLight ? "text-slate-600" : "text-slate-200"}`}
                                 >
                                     {content[currentIndex].heading}
                                 </motion.p>
@@ -242,11 +264,11 @@ export default function Home() {
                                 >
                                     <span
                                         className="bg-clip-text text-transparent"
-                                        style={{ backgroundImage: GRAD_LOGO }}
+                                        style={{ backgroundImage: isLight ? GRAD_BUTTON : GRAD_LOGO }}
                                     >
                                         {content[currentIndex].blueTitle}
                                     </span>{" "}
-                                    <span className="text-white">
+                                    <span style={{ color: isLight ? BRAND.ink : "#fff" }}>
                                         {content[currentIndex].whiteTitle}
                                     </span>
                                 </motion.h1>
@@ -259,7 +281,7 @@ export default function Home() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                    className="max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed text-slate-300 sm:max-w-2xl"
+                                    className={`max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed sm:max-w-2xl ${isLight ? "text-slate-700" : "text-slate-300"}`}
                                 >
                                     {content[currentIndex].description}
                                 </motion.p>
@@ -285,8 +307,8 @@ export default function Home() {
 
                                 <Link
                                     href="/contact"
-                                    className="inline-flex items-center justify-center rounded-sm border bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/25 sm:px-7 sm:py-3.5"
-                                    style={{ borderColor: `${BRAND.mist}33` }}
+                                    className={`inline-flex items-center justify-center rounded-sm border px-6 py-3 text-sm font-semibold backdrop-blur-md transition-colors sm:px-7 sm:py-3.5 ${isLight ? "bg-white/60 text-slate-900 hover:bg-white/80" : "bg-white/15 text-white hover:bg-white/25"}`}
+                                    style={{ borderColor: isLight ? `${BRAND.ink}33` : `${BRAND.mist}33` }}
                                 >
                                     Get a Quote
                                 </Link>
@@ -309,7 +331,9 @@ export default function Home() {
                                                 background:
                                                     index === currentIndex
                                                         ? GRAD_LOGO
-                                                        : "rgba(255,255,255,0.35)",
+                                                        : isLight
+                                                            ? "rgba(10,26,63,0.25)"
+                                                            : "rgba(255,255,255,0.35)",
                                             }}
                                         />
                                     </button>
