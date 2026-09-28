@@ -90,9 +90,8 @@ export default function Home() {
         // restart the timer on every change so a manual pick gets a full 6s
     }, [currentIndex]);
 
-    // The banner images have a bright, empty left side meant for copy, so
-    // those slides switch the hero text to dark colours.
-    const isLight = Boolean(content[currentIndex].image);
+    // Photo slides are busier than the video, so they get a heavier scrim.
+    const hasImage = Boolean(content[currentIndex].image);
 
     return (
         <>
@@ -204,12 +203,15 @@ export default function Home() {
             </section> */}
             <section
                 id="hero"
-                className="relative min-h-[560px] h-[100svh] max-h-[900px] overflow-hidden"
+                // fills the screen below the sticky navbar (72px / 80px on lg), capped on very
+                // tall monitors; content-sized when that's taller, so short screens never clip
+                className="relative flex min-h-[min(calc(100svh-72px),820px)] items-center overflow-hidden lg:min-h-[min(calc(100svh-80px),820px)]"
             // style={{ backgroundColor: BRAND.ink }}
             >
+                {/* the ship sails right of centre, so narrow screens crop toward it instead of the empty sea */}
                 <video
                     ref={videoRef}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover object-[74%_center] md:object-center"
                     src="/banner.mp4"
                     autoPlay
                     muted
@@ -223,7 +225,7 @@ export default function Home() {
 
                 {/* slides with an image crossfade over the video; slides without one reveal it */}
                 <AnimatePresence>
-                    {content[currentIndex].image && (
+                    {hasImage && (
                         <motion.img
                             key={`bg-${currentIndex}`}
                             src={content[currentIndex].image}
@@ -233,18 +235,24 @@ export default function Home() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ opacity: { duration: 1 }, scale: { duration: 6, ease: "linear" } }}
-                            className="absolute inset-0 h-full w-full object-cover object-left"
+                            className="absolute inset-0 h-full w-full object-cover"
                         />
                     )}
                 </AnimatePresence>
 
-                {/* left-to-right scrim keeps text legible on wide screens without dimming the whole video */}
-                <div className={`absolute inset-0 bg-gradient-to-r transition-colors duration-1000 ${isLight ? "from-white/70 via-white/30 to-transparent" : "from-black/50 via-black/25 to-transparent"}`} />
-                {!isLight && <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/35 to-transparent" />}
+                {/* Wide screens: copy sits left, so the scrim fades left-to-right.
+                    Phones: copy is centred, so the scrim is darkest through the middle band. */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/55 to-black/20 md:bg-gradient-to-r md:from-black/50 md:via-black/25 md:to-transparent" />
+                {/* photos are busier than the video, so they get a heavier navy scrim on top */}
+                <div
+                    className={`absolute inset-0 bg-gradient-to-b from-[#0A1A3F]/30 via-[#0A1A3F]/65 to-[#0A1A3F]/30 transition-opacity duration-1000 md:bg-gradient-to-r md:from-[#0A1A3F]/85 md:via-[#0A1A3F]/50 md:to-transparent ${hasImage ? "opacity-100" : "opacity-0"}`}
+                />
+                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/35 to-transparent" />
 
-                <div className="relative z-10 flex h-full items-center">
-                    <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
-                        <div className={`max-w-2xl lg:max-w-3xl ${isLight ? "text-slate-900" : "text-white"}`}>
+                <div className="relative z-10 w-full">
+                    <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 sm:py-16 md:py-20 lg:px-10">
+                        {/* centred on phones, left-aligned from md up */}
+                        <div className="mx-auto max-w-2xl text-center text-white md:mx-0 md:text-left lg:max-w-3xl">
 
                             {/* one keyed group per slide so the whole block re-plays its entrance in sequence */}
                             <AnimatePresence mode="wait">
@@ -264,12 +272,12 @@ export default function Home() {
                                             hidden: { opacity: 0, x: -24 },
                                             show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
                                         }}
-                                        className={`mb-3 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] sm:mb-4 sm:text-xs ${isLight ? "text-slate-600" : "text-slate-200"}`}
+                                        className="mb-3 flex items-center justify-center gap-3 md:justify-start text-[11px] font-semibold uppercase tracking-[0.2em] sm:mb-4 sm:text-xs text-slate-200"
                                     >
                                         <motion.span
                                             aria-hidden="true"
                                             className="h-[2px] rounded-full"
-                                            style={{ background: isLight ? GRAD_BUTTON : GRAD_LOGO }}
+                                            style={{ background: GRAD_LOGO }}
                                             variants={{
                                                 hidden: { width: 0 },
                                                 show: { width: 32, transition: { duration: 0.6, delay: 0.2, ease: EASE } },
@@ -279,12 +287,12 @@ export default function Home() {
                                     </motion.p>
 
                                     {/* each line rises out of its own clipped box */}
-                                    <h1 className="mb-4 text-[clamp(1.9rem,6vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6">
+                                    <h1 className="mb-4 text-[clamp(1.6rem,6.4vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6">
                                         <span className="block overflow-hidden pb-1">
                                             <motion.span
                                                 variants={lineReveal}
                                                 className="inline-block bg-clip-text text-transparent"
-                                                style={{ backgroundImage: isLight ? GRAD_BUTTON : GRAD_LOGO }}
+                                                style={{ backgroundImage: GRAD_LOGO }}
                                             >
                                                 {content[currentIndex].blueTitle}
                                             </motion.span>
@@ -293,7 +301,7 @@ export default function Home() {
                                             <motion.span
                                                 variants={lineReveal}
                                                 className="inline-block"
-                                                style={{ color: isLight ? BRAND.ink : "#fff" }}
+                                                style={{ color: "#fff" }}
                                             >
                                                 {content[currentIndex].whiteTitle}
                                             </motion.span>
@@ -305,7 +313,7 @@ export default function Home() {
                                             hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
                                             show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
                                         }}
-                                        className={`max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed sm:max-w-2xl ${isLight ? "text-slate-700" : "text-slate-300"}`}
+                                        className="mx-auto max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed sm:max-w-2xl md:mx-0 text-slate-300"
                                     >
                                         {content[currentIndex].description}
                                     </motion.p>
@@ -316,7 +324,8 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.7, duration: 0.6, ease: EASE }}
-                                className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
+                                // small phones: equal full-width stacked buttons; wider: side by side
+                                className="mx-auto mt-7 grid max-w-xs grid-cols-1 gap-3 min-[420px]:flex min-[420px]:max-w-none min-[420px]:flex-wrap min-[420px]:items-center min-[420px]:justify-center sm:mt-9 sm:gap-4 md:mx-0 md:justify-start"
                             >
                                 <Link
                                     href="/product"
@@ -332,14 +341,14 @@ export default function Home() {
 
                                 <Link
                                     href="/contact"
-                                    className={`inline-flex items-center justify-center rounded-sm border px-6 py-3 text-sm font-semibold backdrop-blur-md transition-colors sm:px-7 sm:py-3.5 ${isLight ? "bg-white/60 text-slate-900 hover:bg-white/80" : "bg-white/15 text-white hover:bg-white/25"}`}
-                                    style={{ borderColor: isLight ? `${BRAND.ink}33` : `${BRAND.mist}33` }}
+                                    className="inline-flex items-center justify-center rounded-sm border px-6 py-3 text-sm font-semibold backdrop-blur-md transition-colors sm:px-7 sm:py-3.5 bg-white/15 text-white hover:bg-white/25"
+                                    style={{ borderColor: `${BRAND.mist}33` }}
                                 >
                                     Get a Quote
                                 </Link>
                             </motion.div>
 
-                            <div className="mt-8 flex gap-2 sm:mt-10 sm:gap-3">
+                            <div className="mt-8 flex justify-center gap-2 sm:mt-10 sm:gap-3 md:justify-start">
                                 {content.map((_, index) => (
                                     <button
                                         key={index}
@@ -356,9 +365,7 @@ export default function Home() {
                                                 background:
                                                     index === currentIndex
                                                         ? GRAD_LOGO
-                                                        : isLight
-                                                            ? "rgba(10,26,63,0.25)"
-                                                            : "rgba(255,255,255,0.35)",
+                                                        : "rgba(255,255,255,0.35)",
                                             }}
                                         />
                                     </button>
