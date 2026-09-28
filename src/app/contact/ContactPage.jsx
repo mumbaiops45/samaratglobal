@@ -8,6 +8,7 @@ import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
 import { HiOutlineMail } from "react-icons/hi";
 import axios from "axios";
+import { Faqs } from "../component/HomeSections";
 
 
 const baseField =
@@ -159,8 +160,8 @@ const ContactPage = () => {
     {
       icon: <IoMdCall className="text-xl sm:text-2xl text-[#05FCFB]" />,
       title: "Call Us Direct",
-      value: "+91 9920220309",
-      link: "tel:+919920220309",
+      value: "+91 9820903853",
+      link: "tel:+919820903853",
     },
     {
       icon: <FaMapMarkerAlt className="text-xl sm:text-2xl text-[#0948CF]" />,
@@ -192,7 +193,7 @@ const ContactPage = () => {
     <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-secondary/30">
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F] text-white">
         <div className="absolute inset-0 opacity-65">
-          <img src="/contact.jpg" alt="" className="h-full w-full object-cover" />
+          <img src="/ship.jpg" alt="" className="hero-zoom h-full w-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
@@ -201,7 +202,7 @@ const ContactPage = () => {
             initial={{ opacity: 1, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl text-center lg:text-left"
+            className="hero-rise max-w-4xl text-center lg:text-left"
           >
             {/* clamp() overrides the global .h2 size so the headline can't
                 overflow on 320-360px screens */}
@@ -211,13 +212,14 @@ const ContactPage = () => {
                 Connect
               </span>
               <span className="block text-white mt-1">
-                For Global Trade Growth
+                For Import &amp; Export Enquiries
               </span>
             </h1>
 
             <p className="text-sm sm:text-lg md:text-xl text-slate-300 leading-relaxed mt-4 sm:mt-6 max-w-2xl mx-auto lg:mx-0">
-              Have questions or ready to initiate import-export partnerships?
-              Our dedicated trade specialists are ready to help.
+              Looking to buy from India, import into India or need a sourcing agent?
+              Share your product, quantity and destination — our trade team will reply
+              with a quote.
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mt-6 sm:mt-8">
@@ -252,7 +254,7 @@ const ContactPage = () => {
       <section className="py-14 sm:py-16 md:py-24 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
@@ -324,7 +326,7 @@ const ContactPage = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
@@ -442,12 +444,12 @@ const ContactPage = () => {
                     onChange={handleChange}
                     className={`${baseField} border-slate-200 pr-11 appearance-none cursor-pointer`}
                   >
-                    <option value="">Select a subject</option>
-                    <option value="general">General Trade Inquiry</option>
-                    <option value="sourcing">Global Sourcing Services</option>
-                    <option value="export">Export &amp; Trade Solutions</option>
-                    <option value="logistics">Logistics &amp; Supply Chain</option>
-                    <option value="partnership">Global Partnership</option>
+                    <option value="">Select enquiry type</option>
+                    <option value="Buy / Import from India">Buy / Import from India</option>
+                    <option value="Import to India">Import to India</option>
+                    <option value="Sourcing Agent Services">Sourcing Agent Services</option>
+                    <option value="Logistics, Shipping &amp; Documentation">Logistics, Shipping &amp; Documentation</option>
+                    <option value="Other Enquiry">Other Enquiry</option>
                   </select>
                   <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none" />
                 </div>
@@ -460,7 +462,7 @@ const ContactPage = () => {
                 <textarea
                   name="message"
                   rows={3}
-                  placeholder="Describe your trade requirement, quantity, or questions..."
+                  placeholder="Product, quantity, packing, destination country / port..."
                   value={formData.message}
                   onChange={handleChange}
                   className={`${baseField} ${fieldBorder(
@@ -520,6 +522,8 @@ const ContactPage = () => {
           </motion.div>
         </div>
       </section>
+
+      <Faqs />
     </div>
   );
 };

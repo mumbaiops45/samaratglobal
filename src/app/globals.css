@@ -248,3 +248,30 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+/* Page hero entrance: the background photo settles from a slight zoom while
+   the headline, text and badges slide in from the left one after another. Pure CSS so it
+   starts with the first paint, before any JavaScript loads. */
+@keyframes hero-zoom {
+  from { transform: scale(1.14); }
+  to { transform: scale(1); }
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-zoom {
+  animation: hero-zoom 2.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-rise > * {
+  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-rise > *:nth-child(2) { animation-delay: 0.15s; }
+.hero-rise > *:nth-child(3) { animation-delay: 0.3s; }
+.hero-rise > *:nth-child(4) { animation-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom,
+  .hero-rise > * {
+    animation: none;
+  }
+}

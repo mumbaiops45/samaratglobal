@@ -61,8 +61,8 @@ const CONTACT_ITEMS = [
   {
     icon: Phone,
     title: "Call Us",
-    href: "tel:+919920220309",
-    lines: ["+91 99202 20309"],
+    href: "tel:+919820903853",
+    lines: ["+91 98209 03853"],
   },
   {
     icon: Mail,
@@ -213,7 +213,7 @@ const Footer = () => {
               Samrat Global India
             </p>
             <p className="mt-0.5 max-w-sm text-sm leading-6 text-slate-300">
-              Trusted sourcing, procurement &amp; export partner helping businesses connect with
+              Import &amp; export company in India — exporting quality Indian products and sourcing for buyers in
               global markets.
             </p>
 

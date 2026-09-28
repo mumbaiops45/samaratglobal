@@ -2,9 +2,9 @@
 import ServicePage from "./ServicePage";
 
 export const metadata = {
-  title: "International Trade & Logistics Services | Samrat Global India",
+  title: "Import, Export & Sourcing Agent Services | Samrat Global India",
   description:
-    "Trade & Logistics Services in India | Samrat Global India.",
+    "Export from India, import to India, sourcing agent, quality inspection, export packing, documentation and shipping services by Samrat Global India.",
 };
 
 

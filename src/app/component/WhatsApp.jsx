@@ -4,7 +4,7 @@ import { Phone, ArrowUp } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 const WhatsApp = () => {
-  const phoneNumber = "919920220309";
+  const phoneNumber = "919820903853";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {

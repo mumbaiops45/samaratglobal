@@ -1,5 +1,7 @@
 "use client";
+import { sideOffset } from "../component/Reveal";
 import React, { useEffect, useRef } from "react";
+import CtaBanner from "../component/CtaBanner";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -209,21 +211,20 @@ const ServicePage = () => {
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
         <div className="absolute inset-0 opacity-65">
-          <img src="/services.jpg" alt="" className="h-full w-full object-cover" />
+          <img src="/services.jpg" alt="" className="hero-zoom h-full w-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-          <motion.div initial={{ opacity: 1, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
+          <motion.div initial={{ opacity: 1, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="hero-rise max-w-3xl">
             <h1 className="h1 text-white">
-              Smart <span className="grad-text">Sourcing &amp; Procurement</span> Solutions
+              <span className="grad-text">Import, Export</span>{" "}&amp; Sourcing Services
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 md:text-lg">
-              Our Sourcing and Procurement services help businesses identify products,
-              coordinate with suppliers, manage purchasing requirements and support the
-              movement of goods across markets — an integrated approach from product
-              development to delivery.
+              Export from India, import to India or appoint us as your sourcing agent — we
+              find verified suppliers, manage purchasing, inspect quality, prepare export
+              documents and ship your goods to their destination.
             </p>
           </motion.div>
         </div>
@@ -233,8 +234,8 @@ const ServicePage = () => {
       <section className="bg-[#EAF1FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-16 max-w-2xl"
@@ -249,8 +250,8 @@ const ServicePage = () => {
             {coreServices.map((service, index) => (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -80 : 80 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.6, delay: (index % 2) * 0.05 }}
                 viewport={{ once: true, margin: "-10%" }}
                 className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-14 ${index % 2 !== 0 ? "lg:[&>*:first-child]:order-2" : ""}`}
@@ -283,8 +284,8 @@ const ServicePage = () => {
       <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-14 max-w-2xl"
@@ -299,8 +300,8 @@ const ServicePage = () => {
             {whyChooseUs.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60, y: (index % 2 === 0 ? -60 : 60) ? 0 : 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className={`group relative overflow-hidden rounded-sm shadow-md ${item.span}`}
@@ -321,23 +322,23 @@ const ServicePage = () => {
       </section>
 
       {/* PROCESS */}
-      <section ref={processRef} className="relative overflow-hidden bg-[#0A1A3F] py-20 md:py-28">
+      <section ref={processRef} className="relative overflow-hidden bg-white py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-16 max-w-2xl"
           >
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-secondary">Our Process</p>
-            <h2 className="h2 text-white">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">Our Process</p>
+            <h2 className="h2 text-slate-900">
               How We <span className="grad-text">Operate</span>
             </h2>
           </motion.div>
 
           <div className="relative">
-            <div className="absolute top-[26px] left-[15%] right-[15%] hidden h-[2px] overflow-hidden rounded-full bg-white/10 md:block">
+            <div className="absolute top-[26px] left-[15%] right-[15%] hidden h-[2px] overflow-hidden rounded-full bg-primary/10 md:block">
               <div ref={lineRef} className="h-full w-full origin-left bg-gradient-to-r from-primary to-secondary" style={{ transform: "scaleX(0)" }} />
             </div>
 
@@ -345,16 +346,16 @@ const ServicePage = () => {
               {workProcess.map((item, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: sideOffset(index, 3), y: (sideOffset(index, 3)) ? 0 : 40 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                   viewport={{ once: true }}
                 >
-                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm bg-white/5 border border-white/10">
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm border border-primary/20 bg-[#EAF1FF]">
                     {item.icon}
                   </div>
-                  <h3 className="h4 mt-5 text-white">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
+                  <h3 className="h4 mt-5 text-slate-900">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -369,8 +370,8 @@ const ServicePage = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, x: sideOffset(index, 4), y: (sideOffset(index, 4)) ? 0 : 40, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="rounded-sm border border-slate-100 bg-white p-6 text-center shadow-sm"
@@ -411,20 +412,12 @@ const ServicePage = () => {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary to-[#062A8F] py-20">
-        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center sm:px-8">
-          <h2 className="h2 mb-4 text-white">
-            Let&apos;s Simplify Your <span className="text-secondary">Sourcing &amp; Export</span>
-          </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-300 md:text-lg">
-            Talk to our trade desk about your product requirements, supplier needs or
-            export destination.
-          </p>
-          <a href="/contact" className="btn bg-white text-primary hover:-translate-y-0.5 transition-transform">
-            Contact Our Trade Desk <FaArrowRight className="text-xs" />
-          </a>
-        </div>
-      </section>
+      <CtaBanner
+        title="Let's Simplify Your"
+        accent="Import & Export"
+        text="Talk to our trade desk about your product requirements, supplier needs or export destination."
+        buttonLabel="Contact Our Trade Desk"
+      />
     </div>
   );
 };

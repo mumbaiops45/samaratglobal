@@ -1,11 +1,12 @@
 "use client";
+import { sideOffset } from "../component/Reveal";
 
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaUsers, FaGlobe, FaShieldAlt, FaStar, FaArrowRight, FaAward } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import CtaBanner from "../component/CtaBanner";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -54,7 +55,6 @@ const teamValues = [
 ];
 
 const TeamPage = () => {
-  const router = useRouter();
   const pageRef = useRef(null);
 
   useEffect(() => {
@@ -82,19 +82,18 @@ const TeamPage = () => {
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
         <div className="absolute inset-0 opacity-65">
-          <img src="/team.jpg" alt="" className="h-full w-full object-cover" />
+          <img src="/team.jpg" alt="" className="hero-zoom h-full w-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-          <motion.div initial={{ opacity: 1, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
+          <motion.div initial={{ opacity: 1, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="hero-rise max-w-3xl">
             <h1 className="h1 text-white">
               Meet Our <span className="grad-text">Core Leadership Team</span>
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 md:text-lg">
-              Dedicated professionals committed to your global trade success — bringing
-              customer-first coordination to every sourcing, procurement and export
-              engagement.
+              The people behind every shipment — experienced in export, import and sourcing,
+              and committed to customer-first coordination from enquiry to delivery.
             </p>
           </motion.div>
         </div>
@@ -107,8 +106,8 @@ const TeamPage = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: sideOffset(index, 4), y: (sideOffset(index, 4)) ? 0 : 40 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="text-center"
@@ -151,8 +150,8 @@ const TeamPage = () => {
       <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-14 max-w-2xl"
@@ -167,8 +166,8 @@ const TeamPage = () => {
             {leadership.map((member, index) => (
               <motion.div
                 key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: sideOffset(index, 3), y: (sideOffset(index, 3)) ? 0 : 40 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="overflow-hidden rounded-sm border border-slate-100 bg-[#EAF1FF] shadow-sm"
@@ -189,8 +188,8 @@ const TeamPage = () => {
       <section className="bg-[#EAF1FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-14 max-w-2xl"
@@ -205,8 +204,8 @@ const TeamPage = () => {
             {teamValues.map((value, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: sideOffset(index, 4), y: (sideOffset(index, 4)) ? 0 : 40 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="rounded-sm border border-slate-100 bg-white p-6 text-center shadow-sm"
@@ -223,20 +222,12 @@ const TeamPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary to-[#062A8F] py-20">
-        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center sm:px-8">
-          <h2 className="h2 mb-4 text-white">
-            Talk To Our <span className="text-secondary">Trade Team</span>
-          </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-300 md:text-lg">
-            Have a sourcing or export requirement? Our team is ready to help you move
-            forward.
-          </p>
-          <button onClick={() => router.push("/contact")} className="btn bg-white text-primary hover:-translate-y-0.5 transition-transform">
-            Contact Us <FaArrowRight className="text-xs" />
-          </button>
-        </div>
-      </section>
+      <CtaBanner
+        title="Talk To Our"
+        accent="Trade Team"
+        text="Have an import, export or sourcing requirement? Our team is ready to help you move forward."
+        buttonLabel="Contact Us"
+      />
     </div>
   );
 };

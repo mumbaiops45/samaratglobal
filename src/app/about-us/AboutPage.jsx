@@ -1,4 +1,5 @@
 "use client";
+import { sideOffset } from "../component/Reveal";
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +19,7 @@ import {
   FaHandshake,
 } from "react-icons/fa";
 import { TECH_SECTIONS, commitments, cards } from "../../data/data";
+import CtaBanner from "../component/CtaBanner";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -122,7 +124,7 @@ const AboutPage = () => {
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F]">
         <div className="absolute inset-0 opacity-65">
-          <img src="/about.jpg" alt="" className="h-full w-full object-cover" />
+          <img src="/about.jpg" alt="" className="hero-zoom h-full w-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
@@ -131,16 +133,17 @@ const AboutPage = () => {
             initial={{ opacity: 1, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
+            className="hero-rise"
           >
             <h1 className="h1 max-w-3xl text-white">
-              A Global Sourcing &amp; <span className="grad-text">Export Partner</span>
+              An Indian <span className="grad-text">Import &amp; Export</span> Company
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8 md:text-lg">
-              Samrat Global India provides global sourcing and export solutions designed to
-              help businesses source products, manage procurement, and access international
-              markets with confidence — built around reliability, quality and long-term
-              partnerships.
+              Samrat Global India exports quality Indian products — from North East medicinal
+              plants and spices to stainless steel equipment — and helps businesses import
+              and source goods with confidence, handling suppliers, inspection, documentation
+              and shipping end to end.
             </p>
           </motion.div>
         </div>
@@ -178,8 +181,8 @@ const AboutPage = () => {
       <section className="bg-[#EAF1FF] py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -80, scale: 0.95 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
             className="relative"
@@ -198,7 +201,7 @@ const AboutPage = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
@@ -208,7 +211,7 @@ const AboutPage = () => {
               Samrat Global <span className="grad-text">India</span>
             </h2>
             <p className="text-base leading-relaxed text-slate-600 md:text-lg">
-              Samrat Global India is a <strong className="text-slate-900">Sourcing and Export Company</strong> providing
+              Samrat Global India is an <strong className="text-slate-900">Import and Export Company</strong> providing
               sourcing, procurement and international trade support. We connect businesses
               with suitable suppliers and products while coordinating the movement of goods
               from source to destination.
@@ -237,8 +240,8 @@ const AboutPage = () => {
       <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-12 max-w-2xl"
@@ -319,39 +322,39 @@ const AboutPage = () => {
       </section>
 
       {/* CORE COMMITMENTS — horizontal timeline, distinct from home's stacked list */}
-      <section ref={processRef} className="relative overflow-hidden bg-[#0A1A3F] py-20 md:py-28">
+      <section ref={processRef} className="relative overflow-hidden bg-white py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-16 max-w-2xl"
           >
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-secondary">Why Choose Us</p>
-            <h2 className="h2 text-white">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">Why Choose Us</p>
+            <h2 className="h2 text-slate-900">
               Core <span className="grad-text">Commitments</span>
             </h2>
           </motion.div>
 
           <div className="relative">
-            <div className="absolute top-[26px] left-[8%] right-[8%] hidden h-[2px] bg-white/10 md:block">
+            <div className="absolute top-[26px] left-[8%] right-[8%] hidden h-[2px] bg-primary/10 md:block">
               <div ref={lineRef} className="h-full w-full origin-left bg-gradient-to-r from-primary to-secondary" style={{ transform: "scaleX(0)" }} />
             </div>
             <div className="grid gap-10 md:grid-cols-3">
               {commitments.map((item, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: sideOffset(index, 3), y: (sideOffset(index, 3)) ? 0 : 40 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                   viewport={{ once: true }}
                 >
                   <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-sm bg-gradient-to-br from-primary to-[#0E7490] text-lg font-bold text-white shadow-lg">
                     {String(index + 1).padStart(2, "0")}
                   </div>
-                  <h3 className="h4 mt-5 text-white">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
+                  <h3 className="h4 mt-5 text-slate-900">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -363,8 +366,8 @@ const AboutPage = () => {
       <section className="bg-[#F5F9FF] py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-14 max-w-2xl"
@@ -376,8 +379,8 @@ const AboutPage = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
             className="grid items-center gap-10 rounded-sm border border-slate-100 bg-[#EAF1FF] p-6 shadow-sm md:grid-cols-[380px_1fr] md:gap-12 md:p-10"
@@ -427,23 +430,12 @@ const AboutPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary to-[#062A8F] py-20">
-        <div className="absolute inset-0 opacity-15">
-          <img src="/ship.jpg" alt="" className="h-full w-full object-cover" />
-        </div>
-        <div className="relative z-10 mx-auto max-w-4xl px-5 text-center sm:px-8">
-          <h2 className="h2 mb-4 text-white">
-            Ready to Build a <span className="text-secondary">Reliable Trade Partnership?</span>
-          </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-slate-300 md:text-lg">
-            Partner with Samrat Global India for dependable sourcing, procurement and export
-            solutions built around your business goals.
-          </p>
-          <a href="/contact" className="btn bg-white text-primary hover:-translate-y-0.5 transition-transform">
-            Get In Touch <FaArrowRight className="text-xs" />
-          </a>
-        </div>
-      </section>
+      <CtaBanner
+        title="Ready to Build a"
+        accent="Reliable Trade Partnership?"
+        text="Partner with Samrat Global India for dependable sourcing, import and export solutions built around your business goals."
+        buttonLabel="Get In Touch"
+      />
     </div>
   );
 };

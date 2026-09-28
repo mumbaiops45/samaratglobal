@@ -65,7 +65,7 @@ export const TECH_SECTIONS = [
 
     paragraphs: [
       {
-        text: "As a global sourcing company, we support businesses through supplier identification, product sourcing, procurement coordination, and export assistance.",
+        text: "As an import-export company, we support businesses through supplier identification, product sourcing, procurement coordination, and export assistance.",
         highlight: "global sourcing company",
       },
       {
@@ -323,7 +323,7 @@ export const TECH_SECTIONS = [
 
 
 export const commitments = [
-    { title: "Quality You Can Trust", description: "Quality-focused sourcing, supplier coordination and inspection support esnsure your requirements are handled with care." },
+    { title: "Quality You Can Trust", description: "Quality-focused sourcing, supplier coordination and inspection support ensure your requirements are handled with care." },
     { title: "Reliable Supply Chain", description: "We coordinate sourcing, procurement and logistics for efficenent, relaible movement of goods." },
     { title: "Customer First Policy", description: "We provide responsive communication and trasport coordination, building lasting relationships around your business goals." },
 ];
@@ -332,7 +332,7 @@ export const commitments = [
 export const services = [
     {
         title: "Product Development",
-        description: "Support for developing and identifying products accrding to business requirements.",
+        description: "Support for developing and identifying products according to business requirements.",
     },
     {
         title: "Product Purchasing",
@@ -348,27 +348,60 @@ export const services = [
     },
     {
         title: "Delivery at Destination",
-        description: "Support for coordinating shipment movement and delivery to the required desctination."
+        description: "Support for coordinating shipment movement and delivery to the required destination."
     }
 ]
 
 export const content = [
     {
-        heading: "Sourcing & Procurement",
+        heading: "Import · Export · Sourcing",
         blueTitle: (
             <>
-                Your Trusted Global Sourcing <br />
+                Exporting India&apos;s Finest <br />
             </>
         ),
-        whiteTitle: " Company for Seamless Trade",
+        whiteTitle: " to Markets Worldwide",
         description: (
             <>
-                Samrat Global India is a trusted{" "}
-                <span className="font-bold">global sourcing company</span>{" "}
-                helping businesses source, procure and move quality products across
-                international markets. From supplier coordination and product
-                procurement to export support and delivery, we simplify the entire
-                process through reliable and efficient solutions.
+                Samrat Global India is an{" "}
+                <span className="font-bold">import–export company</span> that
+                sources, inspects, packs and ships quality Indian products to buyers
+                around the world — handling suppliers, documentation and logistics
+                from factory to your port.
+            </>
+        ),
+    },
+    {
+        heading: "Export from India",
+        blueTitle: (
+            <>
+                Medicinal Plants, Spices <br />
+            </>
+        ),
+        whiteTitle: " & Stainless Steel Equipment",
+        description: (
+            <>
+                From North East India&apos;s pharma-grade medicinal plants and
+                spices to stainless steel process, cleanroom and lab equipment — one{" "}
+                <span className="font-bold">trusted export partner</span> for
+                bulk and custom orders.
+            </>
+        ),
+    },
+    {
+        heading: "Sourcing Agent in India",
+        blueTitle: (
+            <>
+                Your Buying &amp; Sourcing <br />
+            </>
+        ),
+        whiteTitle: " Agent in India",
+        description: (
+            <>
+                Tell us what you need — we find verified manufacturers, arrange
+                samples, check quality before dispatch and manage{" "}
+                <span className="font-bold">shipment to your destination</span>,
+                whether you&apos;re importing from India or into it.
             </>
         ),
     },
@@ -386,7 +419,7 @@ export const cards = [
 
         body: (
             <>
-                <span>As a dependable </span>
+                <span>At </span>
                 <span
                     className="font-semibold"
                     style={{ color: BRAND.cyan }}
@@ -427,12 +460,12 @@ export const cards = [
 
         body: (
             <>
-                <span>Samrat Global India is a </span>
+                <span>Samrat Global India is an </span>
                 <span
                     className="font-semibold"
                     style={{ color: BRAND.cyan }}
                 >
-                    Sourcing and Export Company
+                    Import and Export Company
                 </span>
                 <span>
                     {" "}
@@ -445,7 +478,7 @@ export const cards = [
                 <br />
 
                 <span>
-                    Our customer-first approach makes international sourcing simpler,
+                    Our customer-first approach makes importing and exporting simpler,
                     transparent and dependable.
                 </span>
                 <p className="text-2xl text-[#475569] mt-4 font-extrabold">Our Reach</p>

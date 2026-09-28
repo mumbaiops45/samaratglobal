@@ -1,4 +1,5 @@
 "use client";
+import { sideOffset } from "../component/Reveal";
 
 import React, { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -493,7 +494,7 @@ const ProductPage = () => {
     <div className="min-h-screen bg-[#F4F9FF] text-[#0A2540] overflow-x-hidden selection:bg-secondary/30">
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#0A1A3F] text-white border-b border-slate-800">
         <div className="absolute inset-0 opacity-65">
-          <img src="/products.jpg" alt="" className="h-full w-full object-cover" />
+          <img src="/products.jpg" alt="" className="hero-zoom h-full w-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A3F] via-[#0A1A3F]/40 to-[#0A1A3F]/15" />
 
@@ -502,17 +503,17 @@ const ProductPage = () => {
             initial={{ opacity: 1, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl"
+            className="hero-rise max-w-4xl"
           >
             <h1 className="h2 text-white">
-              Your Trusted Partner{" "}
+              Export Products{" "}
               <span className="grad-text block">
-                In International Trade
+                From India to the World
               </span>
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed mt-4 max-w-2xl">
-              Connecting India to world markets through premium exports and strategic, high-demand industrial imports.
+              Medicinal plants, spices, food commodities, textiles and stainless steel equipment — sourced from verified Indian suppliers and shipped worldwide.
             </p>
 
             <div className="flex flex-wrap gap-3 mt-8">
@@ -608,8 +609,8 @@ const ProductPage = () => {
             {currentProducts.map((product, index) => (
               <motion.div
                 key={product.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: sideOffset(index, 3), y: (sideOffset(index, 3)) ? 0 : 40 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
@@ -766,7 +767,7 @@ const ProductPage = () => {
 
         </div>
       </section>
-      <section className="py-20 bg-gradient-to-b from-[#0A2540] via-[#0D3156] to-[#0A2540] text-white relative overflow-hidden">
+      <section className="py-20 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
           
           <motion.div
@@ -776,30 +777,30 @@ const ProductPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#05FCFB] mb-4">
+            <span className="inline-block px-5 py-2 rounded-full bg-primary/5 border border-primary/25 text-xs font-bold uppercase tracking-widest text-primary mb-4">
               Global Trade Flow
             </span>
-            <h2 className="h2">
-              Connecting <span className="text-[#05FCFB]">India</span> to the World
+            <h2 className="h2 text-slate-900">
+              Connecting <span className="grad-text">India</span> to the World
             </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <FaTruck className="text-4xl text-[#05FCFB]" />,
+                icon: <FaTruck className="text-4xl text-primary" />,
                 title: "Export from India",
                 description:
                   "Premium Indian commodities like North East medicinal plants, rice, spices, steel, and textiles exported seamlessly to global trade partners.",
               },
               {
-                icon: <FaExchangeAlt className="text-4xl text-[#05FCFB]" />,
+                icon: <FaExchangeAlt className="text-4xl text-primary" />,
                 title: "Bilateral Trade",
                 description:
                   "Strategic import-export corridors connecting India with over 50 countries across Asia, Europe, and America.",
               },
               {
-                icon: <FaShip className="text-4xl text-[#05FCFB]" />,
+                icon: <FaShip className="text-4xl text-primary" />,
                 title: "Import to India",
                 description:
                   "Advanced machinery, technology, and specialized industrial equipment imported to empower Indian enterprises.",
@@ -807,18 +808,18 @@ const ProductPage = () => {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: sideOffset(index, 3), y: (sideOffset(index, 3)) ? 0 : 40 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
-                className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:bg-white/10 hover:border-[#05FCFB]/50 transition-all duration-300 text-center"
+                className="bg-[#F5F9FF] rounded-3xl p-8 border border-slate-100 hover:bg-white hover:border-primary/30 hover:shadow-xl transition-all duration-300 text-center"
               >
-                <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   {item.icon}
                 </div>
-                <h3 className="h3 text-white mb-3">{item.title}</h3>
-                <p className="text-slate-300 text-xs leading-relaxed">
+                <h3 className="h3 text-slate-900 mb-3">{item.title}</h3>
+                <p className="text-slate-600 text-xs leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
@@ -849,8 +850,8 @@ const ProductPage = () => {
             {categories.slice(1).map((cat, index) => (
               <motion.div
                 key={cat.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, x: sideOffset(index, 4), y: (sideOffset(index, 4)) ? 0 : 40, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -6, scale: 1.03 }}

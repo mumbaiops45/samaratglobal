@@ -3,9 +3,9 @@
 import ProductPage from "./ProductPage";
 
 export const metadata = {
-  title: "Contact Samrat Global India | Global Trade & Export Enquiries",
+  title: "Export Products from India | Samrat Global India",
   description:
-    "Export & Import Products from India | Global Trade Solutions.",
+    "Export products from India: North East medicinal plants, spices, rice, tea, cotton and stainless steel process, cleanroom and lab equipment. Request a quote from Samrat Global India.",
 };
 
 
