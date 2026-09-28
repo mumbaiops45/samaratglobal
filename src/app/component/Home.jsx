@@ -32,6 +32,13 @@ const GRAD_LOGO = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.cyan})`;
 // readable across the whole button.
 const GRAD_BUTTON = `linear-gradient(90deg, ${BRAND.azure}, ${BRAND.azureDeep})`;
 
+const EASE = [0.22, 1, 0.36, 1];
+// Title lines start below their clipping box and slide up into view.
+const lineReveal = {
+    hidden: { y: "110%" },
+    show: { y: "0%", transition: { duration: 0.8, ease: EASE } },
+};
+
 
 export default function Home() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -239,58 +246,76 @@ export default function Home() {
                     <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
                         <div className={`max-w-2xl lg:max-w-3xl ${isLight ? "text-slate-900" : "text-white"}`}>
 
+                            {/* one keyed group per slide so the whole block re-plays its entrance in sequence */}
                             <AnimatePresence mode="wait">
-                                <motion.p
-                                    key={`eyebrow-${currentIndex}`}
-                                    initial={{ opacity: 1, y: 12 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -8 }}
-                                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className={`mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] sm:mb-4 sm:text-xs ${isLight ? "text-slate-600" : "text-slate-200"}`}
+                                <motion.div
+                                    key={`copy-${currentIndex}`}
+                                    initial="hidden"
+                                    animate="show"
+                                    exit="exit"
+                                    variants={{
+                                        hidden: {},
+                                        show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+                                        exit: { opacity: 0, y: -16, filter: "blur(6px)", transition: { duration: 0.4, ease: EASE } },
+                                    }}
                                 >
-                                    {content[currentIndex].heading}
-                                </motion.p>
-                            </AnimatePresence>
-
-                            <AnimatePresence mode="wait">
-                                <motion.h1
-                                    key={`title-${currentIndex}`}
-                                    initial={{ opacity: 1, y: 30, filter: "blur(8px)" }}
-                                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                    exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-                                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                                    // fluid type: scales smoothly between breakpoints instead of jumping
-                                    className="mb-4 text-[clamp(1.9rem,6vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6"
-                                >
-                                    <span
-                                        className="bg-clip-text text-transparent"
-                                        style={{ backgroundImage: isLight ? GRAD_BUTTON : GRAD_LOGO }}
+                                    <motion.p
+                                        variants={{
+                                            hidden: { opacity: 0, x: -24 },
+                                            show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+                                        }}
+                                        className={`mb-3 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em] sm:mb-4 sm:text-xs ${isLight ? "text-slate-600" : "text-slate-200"}`}
                                     >
-                                        {content[currentIndex].blueTitle}
-                                    </span>{" "}
-                                    <span style={{ color: isLight ? BRAND.ink : "#fff" }}>
-                                        {content[currentIndex].whiteTitle}
-                                    </span>
-                                </motion.h1>
-                            </AnimatePresence>
+                                        <motion.span
+                                            aria-hidden="true"
+                                            className="h-[2px] rounded-full"
+                                            style={{ background: isLight ? GRAD_BUTTON : GRAD_LOGO }}
+                                            variants={{
+                                                hidden: { width: 0 },
+                                                show: { width: 32, transition: { duration: 0.6, delay: 0.2, ease: EASE } },
+                                            }}
+                                        />
+                                        {content[currentIndex].heading}
+                                    </motion.p>
 
-                            <AnimatePresence mode="wait">
-                                <motion.p
-                                    key={`desc-${currentIndex}`}
-                                    initial={{ opacity: 1, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                    className={`max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed sm:max-w-2xl ${isLight ? "text-slate-700" : "text-slate-300"}`}
-                                >
-                                    {content[currentIndex].description}
-                                </motion.p>
+                                    {/* each line rises out of its own clipped box */}
+                                    <h1 className="mb-4 text-[clamp(1.9rem,6vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6">
+                                        <span className="block overflow-hidden pb-1">
+                                            <motion.span
+                                                variants={lineReveal}
+                                                className="inline-block bg-clip-text text-transparent"
+                                                style={{ backgroundImage: isLight ? GRAD_BUTTON : GRAD_LOGO }}
+                                            >
+                                                {content[currentIndex].blueTitle}
+                                            </motion.span>
+                                        </span>
+                                        <span className="block overflow-hidden pb-1">
+                                            <motion.span
+                                                variants={lineReveal}
+                                                className="inline-block"
+                                                style={{ color: isLight ? BRAND.ink : "#fff" }}
+                                            >
+                                                {content[currentIndex].whiteTitle}
+                                            </motion.span>
+                                        </span>
+                                    </h1>
+
+                                    <motion.p
+                                        variants={{
+                                            hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+                                            show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
+                                        }}
+                                        className={`max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] leading-relaxed sm:max-w-2xl ${isLight ? "text-slate-700" : "text-slate-300"}`}
+                                    >
+                                        {content[currentIndex].description}
+                                    </motion.p>
+                                </motion.div>
                             </AnimatePresence>
 
                             <motion.div
-                                initial={{ opacity: 1, y: 20 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.6 }}
+                                transition={{ delay: 0.7, duration: 0.6, ease: EASE }}
                                 className="mt-7 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
                             >
                                 <Link
