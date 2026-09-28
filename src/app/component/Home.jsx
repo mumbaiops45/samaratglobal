@@ -224,7 +224,7 @@ export default function Home() {
                 />
 
                 {/* slides with an image crossfade over the video; slides without one reveal it.
-                    Phones get a portrait `mobileImage` when the slide has one — the wide
+                    Phones and portrait tablets get a portrait `mobileImage` when the slide has one — the wide
                     desktop banners only show a blurry sliver when cropped to a tall screen. */}
                 <AnimatePresence>
                     {hasImage && (
@@ -239,7 +239,7 @@ export default function Home() {
                         >
                             <picture>
                                 {content[currentIndex].mobileImage && (
-                                    <source media="(max-width: 767px)" srcSet={content[currentIndex].mobileImage} />
+                                    <source media="(max-width: 767px), (orientation: portrait)" srcSet={content[currentIndex].mobileImage} />
                                 )}
                                 <img
                                     src={content[currentIndex].image}
