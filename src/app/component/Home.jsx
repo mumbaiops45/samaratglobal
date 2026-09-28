@@ -206,7 +206,7 @@ export default function Home() {
                 // fills the screen below the sticky navbar (72px / 80px on lg), capped on very
                 // tall monitors; content-sized when that's taller, so short screens never clip
                 className="relative flex min-h-[min(calc(100svh-72px),820px)] items-center overflow-hidden lg:min-h-[min(calc(100svh-80px),820px)]"
-            // style={{ backgroundColor: BRAND.ink }}
+                style={{ backgroundColor: BRAND.ink }}
             >
                 {/* the ship sails right of centre, so narrow screens crop toward it instead of the empty sea */}
                 <video
@@ -223,29 +223,41 @@ export default function Home() {
                     tabIndex={-1}
                 />
 
-                {/* slides with an image crossfade over the video; slides without one reveal it */}
+                {/* slides with an image crossfade over the video; slides without one reveal it.
+                    Phones get a portrait `mobileImage` when the slide has one — the wide
+                    desktop banners only show a blurry sliver when cropped to a tall screen. */}
                 <AnimatePresence>
                     {hasImage && (
-                        <motion.img
+                        <motion.div
                             key={`bg-${currentIndex}`}
-                            src={content[currentIndex].image}
-                            alt=""
                             aria-hidden="true"
                             initial={{ opacity: 0, scale: 1.06 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ opacity: { duration: 1 }, scale: { duration: 6, ease: "linear" } }}
-                            className="absolute inset-0 h-full w-full object-cover"
-                        />
+                            className="absolute inset-0"
+                        >
+                            <picture>
+                                {content[currentIndex].mobileImage && (
+                                    <source media="(max-width: 767px)" srcSet={content[currentIndex].mobileImage} />
+                                )}
+                                <img
+                                    src={content[currentIndex].image}
+                                    alt=""
+                                    className="h-full w-full object-cover"
+                                />
+                            </picture>
+                        </motion.div>
                     )}
                 </AnimatePresence>
 
                 {/* Wide screens: copy sits left, so the scrim fades left-to-right.
-                    Phones: copy is centred, so the scrim is darkest through the middle band. */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/55 to-black/20 md:bg-gradient-to-r md:from-black/50 md:via-black/25 md:to-transparent" />
+                    Phones: copy is centred, so the scrim is darkest through the middle band
+                    and the top and bottom of the picture stay bright. */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/65 to-black/10 md:bg-gradient-to-r md:from-black/50 md:via-black/25 md:to-transparent" />
                 {/* photos are busier than the video, so they get a heavier navy scrim on top */}
                 <div
-                    className={`absolute inset-0 bg-gradient-to-b from-[#0A1A3F]/30 via-[#0A1A3F]/65 to-[#0A1A3F]/30 transition-opacity duration-1000 md:bg-gradient-to-r md:from-[#0A1A3F]/85 md:via-[#0A1A3F]/50 md:to-transparent ${hasImage ? "opacity-100" : "opacity-0"}`}
+                    className={`absolute inset-0 bg-gradient-to-b from-transparent via-[#0A1A3F]/65 to-transparent transition-opacity duration-1000 md:bg-gradient-to-r md:from-[#0A1A3F]/85 md:via-[#0A1A3F]/50 md:to-transparent ${hasImage ? "opacity-100" : "opacity-0"}`}
                 />
                 <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/35 to-transparent" />
 
@@ -287,7 +299,7 @@ export default function Home() {
                                     </motion.p>
 
                                     {/* each line rises out of its own clipped box */}
-                                    <h1 className="mb-4 text-[clamp(1.6rem,6.4vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6">
+                                    <h1 className="mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] md:drop-shadow-none text-[clamp(1.6rem,6.4vw,3rem)] font-bold leading-[1.1] tracking-tight sm:mb-6">
                                         <span className="block overflow-hidden pb-1">
                                             <motion.span
                                                 variants={lineReveal}
