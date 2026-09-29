@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# real SMTP credentials for public/contact-mail.php
+contact-config.php

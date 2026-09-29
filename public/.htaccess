@@ -1,0 +1,9 @@
+# Hostinger (Apache/LiteSpeed) settings for the static export.
+
+# Show the site's own 404 page for unknown URLs.
+ErrorDocument 404 /404.html
+
+# Never serve SMTP credentials if contact-config.php is ever placed in public_html.
+<Files "contact-config.php">
+  Require all denied
+</Files>

@@ -13,7 +13,8 @@ import { Faqs } from "../component/HomeSections";
 
 const baseField =
   "w-full px-4 py-3 bg-[#F4F9FF] rounded-2xl border focus:outline-none focus:border-[#05FCFB] focus:bg-white transition-all text-slate-700 text-base sm:text-sm";
-// The server re-checks the same rules in src/app/api/contact/route.js.
+// The server re-checks the same rules in src/app/api/contact/route.js (Vercel)
+// and public/contact-mail.php (Hostinger).
 const NAME_MAX = 40;
 const NAME_RE = /^(?=.{2,})[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
@@ -136,7 +137,7 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("/api/contact", {
+      const response = await axios.post(process.env.NEXT_PUBLIC_CONTACT_ENDPOINT, {
         form: "contact",
         ...formData,
         firstName: formData.firstName.trim(),

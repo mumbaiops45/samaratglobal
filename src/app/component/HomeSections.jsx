@@ -443,7 +443,8 @@ export const Clients = () => (
 const field =
   "w-full rounded-sm border border-slate-200 bg-[#F4F9FF] px-4 py-3 text-base text-slate-800 placeholder:text-slate-400 transition-colors focus:border-primary focus:bg-white focus:outline-none sm:text-sm";
 
-// The server re-checks the same rules in src/app/api/contact/route.js.
+// The server re-checks the same rules in src/app/api/contact/route.js (Vercel)
+// and public/contact-mail.php (Hostinger).
 const QUOTE_NAME_RE = /^(?=.{2,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 const QUOTE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 // buyers are worldwide: optional +, then 7-15 digits with spaces/dashes/brackets
@@ -522,7 +523,7 @@ export const RequestQuote = () => {
     setStatus("sending");
     setServerError("");
     try {
-      const res = await axios.post("/api/contact", { form: "quote", ...data });
+      const res = await axios.post(process.env.NEXT_PUBLIC_CONTACT_ENDPOINT, { form: "quote", ...data });
       if (!res.data.ok) throw new Error(res.data.error);
       setStatus("sent");
       form.reset();
