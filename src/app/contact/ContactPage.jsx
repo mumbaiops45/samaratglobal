@@ -13,6 +13,13 @@ import { Faqs } from "../component/HomeSections";
 
 const baseField =
   "w-full px-4 py-3 bg-[#F4F9FF] rounded-2xl border focus:outline-none focus:border-[#05FCFB] focus:bg-white transition-all text-slate-700 text-base sm:text-sm";
+// The server re-checks the same rules in src/app/api/contact/route.js.
+const NAME_MAX = 40;
+const NAME_RE = /^(?=.{2,})[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+const MESSAGE_MIN = 10;
+const MESSAGE_MAX = 2000;
+
 const fieldBorder = (hasError) =>
   hasError ? "border-red-500" : "border-slate-200";
 
@@ -40,7 +47,7 @@ const ContactPage = () => {
   const validatePhoneNumber = (phone) => {
     const cleanPhone = phone.replace(/[\s\-()]/g, "");
     const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phone) return { isValid: true, error: "" };
+    if (!phone) return { isValid: false, error: "Phone number is required" };
     if (!phoneRegex.test(cleanPhone)) {
       return {
         isValid: false,
@@ -57,10 +64,16 @@ const ContactPage = () => {
     }
 
     if (name === "firstName" || name === "lastName") {
-      const lettersOnly = value.replace(/[^a-zA-Z\s]/g, "");
+      // letters and single spaces only: no digits, symbols, leading or double spaces
+      const lettersOnly = value
+        .replace(/[^a-zA-Z\s]/g, "")
+        .replace(/^\s+/, "")
+        .replace(/\s{2,}/g, " ")
+        .slice(0, NAME_MAX);
       setFormData({ ...formData, [name]: lettersOnly });
       return;
     }
+
 
     if (name === "phone") {
       const digitsOnly = value.replace(/\D/g, "");
@@ -75,16 +88,32 @@ const ContactPage = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.firstName.trim())
+    const firstName = formData.firstName.trim();
+    const lastName = formData.lastName.trim();
+    const message = formData.message.trim();
+    const email = formData.email.trim();
+
+    if (!firstName) {
       newErrors.firstName = "First name is required";
-    if (!formData.email.trim()) {
+    } else if (!NAME_RE.test(firstName)) {
+      newErrors.firstName = "Use letters only, at least 2";
+    }
+    if (lastName && !NAME_RE.test(lastName)) {
+      newErrors.lastName = "Use letters only, at least 2";
+    }
+    if (!email) {
       newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!EMAIL_RE.test(email)) {
       newErrors.email = "Please enter a valid email address";
     }
     const phoneValidation = validatePhoneNumber(formData.phone);
     if (!phoneValidation.isValid) newErrors.phone = phoneValidation.error;
-    if (!formData.message.trim()) newErrors.message = "Message is required";
+    if (!formData.subject) newErrors.subject = "Please select an inquiry subject";
+    if (!message) {
+      newErrors.message = "Message is required";
+    } else if (message.length < MESSAGE_MIN) {
+      newErrors.message = `Please add a little more detail (at least ${MESSAGE_MIN} characters)`;
+    }
 
     setErrors(newErrors);
     return newErrors;
@@ -105,27 +134,18 @@ const ContactPage = () => {
     }
 
     setIsSubmitting(true);
-    const formDataToSend = new FormData(e.target);
-    formDataToSend.append(
-      "_subject",
-      "New Samrat Global India Private Limited Trade Enquiry"
-    );
-    formDataToSend.append("_template", "table");
-    formDataToSend.append("_captcha", "false");
 
     try {
-      const response = await axios.post(
-        "https://formsubmit.co/ajax/info@samratglobalindia.com",
-        formDataToSend,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Accept: "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/contact", {
+        form: "contact",
+        ...formData,
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
+      });
 
-      if (response.data.success === "true" || response.status === 200) {
+      if (response.data.ok) {
         setIsSubmitted(true);
         setFormData({
           firstName: "",
@@ -141,9 +161,12 @@ const ContactPage = () => {
         alert("Submission failed. Please try again.");
       }
     } catch (error) {
-      console.error("FormSubmit Error:", error);
+      console.error("Contact form error:", error);
+      // a 400 means the server rejected a field and says which one
       alert(
-        "Something went wrong. Please try again or email info@thesamratglobal.com"
+        error.response?.status === 400 && error.response.data?.error
+          ? error.response.data.error
+          : "Something went wrong. Please try again or email globalhead29@gmail.com"
       );
     } finally {
       setIsSubmitting(false);
@@ -344,7 +367,7 @@ const ContactPage = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
@@ -353,10 +376,11 @@ const ContactPage = () => {
                   <input
                     type="text"
                     name="firstName"
-                    placeholder="John"
+                    placeholder="Enter your first name"
                     autoComplete="given-name"
                     value={formData.firstName}
                     onChange={handleChange}
+                    maxLength={NAME_MAX}
                     className={`${baseField} ${fieldBorder(errors.firstName)}`}
                   />
                   {errors.firstName && (
@@ -374,12 +398,19 @@ const ContactPage = () => {
                   <input
                     type="text"
                     name="lastName"
-                    placeholder="Doe"
+                    placeholder="Enter your last name"
                     autoComplete="family-name"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className={`${baseField} border-slate-200`}
+                    maxLength={NAME_MAX}
+                    className={`${baseField} ${fieldBorder(errors.lastName)}`}
                   />
+                  {errors.lastName && (
+                    <div className="flex items-start gap-1 mt-1.5 text-red-500 text-xs font-semibold">
+                      <FaExclamationCircle className="text-xs mt-0.5 shrink-0" />
+                      <span>{errors.lastName}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -390,7 +421,7 @@ const ContactPage = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="you@company.com"
+                  placeholder="Enter your email address"
                   autoComplete="email"
                   inputMode="email"
                   value={formData.email}
@@ -407,7 +438,7 @@ const ContactPage = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                  Phone Number{" "}
+                  Phone Number <span className="text-red-500">*</span>{" "}
                   <span className="text-slate-500 font-normal text-xs">
                     (10 Digits)
                   </span>
@@ -415,7 +446,7 @@ const ContactPage = () => {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="9876543210"
+                  placeholder="Enter 10-digit mobile number"
                   autoComplete="tel"
                   inputMode="numeric"
                   maxLength="10"
@@ -433,7 +464,7 @@ const ContactPage = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                  Inquiry Subject
+                  Inquiry Subject <span className="text-red-500">*</span>
                 </label>
                 {/* appearance-none strips the native arrow — without a chevron
                     the select reads as a plain text box on mobile */}
@@ -442,7 +473,7 @@ const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`${baseField} border-slate-200 pr-11 appearance-none cursor-pointer`}
+                    className={`${baseField} ${fieldBorder(errors.subject)} pr-11 appearance-none cursor-pointer`}
                   >
                     <option value="">Select enquiry type</option>
                     <option value="Buy / Import from India">Buy / Import from India</option>
@@ -453,6 +484,12 @@ const ContactPage = () => {
                   </select>
                   <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none" />
                 </div>
+                {errors.subject && (
+                  <div className="flex items-start gap-1 mt-1.5 text-red-500 text-xs font-semibold">
+                    <FaExclamationCircle className="text-xs mt-0.5 shrink-0" />
+                    <span>{errors.subject}</span>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -462,9 +499,10 @@ const ContactPage = () => {
                 <textarea
                   name="message"
                   rows={3}
-                  placeholder="Product, quantity, packing, destination country / port..."
+                  placeholder="Tell us the product, quantity, packing and destination country / port"
                   value={formData.message}
                   onChange={handleChange}
+                  maxLength={MESSAGE_MAX}
                   className={`${baseField} ${fieldBorder(
                     errors.message
                   )} resize-none min-h-[100px] sm:min-h-[130px]`}

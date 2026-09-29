@@ -36,6 +36,7 @@ import {
   Truck,
   PackageCheck,
   Anchor,
+  AlertCircle,
 } from "lucide-react";
 import { Reveal, cardReveal, ScrollZoom } from "./Reveal";
 import { cards, faqs } from "../../data/data";
@@ -442,24 +443,92 @@ export const Clients = () => (
 const field =
   "w-full rounded-sm border border-slate-200 bg-[#F4F9FF] px-4 py-3 text-base text-slate-800 placeholder:text-slate-400 transition-colors focus:border-primary focus:bg-white focus:outline-none sm:text-sm";
 
+// The server re-checks the same rules in src/app/api/contact/route.js.
+const QUOTE_NAME_RE = /^(?=.{2,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+const QUOTE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+// buyers are worldwide: optional +, then 7-15 digits with spaces/dashes/brackets
+const QUOTE_PHONE_RE = /^\+?[\d\s()-]+$/;
+const QUOTE_MESSAGE_MIN = 10;
+
+const validateQuote = (d) => {
+  const errors = {};
+  if (!d.name) errors.name = "Name is required";
+  else if (!QUOTE_NAME_RE.test(d.name)) errors.name = "Use letters only, at least 2";
+  if (!d.company) errors.company = "Company name is required";
+  else if (d.company.length < 2) errors.company = "Please enter your company name";
+  if (!d.email) errors.email = "Email is required";
+  else if (!QUOTE_EMAIL_RE.test(d.email)) errors.email = "Please enter a valid email address";
+  const digits = d.phone.replace(/\D/g, "");
+  if (!d.phone) errors.phone = "Phone / WhatsApp is required";
+  else if (!QUOTE_PHONE_RE.test(d.phone) || digits.length < 7 || digits.length > 15)
+    errors.phone = "Enter a valid number, e.g. +91 98765 43210";
+  if (!d.enquiry) errors.enquiry = "Please choose an option";
+  if (!d.product) errors.product = "Please choose a product category";
+  if (!d.quantity) errors.quantity = "Quantity is required";
+  if (!d.destination) errors.destination = "Destination is required";
+  else if (d.destination.length < 2) errors.destination = "Please enter a country or port";
+  if (!d.message) errors.message = "Message is required";
+  else if (d.message.length < QUOTE_MESSAGE_MIN)
+    errors.message = `Please add a little more detail (at least ${QUOTE_MESSAGE_MIN} characters)`;
+  return errors;
+};
+
+// Filters an input as the visitor types, keeping the cursor where it was
+// (overwriting .value on every keystroke otherwise throws it to the end).
+const keepOnly = (clean) => (e) => {
+  const el = e.currentTarget;
+  const next = clean(el.value);
+  if (next === el.value) return;
+  const caret = Math.max(0, el.selectionStart - (el.value.length - next.length));
+  el.value = next;
+  el.setSelectionRange(caret, caret);
+};
+
+const FieldError = ({ msg }) =>
+  msg ? (
+    <p className="mt-1.5 flex items-start gap-1 text-xs font-semibold text-red-500">
+      <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+      <span>{msg}</span>
+    </p>
+  ) : null;
+
 export const RequestQuote = () => {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState("");
+
+  // swap (not add) the border colour, otherwise the grey one wins
+  const fieldCls = (key) => (errors[key] ? field.replace("border-slate-200", "border-red-500") : field);
+  const clearError = (e) => {
+    const { name } = e.target;
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = new FormData(form);
-    data.append("_subject", "New Quote Request — Samrat Global India website");
-    data.append("_template", "table");
-    data.append("_captcha", "false");
+    const data = Object.fromEntries(
+      [...new FormData(form)].map(([k, v]) => [k, typeof v === "string" ? v.trim() : v])
+    );
+    const found = validateQuote(data);
+    setErrors(found);
+    const first = Object.keys(found)[0];
+    if (first) {
+      const el = form.querySelector(`[name="${first}"]`);
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      el?.focus({ preventScroll: true });
+      return;
+    }
     setStatus("sending");
+    setServerError("");
     try {
-      await axios.post("https://formsubmit.co/ajax/info@samratglobalindia.com", data, {
-        headers: { Accept: "application/json" },
-      });
+      const res = await axios.post("/api/contact", { form: "quote", ...data });
+      if (!res.data.ok) throw new Error(res.data.error);
       setStatus("sent");
       form.reset();
-    } catch {
+    } catch (err) {
+      // a 400 from the server carries a readable reason; anything else is a send failure
+      setServerError(err.response?.status === 400 ? err.response.data?.error : "");
       setStatus("error");
     }
   };
@@ -518,40 +587,121 @@ export const RequestQuote = () => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+            // noValidate: our own inline messages replace the browser's pop-up bubbles
+            <form onSubmit={handleSubmit} onChange={clearError} noValidate className="grid gap-4 sm:grid-cols-2">
               {/* spam trap for bots — hidden from people */}
               <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
-              <input required name="name" placeholder="Your name *" className={field} />
-              <input name="company" placeholder="Company" className={field} />
-              <input required type="email" name="email" placeholder="Email *" className={field} />
-              <input required type="tel" name="phone" placeholder="Phone / WhatsApp *" className={field} />
-              <select required name="enquiry" defaultValue="" className={field}>
-                <option value="" disabled>
-                  I want to… *
-                </option>
-                <option>Buy / Import from India</option>
-                <option>Import to India</option>
-                <option>Use a Sourcing Agent</option>
-              </select>
-              <select name="product" defaultValue="" className={field}>
-                <option value="">Product category</option>
-                {PRODUCT_CATEGORIES.map((c) => (
-                  <option key={c.id}>{c.label}</option>
-                ))}
-                <option>Other</option>
-              </select>
-              <input name="quantity" placeholder="Quantity (e.g. 1 x 20ft container)" className={field} />
-              <input name="destination" placeholder="Destination country / port" className={field} />
-              <textarea
-                required
-                name="message"
-                rows={4}
-                placeholder="Product details, specifications, packing… *"
-                className={`${field} sm:col-span-2`}
-              />
+              <div>
+                <input
+                  name="name"
+                  placeholder="Your name *"
+                  autoComplete="name"
+                  maxLength={40}
+                  aria-invalid={!!errors.name}
+                  // letters and single spaces only, as the visitor types
+                  onInput={keepOnly((v) =>
+                    v.replace(/[^a-zA-Z\s]/g, "").replace(/^\s+/, "").replace(/\s{2,}/g, " ")
+                  )}
+                  className={fieldCls("name")}
+                />
+                <FieldError msg={errors.name} />
+              </div>
+              <div>
+                <input
+                  name="company"
+                  placeholder="Company name *"
+                  autoComplete="organization"
+                  maxLength={80}
+                  aria-invalid={!!errors.company}
+                  className={fieldCls("company")}
+                />
+                <FieldError msg={errors.company} />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email *"
+                  autoComplete="email"
+                  inputMode="email"
+                  maxLength={254}
+                  aria-invalid={!!errors.email}
+                  className={fieldCls("email")}
+                />
+                <FieldError msg={errors.email} />
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone / WhatsApp *"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  maxLength={20}
+                  aria-invalid={!!errors.phone}
+                  // digits, spaces, + - ( ) only
+                  onInput={keepOnly((v) => v.replace(/[^\d\s()+-]/g, ""))}
+                  className={fieldCls("phone")}
+                />
+                <FieldError msg={errors.phone} />
+              </div>
+              <div>
+                <select name="enquiry" defaultValue="" aria-invalid={!!errors.enquiry} className={fieldCls("enquiry")}>
+                  <option value="" disabled>
+                    I want to… *
+                  </option>
+                  <option>Buy / Import from India</option>
+                  <option>Import to India</option>
+                  <option>Use a Sourcing Agent</option>
+                </select>
+                <FieldError msg={errors.enquiry} />
+              </div>
+              <div>
+                <select name="product" defaultValue="" aria-invalid={!!errors.product} className={fieldCls("product")}>
+                  <option value="" disabled>
+                    Product category *
+                  </option>
+                  {PRODUCT_CATEGORIES.map((c) => (
+                    <option key={c.id}>{c.label}</option>
+                  ))}
+                  <option>Other</option>
+                </select>
+                <FieldError msg={errors.product} />
+              </div>
+              <div>
+                <input
+                  name="quantity"
+                  placeholder="Quantity (e.g. 1 x 20ft container) *"
+                  maxLength={100}
+                  aria-invalid={!!errors.quantity}
+                  className={fieldCls("quantity")}
+                />
+                <FieldError msg={errors.quantity} />
+              </div>
+              <div>
+                <input
+                  name="destination"
+                  placeholder="Destination country / port *"
+                  maxLength={100}
+                  aria-invalid={!!errors.destination}
+                  className={fieldCls("destination")}
+                />
+                <FieldError msg={errors.destination} />
+              </div>
+              <div className="sm:col-span-2">
+                <textarea
+                  name="message"
+                  rows={4}
+                  maxLength={2000}
+                  placeholder="Product details, specifications, packing… *"
+                  aria-invalid={!!errors.message}
+                  className={fieldCls("message")}
+                />
+                <FieldError msg={errors.message} />
+              </div>
               {status === "error" && (
                 <p className="text-sm text-red-600 sm:col-span-2">
-                  Something went wrong. Please try again or email us at info@samratglobalindia.com.
+                  {serverError || "Something went wrong. Please try again or email us at globalhead29@gmail.com."}
                 </p>
               )}
               <button type="submit" disabled={status === "sending"} className="btn btn-primary w-full disabled:opacity-60 sm:col-span-2">
