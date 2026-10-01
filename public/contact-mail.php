@@ -33,19 +33,21 @@ if (!is_array($body)) reply(400, ['ok' => false, 'error' => 'Invalid request.'])
 // Same fields and rules as the forms (src/app/contact/ContactPage.jsx and
 // src/app/component/HomeSections.jsx) — the browser checks are only a convenience.
 $NAME    = fn($v) => (bool) preg_match('/^(?=.{2,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/', $v);
+// last name may be just an initial, e.g. "S"
+$LAST_NAME = fn($v) => (bool) preg_match('/^(?=.{1,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/', $v);
 $EMAIL   = fn($v) => (bool) preg_match('/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/', $v);
 $MESSAGE = fn($v) => strlen($v) >= 10 && strlen($v) <= 2000;
 
 $FORMS = [
     'contact' => [
         'subject'  => 'New Trade Enquiry — Samrat Global India website',
-        'required' => ['firstName', 'email', 'phone', 'subject', 'message'],
+        'required' => ['firstName', 'lastName', 'email', 'phone', 'subject', 'message'],
         'fields'   => [
             'firstName' => 'First name', 'lastName' => 'Last name', 'email' => 'Email',
             'phone' => 'Phone', 'subject' => 'Enquiry subject', 'message' => 'Message',
         ],
         'rules' => [
-            'firstName' => $NAME, 'lastName' => $NAME, 'email' => $EMAIL,
+            'firstName' => $NAME, 'lastName' => $LAST_NAME, 'email' => $EMAIL,
             // 10-digit Indian mobile
             'phone' => fn($v) => (bool) preg_match('/^[6-9]\d{9}$/', $v),
             'message' => $MESSAGE,

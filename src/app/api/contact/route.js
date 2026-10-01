@@ -7,13 +7,15 @@ import nodemailer from "nodemailer";
 export const runtime = "nodejs";
 
 const NAME = (v) => /^(?=.{2,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/.test(v);
+// last name may be just an initial, e.g. "S"
+const LAST_NAME = (v) => /^(?=.{1,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/.test(v);
 const EMAIL = (v) => /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(v);
 const MESSAGE = (v) => v.length >= 10 && v.length <= 2000;
 
 const FORMS = {
   contact: {
     subject: "New Trade Enquiry — Samrat Global India website",
-    required: ["firstName", "email", "phone", "subject", "message"],
+    required: ["firstName", "lastName", "email", "phone", "subject", "message"],
     fields: {
       firstName: "First name",
       lastName: "Last name",
@@ -24,7 +26,7 @@ const FORMS = {
     },
     rules: {
       firstName: NAME,
-      lastName: NAME,
+      lastName: LAST_NAME,
       email: EMAIL,
       // 10-digit Indian mobile
       phone: (v) => /^[6-9]\d{9}$/.test(v),

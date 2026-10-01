@@ -17,6 +17,8 @@ const baseField =
 // and public/contact-mail.php (Hostinger).
 const NAME_MAX = 40;
 const NAME_RE = /^(?=.{2,})[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+// last name may be just an initial, e.g. "S"
+const LAST_NAME_RE = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const MESSAGE_MIN = 10;
 const MESSAGE_MAX = 2000;
@@ -99,8 +101,10 @@ const ContactPage = () => {
     } else if (!NAME_RE.test(firstName)) {
       newErrors.firstName = "Use letters only, at least 2";
     }
-    if (lastName && !NAME_RE.test(lastName)) {
-      newErrors.lastName = "Use letters only, at least 2";
+    if (!lastName) {
+      newErrors.lastName = "Last name is required";
+    } else if (!LAST_NAME_RE.test(lastName)) {
+      newErrors.lastName = "Use letters only";
     }
     if (!email) {
       newErrors.email = "Email is required";
@@ -394,7 +398,7 @@ const ContactPage = () => {
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                    Last Name
+                    Last Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
