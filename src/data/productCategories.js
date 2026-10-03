@@ -7,6 +7,7 @@ export const PRODUCT_CATEGORY_GROUPS = [
     categories: [
       { id: "medicinal", label: "Medicinal Plants" },
       { id: "food", label: "Food & Beverages" },
+      { id: "fruits", label: "Fresh Fruits" },
       { id: "spices", label: "Spices & Herbs" },
       { id: "textiles", label: "Textiles" },
     ],

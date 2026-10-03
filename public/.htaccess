@@ -3,7 +3,9 @@
 # Show the site's own 404 page for unknown URLs.
 ErrorDocument 404 /404.html
 
-# Never serve SMTP credentials if contact-config.php is ever placed in public_html.
-<Files "contact-config.php">
-  Require all denied
-</Files>
+# Next.js asks for page data as /contact/__next.contact.__PAGE__.txt but the
+# static export writes it to /contact/__next.contact/__PAGE__.txt. Without this,
+# those requests 404 and every link click falls back to a full page reload.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)\.__PAGE__\.txt$ $1/__PAGE__.txt [L]

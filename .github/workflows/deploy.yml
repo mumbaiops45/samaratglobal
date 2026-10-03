@@ -1,8 +1,6 @@
 name: Deploy Next.js to GitHub Pages
 
-# GitHub Pages only serves static files and cannot run the /api/contact SMTP
-# route, so this no longer runs on push. It can still be started by hand, but the
-# build no longer produces ./out, so it will fail until static export is restored.
+# Started by hand only; it does not run on push.
 on:
   workflow_dispatch:
 

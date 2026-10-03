@@ -1,9 +1,8 @@
 // One codebase, two hosts:
-//  - Vercel (VERCEL=1 during its builds) and `npm run dev` run Node.js, so the
-//    forms post to the Next.js route src/app/api/contact/route.js.
+//  - Vercel (VERCEL=1 during its builds) and `npm run dev` run Node.js.
 //  - Every other `npm run build` makes the static export in ./out for Hostinger
-//    web hosting (static files + PHP, no Node.js); the forms post to
-//    public/contact-mail.php instead.
+//    web hosting (static files, no Node.js).
+// The forms send through EmailJS from the browser, so they work on both.
 const nodeServer =
   process.env.VERCEL === "1" || process.env.NODE_ENV === "development";
 
@@ -16,9 +15,6 @@ const nextConfig = {
   reactCompiler: true,
   images: {
     unoptimized: true,
-  },
-  env: {
-    NEXT_PUBLIC_CONTACT_ENDPOINT: nodeServer ? "/api/contact/" : "/contact-mail.php",
   },
 };
 

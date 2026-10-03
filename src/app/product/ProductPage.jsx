@@ -9,15 +9,17 @@ import {FaArrowRight,FaStar,FaShippingFast,FaGlobe,FaCheckCircle,FaTruck,FaShip,
 import {MdOutlineFoodBank,} from "react-icons/md";
 import { GiChiliPepper, GiCoffeeBeans } from "react-icons/gi";
 import { FaLeaf } from "react-icons/fa";
-import { UtensilsCrossed, Factory, Microscope, Warehouse, FlaskConical, Armchair } from "lucide-react";
+import { UtensilsCrossed, Factory, Microscope, Warehouse, FlaskConical, Armchair, Apple } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/data/productCategories";
 import { steelProducts } from "@/data/steelProducts";
+import { agroProducts } from "@/data/agroProducts";
 
 const CATEGORY_LABELS = Object.fromEntries(PRODUCT_CATEGORIES.map((c) => [c.id, c.label]));
 
 const CATEGORY_ICONS = {
   medicinal: <FaLeaf />,
   food: <MdOutlineFoodBank />,
+  fruits: <Apple />,
   spices: <UtensilsCrossed />,
   textiles: <FaBoxes />,
   process: <Factory />,
@@ -276,6 +278,7 @@ const ProductPage = () => {
       rating: 4.4,
       reviews: 45,
     },
+    ...agroProducts,
     ...steelProducts,
   ];
 

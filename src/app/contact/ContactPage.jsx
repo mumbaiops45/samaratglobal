@@ -7,14 +7,12 @@ import { MdOutlineSecurity } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
 import { IoMdCall } from "react-icons/io";
 import { HiOutlineMail } from "react-icons/hi";
-import axios from "axios";
+import { sendEnquiry } from "../component/sendEnquiry";
 import { Faqs } from "../component/HomeSections";
 
 
 const baseField =
   "w-full px-4 py-3 bg-[#F4F9FF] rounded-2xl border focus:outline-none focus:border-[#05FCFB] focus:bg-white transition-all text-slate-700 text-base sm:text-sm";
-// The server re-checks the same rules in src/app/api/contact/route.js (Vercel)
-// and public/contact-mail.php (Hostinger).
 const NAME_MAX = 40;
 const NAME_RE = /^(?=.{2,})[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 // last name may be just an initial, e.g. "S"
@@ -141,38 +139,29 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(process.env.NEXT_PUBLIC_CONTACT_ENDPOINT, {
-        form: "contact",
-        ...formData,
+      await sendEnquiry({
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
         email: formData.email.trim(),
+        phone: formData.phone,
+        subject: formData.subject,
         message: formData.message.trim(),
       });
 
-      if (response.data.ok) {
-        setIsSubmitted(true);
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          message: "",
-          subject: "",
-        });
-        setErrors({});
-        setTimeout(() => setIsSubmitted(false), 5000);
-      } else {
-        alert("Submission failed. Please try again.");
-      }
+      setIsSubmitted(true);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        message: "",
+        subject: "",
+      });
+      setErrors({});
+      setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
       console.error("Contact form error:", error);
-      // a 400 means the server rejected a field and says which one
-      alert(
-        error.response?.status === 400 && error.response.data?.error
-          ? error.response.data.error
-          : "Something went wrong. Please try again or email globalhead29@gmail.com"
-      );
+      alert("Something went wrong. Please try again or email globalhead29@gmail.com");
     } finally {
       setIsSubmitting(false);
     }

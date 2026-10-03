@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import { sendEnquiry } from "./sendEnquiry";
 import {
   ArrowUpRight,
   BadgeCheck,
@@ -443,8 +443,6 @@ export const Clients = () => (
 const field =
   "w-full rounded-sm border border-slate-200 bg-[#F4F9FF] px-4 py-3 text-base text-slate-800 placeholder:text-slate-400 transition-colors focus:border-primary focus:bg-white focus:outline-none sm:text-sm";
 
-// The server re-checks the same rules in src/app/api/contact/route.js (Vercel)
-// and public/contact-mail.php (Hostinger).
 const QUOTE_NAME_RE = /^(?=.{2,40}$)[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 const QUOTE_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 // buyers are worldwide: optional +, then 7-15 digits with spaces/dashes/brackets
@@ -496,7 +494,6 @@ const FieldError = ({ msg }) =>
 export const RequestQuote = () => {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [errors, setErrors] = useState({});
-  const [serverError, setServerError] = useState("");
 
   // swap (not add) the border colour, otherwise the grey one wins
   const fieldCls = (key) => (errors[key] ? field.replace("border-slate-200", "border-red-500") : field);
@@ -521,15 +518,32 @@ export const RequestQuote = () => {
       return;
     }
     setStatus("sending");
-    setServerError("");
     try {
-      const res = await axios.post(process.env.NEXT_PUBLIC_CONTACT_ENDPOINT, { form: "quote", ...data });
-      if (!res.data.ok) throw new Error(res.data.error);
+      // Hidden honeypot field: people never fill it, bots usually do. Pretend success.
+      if (!data._honey) {
+        // The shared email template has no slots for the quote-only fields,
+        // so they go at the top of the message.
+        const [firstName, ...rest] = data.name.split(" ");
+        await sendEnquiry({
+          firstName,
+          lastName: rest.join(" "),
+          email: data.email,
+          phone: data.phone,
+          subject: `Quote request — ${data.enquiry}`,
+          message: [
+            `Company: ${data.company}`,
+            `Product: ${data.product}`,
+            `Quantity: ${data.quantity}`,
+            `Destination: ${data.destination}`,
+            "",
+            data.message,
+          ].join("\n"),
+        });
+      }
       setStatus("sent");
       form.reset();
     } catch (err) {
-      // a 400 from the server carries a readable reason; anything else is a send failure
-      setServerError(err.response?.status === 400 ? err.response.data?.error : "");
+      console.error("Quote form error:", err);
       setStatus("error");
     }
   };
@@ -702,7 +716,7 @@ export const RequestQuote = () => {
               </div>
               {status === "error" && (
                 <p className="text-sm text-red-600 sm:col-span-2">
-                  {serverError || "Something went wrong. Please try again or email us at globalhead29@gmail.com."}
+                  Something went wrong. Please try again or email us at globalhead29@gmail.com.
                 </p>
               )}
               <button type="submit" disabled={status === "sending"} className="btn btn-primary w-full disabled:opacity-60 sm:col-span-2">
