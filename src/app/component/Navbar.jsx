@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ArrowUpRight, ChevronDown, ChevronRight } from "lucide-react";
@@ -17,13 +17,30 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
+// Reports the `?category=` in the URL. Kept in its own Suspense boundary so
+// the navbar itself still prerenders.
+const CategoryFromUrl = ({ onCategory }) => {
+  const category = useSearchParams().get("category");
+  useEffect(() => onCategory(category), [category, onCategory]);
+  return null;
+};
+
 export default function Navbar() {
-  const pathname = usePathname();
+  // URLs end in a slash (trailingSlash in next.config.mjs), the hrefs above
+  // don't, so drop it before comparing or no tab is ever marked active.
+  const pathname = usePathname().replace(/(.)\/$/, "$1");
   // Set when a menu link is clicked so the hover menu closes right away;
   // cleared once the pointer leaves the Products item.
   const [menuDismissed, setMenuDismissed] = useState(false);
-  // Which product group's categories the desktop menu is showing.
-  const [activeGroup, setActiveGroup] = useState(0);
+  // The product category being viewed, highlighted in the Products menu.
+  const [urlCategory, setUrlCategory] = useState(null);
+  const currentCategory = pathname === "/product" ? urlCategory : null;
+  const currentGroup = PRODUCT_CATEGORY_GROUPS.findIndex((g) => g.categories.some((c) => c.id === currentCategory));
+  // Which product group's categories the desktop menu is showing: the hovered
+  // one, else the group of the category being viewed (undefined = not hovered,
+  // null = hovering "View all products").
+  const [hoveredGroup, setActiveGroup] = useState(undefined);
+  const activeGroup = hoveredGroup === undefined ? Math.max(currentGroup, 0) : hoveredGroup;
   const dismissMenu = (e) => {
     e.currentTarget.blur();
     setMenuDismissed(true);
@@ -71,7 +88,7 @@ export default function Navbar() {
                       className="group relative"
                       onMouseLeave={() => {
                         setMenuDismissed(false);
-                        setActiveGroup(0);
+                        setActiveGroup(undefined);
                       }}
                     >
                       {link}
@@ -99,7 +116,7 @@ export default function Navbar() {
                                     aria-expanded={isActive}
                                     className={`flex w-full items-center justify-between gap-3 whitespace-nowrap px-5 py-3 text-left text-[15px] transition-colors ${
                                       isActive ? "text-primary" : "text-slate-700 hover:text-primary"
-                                    }`}
+                                    } ${currentGroup === i ? "font-semibold" : ""}`}
                                   >
                                     {group.title}
                                     <ChevronRight className="h-4 w-4 shrink-0" />
@@ -127,7 +144,10 @@ export default function Navbar() {
                                   <Link
                                     href={productCategoryHref(cat.id)}
                                     onClick={dismissMenu}
-                                    className="block px-5 py-3 text-[15px] text-slate-700 transition-colors hover:bg-[#EAF1FF] hover:text-primary"
+                                    aria-current={currentCategory === cat.id ? "page" : undefined}
+                                    className={`block px-5 py-3 text-[15px] transition-colors hover:bg-[#EAF1FF] hover:text-primary ${
+                                      currentCategory === cat.id ? "bg-[#EAF1FF] font-semibold text-primary" : "text-slate-700"
+                                    }`}
                                   >
                                     {cat.label}
                                   </Link>
@@ -194,7 +214,10 @@ export default function Navbar() {
                                     as={Link}
                                     href={productCategoryHref(cat.id)}
                                     onClick={() => close()}
-                                    className="block rounded-md px-2 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary"
+                                    aria-current={currentCategory === cat.id ? "page" : undefined}
+                                    className={`block rounded-md px-2 py-2 text-sm hover:bg-slate-50 hover:text-primary ${
+                                      currentCategory === cat.id ? "bg-primary/5 font-semibold text-primary" : "text-slate-700"
+                                    }`}
                                   >
                                     {cat.label}
                                   </DisclosureButton>
@@ -229,6 +252,9 @@ export default function Navbar() {
               </DisclosureButton>
             </div>
           </DisclosurePanel>
+          <Suspense fallback={null}>
+            <CategoryFromUrl onCategory={setUrlCategory} />
+          </Suspense>
         </>
       )}
     </Disclosure>
