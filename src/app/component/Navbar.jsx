@@ -177,8 +177,12 @@ export default function Navbar() {
             </div>
           </div>
 
-          <DisclosurePanel className="border-t border-slate-100 bg-white lg:hidden">
-            <div className="space-y-1 px-5 py-5">
+          {/* The navbar is sticky, so a menu taller than the screen (Products
+              expanded) must scroll inside itself or its lower links can't be
+              reached. 72px = the bar's height; dvh tracks the phone's moving
+              address bar, vh is the fallback for older browsers. */}
+          <DisclosurePanel className="max-h-[calc(100vh-72px)] supports-[height:100dvh]:max-h-[calc(100dvh-72px)] overflow-y-auto overscroll-contain border-t border-slate-100 bg-white lg:hidden">
+            <div className="space-y-1 px-5 pt-5 pb-24">
               {navigation.map((item) => {
                 const active = pathname === item.href;
                 if (item.href === "/product") {

@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./component/Navbar"
 import Footer from "./component/Footer";
 import WhatsApp from "./component/WhatsApp";
+import EmailChooser from "./component/EmailChooser";
 import { MotionSettings } from "./component/Reveal";
 import { Description } from "@headlessui/react";
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
         <Navbar/>
         {children}
         <WhatsApp/>
+        <EmailChooser/>
         <Footer/>
         </MotionSettings>
         </body>
